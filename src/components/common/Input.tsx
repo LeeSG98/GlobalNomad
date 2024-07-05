@@ -34,7 +34,7 @@ const InputBox = ({
         id={valueType}
         onChange={onChangeInput}
         value={value}
-        className="border border-gray-60 rounded-[6px] px-5 py-4 focus:outline-none"
+        className="border border-gray-A4 rounded-[6px] px-5 py-4 focus:outline-none"
       />
       {labelName === "비밀번호" ? (
         <button
