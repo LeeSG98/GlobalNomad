@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import InputBox from "../common/Input";
+import InputBox from "./LoginInput";
 import Button from "../common/Button";
 
 import { AxiosError } from "axios";

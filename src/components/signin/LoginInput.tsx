@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import Label from "./Label";
+import Label from "../common/Label";
 
 interface InputBoxProps {
   valueType: string;
