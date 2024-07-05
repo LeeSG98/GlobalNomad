@@ -1,4 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import InputBox from "../common/Input";
+import Button from "../common/Button";
 
 import { AxiosError } from "axios";
 import axios from "@/lib/axios";
@@ -35,32 +37,21 @@ const LoginForm = () => {
     }
   };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="email">아이디</label>
-          <input
-            name="email"
-            type="email"
-            id="email"
-            onChange={onChangeInput}
-            value={email}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password">비밀번호</label>
-          <input
-            name="password"
-            type="password"
-            id="password"
-            onChange={onChangeInput}
-            value={password}
-          />
-        </div>
-        <button type="submit">로그인하기</button>
-      </form>
-    </div>
+    <form onSubmit={onSubmit} className="flex flex-col gap-7 w-[40rem] mx-auto">
+      <InputBox
+        valueType="email"
+        onChangeInput={onChangeInput}
+        value={email}
+        labelName="이메일"
+      />
+      <InputBox
+        valueType="password"
+        onChangeInput={onChangeInput}
+        value={password}
+        labelName="비밀번호"
+      />
+      <Button />
+    </form>
   );
 };
 
