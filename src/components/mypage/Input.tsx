@@ -6,7 +6,7 @@ export default function Input({ placeholder }: InputProps) {
   return (
     <>
       <input
-        className="px-[16px] py-[8px] rounded border border-black h-[55px]"
+        className="h-[55px] rounded border border-black px-[16px] py-[8px]"
         placeholder={placeholder}
       />
     </>

@@ -8,10 +8,10 @@ export default function UserImage() {
       <Image
         src={User}
         alt="유저이미지"
-        className="rounded-full w-[160px] h-[160px] shadow"
+        className="h-[160px] w-[160px] rounded-full shadow"
       />
       {/* 버튼을 누르면 이미지 등록할 수 있는 기능 미구현 */}
-      <button className="flex justify-center items-center bg-gren_0B w-[44px] h-[44px] rounded-full absolute bottom-0 right-2 ">
+      <button className="absolute bottom-0 right-2 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-green_0B">
         <HiOutlinePencil className="text-white" />
       </button>
     </div>
