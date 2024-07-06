@@ -3,7 +3,8 @@ import InputBox from "./LoginInput";
 import Button from "../common/Button";
 
 import { AxiosError } from "axios";
-import axios from "@/lib/axios";
+import axios from "@/lib/axiosinstance";
+import handleLogin from "@/api/handleLogin";
 
 const LoginForm = () => {
   const [inputs, setInputs] = useState({
@@ -23,19 +24,9 @@ const LoginForm = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("/auth/login", { email, password });
-      const { accessToken, refreshToken } = response.data;
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.error("에러 발생:", error.message);
-      } else {
-        console.error("에러 발생:", error);
-      }
-    }
+    handleLogin(email, password);
   };
+
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-7 w-[40rem] mx-auto">
       <InputBox
