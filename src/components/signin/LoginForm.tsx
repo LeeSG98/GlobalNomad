@@ -116,8 +116,6 @@ const LoginForm = () => {
     mutate({ email, password });
   };
 
-  console.log(errorData);
-
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-7 w-[40rem] mx-auto">
       <InputBox
@@ -126,6 +124,7 @@ const LoginForm = () => {
         value={email}
         labelName="이메일"
         errorData={errorData}
+        setErrorData={setErrorData}
       />
       <InputBox
         inputName="password"
@@ -133,6 +132,7 @@ const LoginForm = () => {
         value={password}
         labelName="비밀번호"
         errorData={errorData}
+        setErrorData={setErrorData}
       />
       <Button>로그인</Button>
     </form>
