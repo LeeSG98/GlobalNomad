@@ -1,7 +1,7 @@
 import Input from "./Input";
 
 const layout = "flex flex-col gap-[16px]";
-const title = "text-2xl font-bold";
+const title = "text-xl font-bold";
 
 export default function List() {
   return (

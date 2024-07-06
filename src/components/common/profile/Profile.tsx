@@ -8,7 +8,7 @@ import UserImage from "./UserImage";
 function Profile() {
   return (
     <>
-      <div className="flex flex-col w-[384px] h-full p-[24px] border rounded-xl gap-[24px] shadow">
+      <div className="flex h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow">
         <div className="flex justify-center">
           <UserImage />
         </div>

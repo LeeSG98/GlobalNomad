@@ -1,17 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontFamily: {
-        Pretendard: ["Pretendard"],
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
         black: "#171717",
         nomad_black: "#333236",
@@ -34,10 +26,11 @@ module.exports = {
         blue_00: "#0085FF",
         blue_2E: "#2EB4FF",
         blue_E5: "#E5F3FF",
-
+      },
+      fontFamily: {
+        sans: ["Pretendard-Regular", "sans-serif"],
       },
     },
-
   },
   plugins: [],
 };
