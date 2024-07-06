@@ -39,18 +39,18 @@ const LoginForm = () => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-7 w-[40rem] mx-auto">
       <InputBox
-        valueType="email"
+        inputName="email"
         onChangeInput={onChangeInput}
         value={email}
         labelName="이메일"
       />
       <InputBox
-        valueType="password"
+        inputName="password"
         onChangeInput={onChangeInput}
         value={password}
         labelName="비밀번호"
       />
-      <Button />
+      <Button>로그인</Button>
     </form>
   );
 };

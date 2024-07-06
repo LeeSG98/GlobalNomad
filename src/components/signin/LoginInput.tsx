@@ -2,20 +2,20 @@ import { ChangeEvent, useState } from "react";
 import Label from "../common/Label";
 
 interface InputBoxProps {
-  valueType: string;
+  inputName: string;
   onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   labelName: string;
 }
 
 const InputBox = ({
-  valueType,
+  inputName,
   onChangeInput,
   value,
   labelName,
 }: InputBoxProps) => {
   const [isShowInputValue, setIsShowInputValue] = useState(false);
-  const [inputType, setInputType] = useState(valueType);
+  const [inputType, setInputType] = useState(inputName);
   const onClickEyeIcon = () => {
     if (inputType === "password") {
       setInputType("text");
@@ -29,9 +29,9 @@ const InputBox = ({
     <div className="flex flex-col gap-2 relative">
       <Label labelName={labelName} />
       <input
-        name={valueType}
+        name={inputName}
         type={inputType}
-        id={valueType}
+        id={inputName}
         onChange={onChangeInput}
         value={value}
         className="border border-gray-A4 rounded-[6px] px-5 py-4 focus:outline-none"
