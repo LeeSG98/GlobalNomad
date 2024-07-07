@@ -1,7 +1,13 @@
 import Title from '@/components/registeractivity/Title';
+import Input from '@/components/registeractivity/Input';
 
 const registeractivity = () => {
-  <Title />
+  return (
+    <>
+      <Title />
+      <Input />
+    </>
+  );
 };
 
 export default registeractivity;
