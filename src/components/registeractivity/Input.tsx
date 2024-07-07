@@ -2,11 +2,8 @@ import React from "react";
 
 const Input = () => {
   return (
-    <div className="flex pt-[8px] pr-[16px] pb-[8px] pl-[16px] items-center self-stretch rounded-[4px] border-gray-79 bg-white">
-      <input
-        className="w-[100%]"
-        placeholder="제목"
-      />
+    <div className="flex mt-[24px]">
+      <input className="w-[792px] h-[56px] py-[15px] pl-[16px] items-center border-[1px] border-[#79747E] rounded" type="text" placeholder="제목" />
     </div>
   );
 };
