@@ -56,22 +56,22 @@ const SignupInput = ({
 
   let borderColorClass = "";
   if (inputName === "email" && signupErrorMessage?.emailErrorMessage) {
-    borderColorClass = "border-red-F4";
+    borderColorClass = "border-red_47";
   } else if (
     inputName === "nickname" &&
     signupErrorMessage?.nicknameErrorMessage
   ) {
-    borderColorClass = "border-red-F4";
+    borderColorClass = "border-red_47";
   } else if (
     inputName === "password" &&
     signupErrorMessage?.passwordErrorMessage
   ) {
-    borderColorClass = "border-red-F4";
+    borderColorClass = "border-red_47";
   } else if (
     inputName === "passwordConfirm" &&
     signupErrorMessage?.passwordConfirmErrorMessage
   ) {
-    borderColorClass = "border-red-F4";
+    borderColorClass = "border-red-_47";
   }
 
   return (
@@ -84,7 +84,7 @@ const SignupInput = ({
           id={inputName}
           onChange={onChangeInput}
           value={value}
-          className={`border border-gray-A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
+          className={`border border-gray_A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
           onClick={onClickInput}
         />
         {labelName.includes("비밀번호") === true ? (
@@ -106,24 +106,24 @@ const SignupInput = ({
         ) : null}
       </div>
       {inputName === "email" && signupErrorMessage?.emailErrorMessage && (
-        <div className="text-red-F4 text-xs ml-1">
+        <div className="text-red_47 text-xs ml-1">
           {signupErrorMessage.emailErrorMessage}
         </div>
       )}
       {inputName === "nickname" && signupErrorMessage?.nicknameErrorMessage && (
-        <div className="text-red-F4 text-xs ml-1">
+        <div className="text-red_47 text-xs ml-1">
           {signupErrorMessage.nicknameErrorMessage}
         </div>
       )}
 
       {inputName === "password" && signupErrorMessage?.passwordErrorMessage && (
-        <div className="text-red-F4 text-xs ml-1">
+        <div className="text-red_47 text-xs ml-1">
           {signupErrorMessage.passwordErrorMessage}
         </div>
       )}
       {inputName === "passwordConfirm" &&
         signupErrorMessage?.passwordConfirmErrorMessage && (
-          <div className="text-red-F4 text-xs ml-1">
+          <div className="text-red_47 text-xs ml-1">
             {signupErrorMessage.passwordConfirmErrorMessage}
           </div>
         )}

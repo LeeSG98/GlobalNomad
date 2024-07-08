@@ -47,9 +47,9 @@ const InputBox = ({
 
   let borderColorClass = "";
   if (inputName === "email" && errorData?.emailErrorMessage) {
-    borderColorClass = "border-red-F4";
+    borderColorClass = "border-red_F4";
   } else if (inputName === "password" && errorData?.passwordErrorMessage) {
-    borderColorClass = "border-red-F4";
+    borderColorClass = "border-red_F4";
   }
 
   return (
@@ -62,7 +62,7 @@ const InputBox = ({
           id={inputName}
           onChange={onChangeInput}
           value={value}
-          className={`border border-gray-A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
+          className={`border border-gray_A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
           onClick={onClickInput}
         />
         {labelName === "비밀번호" && (
@@ -84,12 +84,12 @@ const InputBox = ({
         )}
       </div>
       {inputName === "email" && errorData?.emailErrorMessage && (
-        <div className="text-red-F4 text-xs ml-1">
+        <div className="text-red_47 text-xs ml-1">
           {errorData.emailErrorMessage}
         </div>
       )}
       {inputName === "password" && errorData?.passwordErrorMessage && (
-        <div className="text-red-F4 text-xs ml-1">
+        <div className="text-red_47 text-xs ml-1">
           {errorData.passwordErrorMessage}
         </div>
       )}
