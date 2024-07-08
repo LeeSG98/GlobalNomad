@@ -3,6 +3,9 @@ import Title from '@/components/registeractivity/Title';
 import Input from '@/components/registeractivity/Input';
 import Category from '@/components/registeractivity/Category';
 import Explanation from "@/components/registeractivity/Explanation";
+import Price from "@/components/registeractivity/Price";
+import Address from "@/components/registeractivity/Address";
+import Reserve from "@/components/registeractivity/Reserve";
 
 const registeractivity = () => {
   return (
@@ -14,6 +17,9 @@ const registeractivity = () => {
           <Input />
           <Category />
           <Explanation />
+          <Price />
+          <Address />
+          <Reserve />
         </div>
       </div>
     </>
