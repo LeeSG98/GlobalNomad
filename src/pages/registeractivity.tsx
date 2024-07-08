@@ -1,11 +1,19 @@
+import Profile from "@/components/common/profile/Profile";
 import Title from '@/components/registeractivity/Title';
 import Input from '@/components/registeractivity/Input';
+import Category from '@/components/registeractivity/Category';
 
 const registeractivity = () => {
   return (
     <>
-      <Title />
-      <Input />
+      <div className="flex justify-center gap-[24px] pt-[72px]">
+        <Profile />
+        <div className="flex w-[792px] flex-col">
+          <Title />
+          <Input />
+          <Category />
+        </div>
+      </div>
     </>
   );
 };
