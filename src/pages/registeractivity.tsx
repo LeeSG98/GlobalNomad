@@ -2,6 +2,7 @@ import Profile from "@/components/common/profile/Profile";
 import Title from '@/components/registeractivity/Title';
 import Input from '@/components/registeractivity/Input';
 import Category from '@/components/registeractivity/Category';
+import Explanation from "@/components/registeractivity/Explanation";
 
 const registeractivity = () => {
   return (
@@ -12,6 +13,7 @@ const registeractivity = () => {
           <Title />
           <Input />
           <Category />
+          <Explanation />
         </div>
       </div>
     </>
