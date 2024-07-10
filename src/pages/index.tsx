@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/footer";
 import Link from "next/link";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
         <Link href="/mybookingpage">예약현황</Link>
         <Link href="/mybookinglist">예약내역</Link>
       </div>
+      <Footer />
     </>
   );
 }
