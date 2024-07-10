@@ -1,0 +1,5 @@
+.customCalendar {
+  .react-datepicker__month-container {
+    background-color: #ffffff;
+  }
+}
