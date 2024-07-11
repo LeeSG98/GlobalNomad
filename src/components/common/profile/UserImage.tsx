@@ -1,12 +1,13 @@
 import Image from "next/image";
-import User from "@/public/images/UserImage.jpg";
+// import User from "@/public/images/UserImage.jpg";
+import User from "../../../../public/UserImage.jpg";
 import { HiOutlinePencil } from "react-icons/hi2";
 
 export default function UserImage() {
   return (
     <div className="relative">
-      <Image
-        src={User}
+      <img
+        src="/image/UserImage.jpg"
         alt="유저이미지"
         className="h-[160px] w-[160px] rounded-full shadow"
       />

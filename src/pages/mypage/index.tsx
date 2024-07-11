@@ -1,10 +1,10 @@
-import List from "@/components/mypage/List";
+import InputForm from "@/components/mypage/InputForm";
 import Profile from "@/components/common/profile/Profile";
 
 export default function mypage() {
   return (
     <>
-      <div className="flex justify-center gap-6 bg-gray_FA pt-[72px]">
+      <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
         <Profile />
         <div className="flex w-[792px] flex-col gap-[24px]">
           <div className="flex justify-between">
@@ -13,7 +13,7 @@ export default function mypage() {
               저장하기
             </button>
           </div>
-          <List />
+          <InputForm />
         </div>
       </div>
     </>
