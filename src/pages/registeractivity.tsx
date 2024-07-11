@@ -6,6 +6,8 @@ import Explanation from "@/components/registeractivity/Explanation";
 import Price from "@/components/registeractivity/Price";
 import Address from "@/components/registeractivity/Address";
 import Reserve from "@/components/registeractivity/Reserve";
+import Banner from "@/components/registeractivity/Banner";
+import Intro from "@/components/registeractivity/Intro";
 
 const registeractivity = () => {
   return (
@@ -20,6 +22,8 @@ const registeractivity = () => {
           <Price />
           <Address />
           <Reserve />
+          <Banner />
+          <Intro />
         </div>
       </div>
     </>
