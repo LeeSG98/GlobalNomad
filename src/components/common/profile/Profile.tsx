@@ -4,6 +4,7 @@ import { MdPlaylistAddCheck } from "react-icons/md";
 import { CiSettings } from "react-icons/ci";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import UserImage from "./UserImage";
+import Link from "next/link";
 
 function Profile() {
   return (
@@ -14,8 +15,12 @@ function Profile() {
         </div>
         {/* 클릭한 리스트에 맞는 화면 보여주는 기능 미구현 */}
         <div className="flex flex-col gap-[8px]">
-          <List icon={<TbUserCheck />} title="내 정보" />
-          <List icon={<MdPlaylistAddCheck />} title="예약내역" />
+          <Link href="/mypage">
+            <List icon={<TbUserCheck />} title="내 정보" />
+          </Link>
+          <Link href="/mybookinglist">
+            <List icon={<MdPlaylistAddCheck />} title="예약내역" />
+          </Link>
           <List icon={<CiSettings />} title="내 체험 관리" />
           <List icon={<FaRegCalendarCheck />} title="예약 현황" />
         </div>
