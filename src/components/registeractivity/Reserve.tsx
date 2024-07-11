@@ -34,7 +34,7 @@ const Reserve = () => {
           </div>
         </div>
         <button>
-          <Image src={Plus} alt="추가" className="mt-[60px] w-[56px] h-[56px]" />
+          <Image src={Plus} alt="추가" className="mt-[63px] w-[56px] h-[56px]" />
         </button>
       </div>
       <Image src={Line} alt="줄" className="flex mt-[21px]"/>
