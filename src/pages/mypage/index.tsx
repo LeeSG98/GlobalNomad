@@ -5,7 +5,7 @@ export default function mypage() {
   return (
     <>
       <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
-        <Profile />
+        {/* <Profile /> */}
         <div className="flex w-[792px] flex-col gap-[24px]">
           <div className="flex justify-between">
             <h1 className="text-3xl font-bold">내 정보</h1>

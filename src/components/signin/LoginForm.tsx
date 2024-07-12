@@ -117,7 +117,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-7 w-[40rem] mx-auto">
+    <form onSubmit={onSubmit} className="mx-auto flex w-[40rem] flex-col gap-7">
       <InputBox
         inputName="email"
         onChangeInput={onChangeInput}
