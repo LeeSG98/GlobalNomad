@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import InputBox from "./LoginInput";
 import Button from "../common/Button";
 import handleLogin from "@/api/handleLogin";
@@ -7,6 +8,8 @@ import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 
 const LoginForm = () => {
+  const router = useRouter();
+
   // 이메일 정규식
   const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 
@@ -34,6 +37,7 @@ const LoginForm = () => {
       });
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+      router.push("/"); // 로그인 성공 시 /페이지로 이동
     },
     onError: (error: AxiosError) => {
       if (error.response) {
@@ -117,7 +121,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-7 w-[40rem] mx-auto">
+    <form onSubmit={onSubmit} className="mx-auto flex w-[40rem] flex-col gap-7">
       <InputBox
         inputName="email"
         onChangeInput={onChangeInput}
