@@ -27,14 +27,22 @@ module.exports = {
         blue_2E: "#2EB4FF",
         blue_E5: "#E5F3FF",
       },
+
       fontFamily: {
         sans: ["Pretendard-Regular", "sans-serif"],
       },
+
       screens: {
-        mob: '500px',
-        sm: { max: '768px' },
-        md: { min: '769px', max: '1023px' },
-        lg: { min: '1024px', max: '1200px' },
+        mob: "500px",
+        sm: { max: "768px" },
+        md: { min: "769px", max: "1023px" },
+        lg: { min: "1024px", max: "1200px" },
+      },
+
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },

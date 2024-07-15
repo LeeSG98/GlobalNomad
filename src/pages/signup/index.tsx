@@ -9,7 +9,7 @@ const SignupPage = () => (
         <img
           src="/image/logo.svg"
           alt="logo"
-          className="ml-auto mr-auto mt-[104px] mb-[40px]"
+          className="mb-[40px] ml-auto mr-auto mt-[104px]"
         />
       </a>
     </Link>

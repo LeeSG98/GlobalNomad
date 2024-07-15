@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
 // 요청 인터셉터 설정
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -18,26 +18,29 @@ axiosInstance.interceptors.request.use(
 
 // 새로운 토큰 가져오기
 const getNewTokens = async () => {
-  const storedRefreshToken = localStorage.getItem('refreshToken');
+  const storedRefreshToken = localStorage.getItem("refreshToken");
   if (!storedRefreshToken) {
-    throw new Error('No refresh token available');
+    throw new Error("No refresh token available");
   }
 
   // 새로운 토큰 요청하기
-  const response = await axios.post('https://sp-globalnomad-api.vercel.app/5-2/auth/tokens', null, {
-    headers: {
-      Authorization: `Bearer ${storedRefreshToken}`,
+  const response = await axios.post(
+    "https://sp-globalnomad-api.vercel.app/5-2/auth/tokens",
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${storedRefreshToken}`,
+      },
     },
-  });
+  );
 
   const { accessToken, refreshToken: newRefreshToken } = response.data;
 
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', newRefreshToken);
+  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem("refreshToken", newRefreshToken);
 
   return accessToken;
 };
-
 
 axiosInstance.interceptors.response.use(
   (response) => response,
@@ -58,6 +61,4 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-
 export default axiosInstance;
-
