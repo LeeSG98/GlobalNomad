@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import LoginForm from "@/components/signin/LoginForm";
-import LinkToSignup from "@/components/signin/LinkToSignup";
+import LoginForm from "@/components/login/LoginForm";
+import LinkToSignup from "@/components/login/LinkToSignup";
 
 const LoginPage = () => (
   <div>
@@ -10,7 +10,7 @@ const LoginPage = () => (
         <img
           src="/image/logo.svg"
           alt="logo"
-          className="ml-auto mr-auto mt-[104px] mb-[40px]"
+          className="mb-[40px] ml-auto mr-auto mt-[104px]"
         />
       </a>
     </Link>

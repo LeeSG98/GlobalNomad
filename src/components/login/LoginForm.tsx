@@ -6,8 +6,13 @@ import handleLogin from "@/api/handleLogin";
 import { LoginErrorType } from "@/types/LoginPage";
 import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
+import useLoginInput from "@/hooks/useLoginInput";
 
 const LoginForm = () => {
+  const { inputs, onChangeInput } = useLoginInput();
+
+  const { email, password } = inputs;
+
   const router = useRouter();
 
   // 이메일 정규식
@@ -19,11 +24,6 @@ const LoginForm = () => {
     emailErrorMessage: null,
     passwordErrorMessage: null,
     unexpectedErrorMessage: null,
-  });
-
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
   });
 
   const { mutate } = useMutation({
@@ -41,8 +41,6 @@ const LoginForm = () => {
     },
     onError: (error: AxiosError) => {
       if (error.response) {
-        const { email, password } = inputs;
-
         if (error.response.status === 404) {
           if (password.length > 0 && password.length < PASSWORD_MIN_LENGTH) {
             setErrorData((prev) => ({
@@ -104,16 +102,6 @@ const LoginForm = () => {
       }
     },
   });
-
-  const { email, password } = inputs;
-
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
