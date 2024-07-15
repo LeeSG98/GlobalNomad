@@ -8,6 +8,7 @@ export default function Home() {
         <Link href="/mypage">마이페이지</Link>
         <Link href="/mybookingpage">예약현황</Link>
         <Link href="/mybookinglist">예약내역</Link>
+        <Link href="/MainPage">메인페이지</Link>
       </div>
       <Footer />
     </>
