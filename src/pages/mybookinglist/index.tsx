@@ -1,4 +1,6 @@
 import Profile from "@/components/common/profile/Profile";
+import Filter from "@/components/mybookinglist/Filter";
+import List from "@/components/mybookinglist/List";
 
 export default function mybookinglist() {
   return (
@@ -8,7 +10,9 @@ export default function mybookinglist() {
         <div className="flex w-[792px] flex-col gap-[24px]">
           <div className="flex justify-between">
             <h1 className="text-3xl font-bold">예약 내역</h1>
+            <Filter />
           </div>
+          <List />
         </div>
       </div>
     </>

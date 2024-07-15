@@ -1,3 +1,5 @@
+import React from "react";
+
 const NoProfileImage = ({ nickname }: { nickname: string }) => {
   const nicknameInitial = nickname[0];
   return (
@@ -6,4 +8,5 @@ const NoProfileImage = ({ nickname }: { nickname: string }) => {
     </div>
   );
 };
+
 export default NoProfileImage;
