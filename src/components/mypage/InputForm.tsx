@@ -8,6 +8,8 @@ export default function InputForm() {
     email: "",
   });
 
+  const [nickname, setNickname] = useState("");
+
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -23,6 +25,7 @@ export default function InputForm() {
             nickname: res.data.nickname,
             email: res.data.email,
           });
+          setNickname(res.data.nickname);
           console.log(res);
         });
     }
@@ -30,7 +33,12 @@ export default function InputForm() {
 
   return (
     <div className="flex flex-col gap-[32px]">
-      <Input label="닉네임" placeholder={userData.nickname} />
+      <Input
+        label="닉네임"
+        placeholder={userData.nickname}
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+      />
       <Input label="이메일" placeholder={userData.email} />
       <Input label="비밀번호" placeholder="8자 이상 입력해 주세요" />
       <Input
