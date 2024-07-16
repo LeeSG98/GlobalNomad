@@ -53,7 +53,7 @@ const InputBox = ({
   }
 
   return (
-    <div className="flex flex-col gap-2 relative">
+    <div className="relative flex flex-col gap-2">
       <Label labelName={labelName} />
       <div className="relative">
         <input
@@ -62,14 +62,14 @@ const InputBox = ({
           id={inputName}
           onChange={onChangeInput}
           value={value}
-          className={`border border-gray_A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
+          className={`w-full rounded-[6px] border border-gray_A4 px-5 py-4 focus:outline-none ${borderColorClass}`}
           onClick={onClickInput}
         />
         {labelName === "비밀번호" && (
           <button
             onClick={onClickEyeIcon}
             type="button"
-            className="text-[0px] absolute top-1/2 right-[20px] transform -translate-y-1/2"
+            className="absolute right-[20px] top-1/2 -translate-y-1/2 transform text-[0px]"
           >
             <img
               src={
@@ -78,18 +78,18 @@ const InputBox = ({
                   : "/image/visibility_off.svg"
               }
               alt={isShowInputValue === true ? "open_eye" : "close_eye"}
-              className="w-[24px] h-[24px]"
+              className="h-[24px] w-[24px]"
             />
           </button>
         )}
       </div>
       {inputName === "email" && errorData?.emailErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
+        <div className="ml-1 text-xs text-red_47">
           {errorData.emailErrorMessage}
         </div>
       )}
       {inputName === "password" && errorData?.passwordErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
+        <div className="ml-1 text-xs text-red_47">
           {errorData.passwordErrorMessage}
         </div>
       )}

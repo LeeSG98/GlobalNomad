@@ -7,19 +7,15 @@ import { LoginErrorType } from "@/types/LoginPage";
 import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import useLoginInput from "@/hooks/useLoginInput";
+import useValidation from "@/hooks/useValidation";
 
 const LoginForm = () => {
   const { inputs, onChangeInput } = useLoginInput();
 
   const { email, password } = inputs;
-
   const router = useRouter();
+  const { emailRegex, PASSWORD_MIN_LENGTH } = useValidation();
 
-  // 이메일 정규식
-  const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-
-  // 비밀번호 최소길이
-  const PASSWORD_MIN_LENGTH = 8;
   const [errorData, setErrorData] = useState<LoginErrorType>({
     emailErrorMessage: null,
     passwordErrorMessage: null,
