@@ -8,10 +8,11 @@ import { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import useLoginInput from "@/hooks/useLoginInput";
 import useValidation from "@/hooks/useValidation";
+import { ErrorMessages } from "@/types/LoginErrorMessages";
+import { validateEmail, validatePassword } from "@/hooks/validation";
 
 const LoginForm = () => {
   const { inputs, onChangeInput } = useLoginInput();
-
   const { email, password } = inputs;
   const router = useRouter();
   const { emailRegex, PASSWORD_MIN_LENGTH } = useValidation();
@@ -37,67 +38,50 @@ const LoginForm = () => {
     },
     onError: (error: AxiosError) => {
       if (error.response) {
-        if (error.response.status === 404) {
-          if (password.length > 0 && password.length < PASSWORD_MIN_LENGTH) {
-            setErrorData((prev) => ({
-              ...prev,
-              passwordErrorMessage: "8자 이상 작성해 주세요.",
-              emailErrorMessage: null,
-            }));
-          } else {
-            setErrorData({
-              emailErrorMessage: "존재하지 않는 유저입니다.",
-              passwordErrorMessage: null,
-              unexpectedErrorMessage: null,
-            });
-          }
-        } else if (error.response.status === 400) {
-          if (password.length >= 8 && emailRegex.test(email)) {
-            setErrorData((prev) => ({
-              ...prev,
-              emailErrorMessage: null,
-              passwordErrorMessage: "비밀번호가 일치하지 않습니다.",
-            }));
-          } else {
-            if (password.length > 0 && password.length < PASSWORD_MIN_LENGTH) {
-              setErrorData((prev) => ({
-                ...prev,
-                passwordErrorMessage: "8자 이상 작성해 주세요.",
-              }));
-            } else if (password.length === 0) {
-              setErrorData((prev) => ({
-                ...prev,
-                passwordErrorMessage: "비밀번호를 입력해주세요.",
-              }));
-            } else {
-              setErrorData((prev) => ({
-                ...prev,
-                passwordErrorMessage: null,
-              }));
-            }
-
-            // 이메일 확인
-            if (email.length === 0) {
-              setErrorData((prev) => ({
-                ...prev,
-                emailErrorMessage: "이메일을 입력해주세요",
-              }));
-            } else if (!emailRegex.test(email)) {
-              setErrorData((prev) => ({
-                ...prev,
-                emailErrorMessage: "이메일 형식으로 작성해주세요.",
-              }));
-            } else {
-              setErrorData((prev) => ({
-                ...prev,
-                emailErrorMessage: null,
-              }));
-            }
-          }
-        }
+        handleErrorResponse(error.response.status);
       }
     },
   });
+
+  const handleErrorResponse = (status: number) => {
+    if (status === 404) {
+      handleNotFoundError();
+    } else if (status === 400) {
+      handleValidationError();
+    } else {
+      handleUnexpectedError();
+    }
+  };
+
+  const handleNotFoundError = () => {
+    setErrorData({
+      emailErrorMessage: ErrorMessages.USER_NOT_FOUND,
+      passwordErrorMessage: null,
+      unexpectedErrorMessage: null,
+    });
+  };
+
+  const handleValidationError = () => {
+    const emailError = validateEmail(email, emailRegex);
+    const passwordError = validatePassword(password, PASSWORD_MIN_LENGTH);
+
+    setErrorData({
+      emailErrorMessage: emailError,
+      passwordErrorMessage: passwordError
+        ? passwordError
+        : ErrorMessages.PASSWORD_MISMATCH,
+      unexpectedErrorMessage: null,
+    });
+  };
+
+  const handleUnexpectedError = () => {
+    setErrorData({
+      emailErrorMessage: null,
+      passwordErrorMessage: null,
+      unexpectedErrorMessage:
+        "예기치 않은 오류가 발생했습니다. 다시 시도해주세요.",
+    });
+  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
