@@ -79,7 +79,7 @@ const Header = () => {
           </div>
         ) : (
           <div className="flex gap-[25px] text-[14px] font-medium text-[#1B1B1B]">
-            <Link href="/login">로그인</Link>
+            <Link href="/signin">로그인</Link>
             <Link href="/signup">회원가입</Link>
           </div>
         )
