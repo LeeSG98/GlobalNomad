@@ -12,6 +12,7 @@ export default function Home() {
         <Link href="/mybookinglist">예약내역</Link>
         <Link href="/signup">회원가입</Link>
         <Link href="/signin">로그인</Link>
+        <Link href="/MainPage">메인페이지</Link>
       </div>
       <Footer />
     </>
