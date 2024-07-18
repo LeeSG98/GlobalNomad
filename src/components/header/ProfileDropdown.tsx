@@ -11,7 +11,7 @@ const ProfileDropdown = () => {
   };
 
   return (
-    <div className="absolute right-0 top-12 z-20 flex w-56 flex-col gap-3 rounded-md border-2 bg-white p-3 shadow-md">
+    <div className="border-1 absolute right-0 top-12 z-20 flex w-56 flex-col gap-3 rounded-md bg-white p-3 shadow-md">
       <PageMenu
         linkTo="/mypage"
         icon="/image/my_Info_icon.svg"
