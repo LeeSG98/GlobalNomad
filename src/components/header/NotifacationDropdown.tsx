@@ -1,4 +1,6 @@
+import { useInfiniteQuery } from "@tanstack/react-query";
 import NotificationDropdownItem from "./NotificationDropdownItem";
+import getMyNotification from "@/api/getMyNotification";
 
 interface Notifications {
   id: number;
@@ -10,15 +12,23 @@ interface Notifications {
   deletedAt: string | null;
 }
 
-interface NotificationDropdownProps {
-  notifications: Notifications[];
+interface NotificationDataType {
   totalCount: number;
+  notifications: Notifications[];
+  cursorId: number;
 }
 
-const NotificationDropdown = ({
-  notifications,
-  totalCount,
-}: NotificationDropdownProps) => {
+const NotificationDropdown = () => {
+  const { data } = useInfiniteQuery<NotificationDataType>({
+    queryKey: ["notifications"],
+    queryFn: getMyNotification,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.cursorId,
+  });
+  const totalCount = data?.pages[0]?.totalCount || 0;
+  const notifications = data?.pages.flatMap((page) => page.notifications) || [];
+
+  console.log(data);
   return (
     <div className="bg-green-10 border-1 absolute right-12 top-12 z-20 flex h-[300px] w-[368px] flex-col gap-3 overflow-y-auto rounded-md px-4 py-6 shadow-md">
       <div className="flex w-full justify-between">
@@ -30,7 +40,13 @@ const NotificationDropdown = ({
         />
       </div>
       {notifications.map((item) => {
-        return <NotificationDropdownItem content={item.content} />;
+        return (
+          <NotificationDropdownItem
+            key={item.id}
+            content={item.content}
+            updatedAt={item.updatedAt}
+          />
+        );
       })}
     </div>
   );
