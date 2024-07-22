@@ -6,13 +6,10 @@ import { AxiosError } from "axios";
 import Button from "../common/Button";
 import SignupInput from "./SignupInput";
 import router from "next/router";
+import useValidation from "@/hooks/useValidation";
 
 const SignupForm = () => {
-  // 이메일 정규식
-  const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-
-  // 비밀번호 최소길이
-  const PASSWORD_MIN_LENGTH = 8;
+  const { emailRegex, PASSWORD_MIN_LENGTH } = useValidation();
 
   const [signupErrorMessage, setSignupErrorMessage] = useState<SignupErrorType>(
     {
@@ -21,7 +18,7 @@ const SignupForm = () => {
       passwordErrorMessage: null,
       passwordConfirmErrorMessage: null,
       unexpectedErrorMessage: null,
-    }
+    },
   );
 
   const [inputs, setInputs] = useState({
@@ -166,7 +163,7 @@ const SignupForm = () => {
     <div>
       <form
         onSubmit={onSubmit}
-        className="flex flex-col gap-7 w-[40rem] mx-auto"
+        className="mx-auto flex w-[40rem] flex-col gap-7"
         noValidate
       >
         <SignupInput
