@@ -5,7 +5,7 @@ import List from "@/components/mybookinglist/List";
 export default function mybookinglist() {
   return (
     <>
-      <div className="flex justify-center gap-6 bg-gray_FA pt-[72px]">
+      <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
         <Profile />
         <div className="flex w-[792px] flex-col gap-[24px]">
           <div className="flex justify-between">
