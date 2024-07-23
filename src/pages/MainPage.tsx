@@ -91,7 +91,7 @@ const MainPage = () => {
     {
       id: 7,
       imageUrl: "/image/cardListImg01.jpg",
-      title: "함께 배우면 즐거운 스트릿 댄스",
+      title: "함께 배우면 즐거운 스트릿 댄스77",
       rating: 4.9,
       reviewCount: 793,
       price: "₩ 38,000/인",
@@ -99,12 +99,88 @@ const MainPage = () => {
     {
       id: 8,
       imageUrl: "/image/cardListImg02.jpg",
+      title: "연인과 사랑의 징검다리 건너기666",
+      rating: 4.9,
+      reviewCount: 592,
+      price: "₩ 5,600/인",
+    },
+    {
+      id: 9,
+      imageUrl: "/image/cardListImg01.jpg",
+      title: "함께 배우면 즐거운 스트릿 댄스555",
+      rating: 4.9,
+      reviewCount: 793,
+      price: "₩ 38,000/인",
+    },
+    {
+      id: 10,
+      imageUrl: "/image/cardListImg02.jpg",
       title: "연인과 사랑의 징검다리 건너기",
       rating: 4.9,
       reviewCount: 592,
       price: "₩ 5,600/인",
     },
+    {
+      id: 11,
+      imageUrl: "/image/cardListImg03.jpg",
+      title: "VR 게임 마스터",
+      rating: 4.9,
+      reviewCount: 283,
+      price: "₩ 38,000/인",
+    },
+    {
+      id: 4,
+      imageUrl: "/image/cardListImg03.jpg",
+      title: "VR 게임 마스터",
+      rating: 4.9,
+      reviewCount: 283,
+      price: "₩ 38,000/인",
+    },
+    {
+      id: 12,
+      imageUrl: "/image/cardListImg03.jpg",
+      title: "VR 게임 마스터",
+      rating: 4.9,
+      reviewCount: 283,
+      price: "₩ 38,000/인",
+    },
+    {
+      id: 13,
+      imageUrl: "/image/cardListImg02.jpg",
+      title: "연인과 사랑의 징검다리 건너기444",
+      rating: 4.9,
+      reviewCount: 592,
+      price: "₩ 5,600/인",
+    },
+    {
+      id: 14,
+      imageUrl: "/image/cardListImg01.jpg",
+      title: "함께 배우면 즐거운 스트릿 댄스333",
+      rating: 4.9,
+      reviewCount: 793,
+      price: "₩ 38,000/인",
+    },
+    {
+      id: 15,
+      imageUrl: "/image/cardListImg02.jpg",
+      title: "연인과 사랑의 징검다리 건너기222",
+      rating: 4.9,
+      reviewCount: 592,
+      price: "₩ 5,600/인",
+    },
+    {
+      id: 15,
+      imageUrl: "/image/cardListImg02.jpg",
+      title: "연인과 사랑의 ㅇㅇㅇ징검다리 건너기222",
+      rating: 4.9,
+      reviewCount: 592,
+      price: "₩ 5,600/인",
+    },
   ];
+
+  const filteredLinks = links.filter((link) =>
+    link.title.toLowerCase().includes(searchValue.toLowerCase()),
+  );
 
   return (
     <Layout isSticky={false}>
@@ -144,7 +220,7 @@ const MainPage = () => {
                 />
               </div>
             </div>
-            <CardListContainer title="🛼 모든 체험" links={links} />
+            <CardListContainer title="🛼 모든 체험" links={filteredLinks} />
           </>
         }
       />
