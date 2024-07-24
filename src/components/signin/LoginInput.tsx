@@ -3,7 +3,7 @@ import Label from "../common/Label";
 import { LoginErrorType } from "@/types/LoginPage";
 
 interface InputBoxProps {
-  inputName: string;
+  inputName: "email" | "password";
   onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   labelName: string;
@@ -19,42 +19,51 @@ const InputBox = ({
   errorData,
   setErrorData,
 }: InputBoxProps) => {
+  // 비밀번호 보기/숨기기 상태 관리
   const [isShowInputValue, setIsShowInputValue] = useState(false);
-  const [inputType, setInputType] = useState(inputName);
 
+  // Input의 타입 상태 관리
+  const [inputType, setInputType] = useState(
+    inputName === "password" ? "password" : "text",
+  );
+
+  // Input 클릭 시 호출되는 함수: 해당 Input의 오류 메시지를 초기화
   const onClickInput = () => {
-    if (inputName === "email") {
-      setErrorData((prev) => ({
-        ...prev,
-        emailErrorMessage: null,
-      }));
-    } else {
-      setErrorData((prev) => ({
-        ...prev,
-        passwordErrorMessage: null,
-      }));
-    }
+    setErrorData((prev) => ({
+      ...prev,
+      [`${inputName}ErrorMessage`]: null,
+    }));
   };
 
+  // 눈 아이콘 클릭 시 호출되는 함수: 비밀번호 보기/숨기기 토글
   const onClickEyeIcon = () => {
-    if (inputType === "password") {
-      setInputType("text");
-    } else if (inputType === "text") {
-      setInputType("password");
-    }
+    setInputType((prevType) => (prevType === "password" ? "text" : "password"));
     setIsShowInputValue((prev) => !prev);
   };
 
-  let borderColorClass = "";
-  if (inputName === "email" && errorData?.emailErrorMessage) {
-    borderColorClass = "border-red_F4";
-  } else if (inputName === "password" && errorData?.passwordErrorMessage) {
-    borderColorClass = "border-red_F4";
-  }
+  // Input의 테두리 색상 클래스를 결정하는 함수
+  const getBorderColorClass = () => {
+    if (inputName === "email" && errorData?.emailErrorMessage) {
+      return "border-red_F4";
+    } else if (inputName === "password" && errorData?.passwordErrorMessage) {
+      return "border-red_F4";
+    }
+    return "";
+  };
+
+  // Input의 오류 메시지를 가져오는 함수
+  const getErrorMessage = () => {
+    if (inputName === "email") {
+      return errorData?.emailErrorMessage;
+    } else if (inputName === "password") {
+      return errorData?.passwordErrorMessage;
+    }
+    return null;
+  };
 
   return (
-    <div className="flex flex-col gap-2 relative">
-      <Label labelName={labelName} />
+    <div className="relative flex flex-col gap-2">
+      <Label labelName={labelName} /> {/* Input 위에 표시될 라벨 */}
       <div className="relative">
         <input
           name={inputName}
@@ -62,36 +71,31 @@ const InputBox = ({
           id={inputName}
           onChange={onChangeInput}
           value={value}
-          className={`border border-gray_A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
+          className={`w-full rounded-[6px] border border-gray_A4 px-5 py-4 focus:outline-none ${getBorderColorClass()}`}
           onClick={onClickInput}
         />
-        {labelName === "비밀번호" && (
+        {/* 비밀번호 눈 아이콘 */}
+        {inputName === "password" && (
           <button
             onClick={onClickEyeIcon}
             type="button"
-            className="text-[0px] absolute top-1/2 right-[20px] transform -translate-y-1/2"
+            className="absolute right-[20px] top-1/2 -translate-y-1/2 transform text-[0px]"
           >
             <img
               src={
-                isShowInputValue === true
+                isShowInputValue
                   ? "/image/visibility_on.svg"
                   : "/image/visibility_off.svg"
               }
-              alt={isShowInputValue === true ? "open_eye" : "close_eye"}
-              className="w-[24px] h-[24px]"
+              alt={isShowInputValue ? "open_eye" : "close_eye"}
+              className="h-[24px] w-[24px]"
             />
           </button>
         )}
       </div>
-      {inputName === "email" && errorData?.emailErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
-          {errorData.emailErrorMessage}
-        </div>
-      )}
-      {inputName === "password" && errorData?.passwordErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
-          {errorData.passwordErrorMessage}
-        </div>
+      {/* Input에 오류 메시지가 있을 경우 해당 오류 메시지 출력 */}
+      {getErrorMessage() && (
+        <div className="ml-1 text-xs text-red_47">{getErrorMessage()}</div>
       )}
     </div>
   );

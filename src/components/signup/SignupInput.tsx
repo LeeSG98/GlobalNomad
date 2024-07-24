@@ -49,7 +49,7 @@ const SignupInput = ({
   };
   const onClickEyeIcon = () => {
     setChangeInputType((prevType) =>
-      prevType === "password" ? "text" : "password"
+      prevType === "password" ? "text" : "password",
     );
     setIsShowInputValue((prev) => !prev);
   };
@@ -75,7 +75,7 @@ const SignupInput = ({
   }
 
   return (
-    <div className="flex flex-col gap-2 relative">
+    <div className="relative flex flex-col gap-2">
       <Label labelName={labelName} />
       <div className="relative">
         <input
@@ -84,14 +84,14 @@ const SignupInput = ({
           id={inputName}
           onChange={onChangeInput}
           value={value}
-          className={`border border-gray_A4 rounded-[6px] px-5 py-4 focus:outline-none w-full ${borderColorClass}`}
+          className={`w-full rounded-[6px] border border-gray_A4 px-5 py-4 focus:outline-none ${borderColorClass}`}
           onClick={onClickInput}
         />
         {labelName.includes("비밀번호") === true ? (
           <button
             onClick={onClickEyeIcon}
             type="button"
-            className="text-[0px] absolute bottom-[16px] right-[20px]"
+            className="absolute bottom-[16px] right-[20px] text-[0px]"
           >
             <img
               src={
@@ -100,30 +100,30 @@ const SignupInput = ({
                   : "/image/visibility_off.svg"
               }
               alt={isShowInputValue === true ? "open_eye" : "close_eye"}
-              className="w-[24px] h-[24px]"
+              className="h-[24px] w-[24px]"
             />
           </button>
         ) : null}
       </div>
       {inputName === "email" && signupErrorMessage?.emailErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
+        <div className="ml-1 text-xs text-red_47">
           {signupErrorMessage.emailErrorMessage}
         </div>
       )}
       {inputName === "nickname" && signupErrorMessage?.nicknameErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
+        <div className="ml-1 text-xs text-red_47">
           {signupErrorMessage.nicknameErrorMessage}
         </div>
       )}
 
       {inputName === "password" && signupErrorMessage?.passwordErrorMessage && (
-        <div className="text-red_47 text-xs ml-1">
+        <div className="ml-1 text-xs text-red_47">
           {signupErrorMessage.passwordErrorMessage}
         </div>
       )}
       {inputName === "passwordConfirm" &&
         signupErrorMessage?.passwordConfirmErrorMessage && (
-          <div className="text-red_47 text-xs ml-1">
+          <div className="ml-1 text-xs text-red_47">
             {signupErrorMessage.passwordConfirmErrorMessage}
           </div>
         )}
