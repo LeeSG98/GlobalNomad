@@ -1,3 +1,4 @@
+import Header from "@/components/header/header";
 import Profile from "@/components/common/profile/Profile";
 import Title from '@/components/registeractivity/Title';
 import Input from '@/components/registeractivity/Input';
@@ -8,13 +9,15 @@ import Address from "@/components/registeractivity/Address";
 import Reserve from "@/components/registeractivity/Reserve";
 import Banner from "@/components/registeractivity/Banner";
 import Intro from "@/components/registeractivity/Intro";
+import Footer from "@/components/footer/footer";
 
 const registeractivity = () => {
   return (
     <>
-      <div className="flex justify-center gap-[24px] pt-[72px]">
+      <Header />
+      <div className="flex justify-center gap-[1.5rem] pt-[4.5rem] bg-gray_FA">
         <Profile />
-        <div className="flex w-[792px] flex-col">
+        <div className="flex w-[49.5rem] flex-col">
           <Title />
           <Input />
           <Category />
@@ -26,6 +29,7 @@ const registeractivity = () => {
           <Intro />
         </div>
       </div>
+      <Footer />
     </>
   );
 };

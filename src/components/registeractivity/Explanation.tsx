@@ -2,8 +2,8 @@ import React from "react";
 
 const Explanation = () => {
   return (
-    <div className="flex mt-[24px]">
-      <input className="w-[792px] h-[346px] pt-[16px] pb-[304px] pl-[16px] border-[1px] border-[#79747E] rounded" type="text" placeholder="설명" />
+    <div className="flex mt-[1.5rem]">
+      <input className="w-[49.5rem] h-[21.625rem] pt-[1rem] pb-[19rem] pl-[1rem] border-[1px] border-gray_79 rounded" type="text" placeholder="설명" />
     </div>
   );
 };
