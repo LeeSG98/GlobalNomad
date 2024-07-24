@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale } from 'react-datepicker';
 import { enUS } from 'date-fns/locale';
+import styles from './Calendar.module.css';
 
 registerLocale('en-US', enUS);
 
@@ -14,14 +15,16 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <DatePicker
-      selected={selectedDate}
-      onChange={handleDateChange}
-      locale="en-US"
-      dateFormat="yyyy-MM-dd"
-      className="w-full p-2 border border-gray-300 rounded"
-      inline
-    />
+    <div className="flex justify-center">
+      <DatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        locale="en-US"
+        dateFormat="yyyy-MM-dd"
+        className={`w-full p-2 border border-gray-300 rounded ${styles.customCalendar}`}
+        inline
+      />
+    </div>
   );
 };
 
