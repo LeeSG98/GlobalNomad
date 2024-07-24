@@ -14,23 +14,53 @@ interface UserData {
   nickname: string;
   email: string;
   newPassword?: string;
+  //
+  profileImageUrl?: string;
+}
+
+interface ResponseUserData {
+  nickname: string;
+  email: string;
+  profileImageUrl?: string;
+}
+
+interface RequestUserData {
+  nickname: string;
+  newPassword: string;
   profileImageUrl?: string;
 }
 
 export default function mypage() {
+  // 원본 데이터 (get 으로 불러온 데이터)
+  const [originUser, setOriginUser] = useState<ResponseUserData>({
+    nickname: "",
+    email: "",
+  });
+
+  // 폼에 입력한 데이터 (전송할 때 사용할 데이터)
+  // const [user, setUser] = useState<RequestUserData>({});
+
+  // 원본 데이터 (get 으로 불러온 데이터)
   const [userData, setUserData] = useState<UserData>({
     nickname: "",
     email: "",
   });
+
+  // 폼에 입력한 데이터 (전송할 때 사용할 데이터)
+  // 하나의 객체 모양으로 state를 관리하거나
+  // useReducer? 훅을 이용해 관련된 객체를 하나로 관리, 업데이트 가능함(추천)
   const [newNickname, setNewNickname] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  //
   const [src, setSrc] = useState<string | undefined>(undefined);
   const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
     undefined,
   );
 
+  // get 요청, accessToken 분리
+  // tanstack query(get 요청. 캐싱을 더 쉽게 처리가능. 응답속도 빨라짐)
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -38,6 +68,7 @@ export default function mypage() {
       axiosInstance
         .get("/users/me", {
           headers: {
+            //생략가능
             Authorization: `Bearer ${accessToken}`,
           },
         })
@@ -47,7 +78,7 @@ export default function mypage() {
             email: res.data.email,
             profileImageUrl: res.data.profileImageUrl,
           });
-          setSrc(res.data.profileImageUrl); // Set the initial profile image
+          setSrc(res.data.profileImageUrl);
         });
     }
   }, []);
@@ -78,6 +109,7 @@ export default function mypage() {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
+      //
       reader.onload = () => setSrc(reader.result as string);
       reader.readAsDataURL(file);
 
@@ -100,18 +132,21 @@ export default function mypage() {
   };
 
   const handleSave = () => {
+    //
     const accessToken = localStorage.getItem("accessToken");
 
+    // 필요성에 대해 생각. 더 알아보기
     if (accessToken) {
       const updateData: Partial<UserData> = {
         nickname: newNickname,
         newPassword,
-        profileImageUrl, // Include the profileImageUrl in the update data
+        profileImageUrl,
       };
 
       axiosInstance
         .patch("/users/me", updateData, {
           headers: {
+            // 삭제
             Authorization: `Bearer ${accessToken}`,
           },
         })
