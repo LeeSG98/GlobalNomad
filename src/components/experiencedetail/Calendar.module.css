@@ -1,0 +1,31 @@
+.customCalendarWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.customCalendar .react-datepicker {
+  background-color: white;
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+}
+
+.customCalendar .react-datepicker__header {
+  background-color: white;
+  border-bottom: none;
+}
+
+.customCalendar .react-datepicker__current-month,
+.customCalendar .react-datepicker__day-name,
+.customCalendar .react-datepicker__day {
+  color: #333;
+}
+
+.customCalendar .react-datepicker__day--selected,
+.customCalendar .react-datepicker__day--keyboard-selected {
+  background-color: black;
+  color: white;
+}
+
+.customCalendar .react-datepicker__day:hover {
+  background-color: #ccc;
+}
