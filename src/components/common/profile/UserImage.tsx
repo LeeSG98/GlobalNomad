@@ -1,72 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axiosinstance";
 import { FaRegUser } from "react-icons/fa";
-import { HiOutlinePencil } from "react-icons/hi2";
 
-interface UserImageProps {
-  initialSrc?: string;
-  onImageUpload?: (url: string) => void;
+interface UserImage {
+  profileImageUrl?: string;
 }
 
-const UserImage: React.FC<UserImageProps> = ({ initialSrc }) => {
-  const [src, setSrc] = useState<string | undefined>(initialSrc);
-  const [file, setFile] = useState<File | null>(null);
+const UserImage = () => {
+  const [userData, setUserData] = useState<UserImage>({
+    profileImageUrl: "",
+  });
 
-  const handleImageUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFile(file);
-      const reader = new FileReader();
-      reader.onload = () => setSrc(reader.result as string);
-      reader.readAsDataURL(file);
-
-      await handleUpload(file);
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      axiosInstance
+        .get("users/me", {
+          headers: {},
+        })
+        .then((res) => {
+          setUserData({
+            profileImageUrl: res.data.profile,
+          });
+        });
     }
-  };
-
-  const handleUpload = async (file: File) => {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      const response = await axiosInstance.post("/users/me/image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    } catch (error) {
-      console.error("에러 발생", error);
-    }
-  };
+  });
 
   return (
-    <div className="relative">
-      {src ? (
-        <img
-          src={src}
-          alt="유저이미지"
-          className="h-[160px] w-[160px] rounded-full shadow"
-        />
-      ) : (
-        <div className="flex h-[160px] w-[160px] items-center justify-center rounded-full bg-gray-200 shadow">
-          <FaRegUser className="text-6xl text-gray-400" />
-        </div>
-      )}
-      <label
-        htmlFor="imageUpload"
-        className="absolute bottom-0 right-2 flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full bg-green_0B"
-      >
-        <HiOutlinePencil className="text-white" />
-        <input
-          id="imageUpload"
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          className="hidden"
-        />
-      </label>
+    <div>
+      <div className="flex h-[160px] w-[160px] items-center justify-center rounded-full bg-gray-200 shadow">
+        <FaRegUser className="text-6xl text-gray-400" />
+      </div>
     </div>
   );
 };
