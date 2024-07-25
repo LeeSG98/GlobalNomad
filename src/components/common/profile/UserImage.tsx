@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { FaRegUser } from "react-icons/fa";
 import getUserInfo from "@/api/getUserInfo";
 
