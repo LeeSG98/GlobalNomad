@@ -1,9 +1,15 @@
-const Button = () => (
+interface AuthButtonProps {
+  children: React.ReactNode;
+  disabled?: boolean;
+}
+const Button = ({ children, disabled = false }: AuthButtonProps) => (
   <button
     type="submit"
-    className="bg-gray-A4 w-[40rem] rounded-[6px] px-[8.5rem] py-[0.875rem] text-white font-bold "
+    className={`rounded-[6px] px-8 py-4 text-lg font-semibold text-white transition-opacity ${
+      disabled ? "bg-gray-400" : "bg-blue-500 hover:opacity-90"
+    }`}
   >
-    로그인하기
+    {children}
   </button>
 );
 
