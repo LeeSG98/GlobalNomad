@@ -1,3 +1,5 @@
+import { fetchMyReservation } from "@/api/api";
+
 export default function Booking() {
   return (
     <div className="flex w-full overflow-hidden rounded-lg border shadow-md">
