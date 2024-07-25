@@ -1,21 +1,8 @@
+import getDeleteNotification from "@/api/getDeleteNotification";
 import getMyNotification from "@/api/getMyNotification";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import queryClient from "@/lib/queryClient";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
-interface Notifications {
-  id: number;
-  teamId: string;
-  userId: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
-}
-
-interface NotificationDataType {
-  totalCount: number;
-  notifications: Notifications[];
-  cursorId: number;
-}
 const formatUpdatedAt = (updatedAt: string) => {
   const updatedDate = new Date(updatedAt);
   const currentDate = new Date();
@@ -42,17 +29,21 @@ const formatUpdatedAt = (updatedAt: string) => {
 const NotificationDropdownItem = ({
   content,
   updatedAt,
+  notificationId,
 }: {
   content: string;
   updatedAt: string;
+  notificationId: number;
 }) => {
-  const { data } = useInfiniteQuery<NotificationDataType>({
-    queryKey: ["notifications"],
-    queryFn: getMyNotification,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.cursorId,
+  const { mutate } = useMutation({
+    mutationFn: getDeleteNotification,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
   });
-  //   const notifications = data?.pages.flatMap((page) => page.notifications) || [];
+  const onClickDeleteButton = () => {
+    mutate(notificationId);
+  };
 
   const reservationStatus = content.slice(
     content.length - 8,
@@ -65,11 +56,13 @@ const NotificationDropdownItem = ({
           src={`/image/circle_${reservationStatus === "승인" ? "blue" : "red"}.svg`}
           alt="Confirmed Chip"
         />
-        <img
-          className="w-5 cursor-pointer opacity-50"
-          src="/image/x_btn.svg"
-          alt="Remove Notification Button"
-        />
+        <button type="button" onClick={onClickDeleteButton}>
+          <img
+            className="w-5 cursor-pointer opacity-50"
+            src="/image/x_btn.svg"
+            alt="Remove Notification Button"
+          />
+        </button>
       </div>
       <div>
         {content.split(reservationStatus)[0]}

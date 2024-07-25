@@ -53,7 +53,9 @@ const Notification = () => {
         />
       )}
 
-      {dropdownIsOpen && <NotificationDropdown />}
+      {dropdownIsOpen && (
+        <NotificationDropdown setDropdownIsOpen={setDropdownIsOpen} />
+      )}
     </div>
   );
 };

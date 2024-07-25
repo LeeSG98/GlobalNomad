@@ -1,4 +1,3 @@
-// _app.tsx
 import React from "react";
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
