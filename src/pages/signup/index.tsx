@@ -18,4 +18,6 @@ const SignupPage = () => (
   </div>
 );
 
+SignupPage.showHeaderFooter = false;
+
 export default SignupPage;
