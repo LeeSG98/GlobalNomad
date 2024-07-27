@@ -1,19 +1,30 @@
-// _app.tsx
 import React from "react";
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "@/store/StoreProvider";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
 const queryClient = new QueryClient();
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+//showHeaderFooter 속성 추가
+type CustomAppProps = AppProps & {
+  Component: AppProps["Component"] & { showHeaderFooter?: boolean };
+};
+
+const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps }) => {
+  // 헤더 푸터 표시 여부 결정
+  const showHeaderFooter = Component.showHeaderFooter !== false;
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <StoreProvider>
+          {showHeaderFooter && <Header />}
           <Component {...pageProps} />
+          {showHeaderFooter && <Footer />}
         </StoreProvider>
       </AuthProvider>
     </QueryClientProvider>

@@ -31,11 +31,6 @@ const HeaderProfile = () => {
   }
 
   return (
-    // <div className="flex items-center gap-[10px]">
-    //   <HeaderProfileImage
-    //     nickname={data.nickname}
-    //     profileImageUrl={data.profileImageUrl}
-    //   />
     <div
       className="relative flex cursor-pointer items-center gap-[10px]"
       onClick={toggleDropdown}
