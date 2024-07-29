@@ -19,4 +19,6 @@ const LoginPage = () => (
   </div>
 );
 
+LoginPage.showHeaderFooter = false;
+
 export default LoginPage;
