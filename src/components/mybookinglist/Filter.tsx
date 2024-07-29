@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import { VscTriangleDown } from "react-icons/vsc";
 
-export default function Filter() {
+interface FilterProps {
+  setFilter: (filter: string) => void;
+}
+
+export default function Filter({ setFilter }: FilterProps) {
   const hover =
     "block w-full px-4 py-2 text-center text-gray-700 hover:bg-gray-100 border-b";
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +13,11 @@ export default function Filter() {
 
   const toggleFilter = () => {
     setIsOpen(!isOpen);
+  };
+
+  const applyFilter = (filter: string) => {
+    setFilter(filter);
+    setIsOpen(false);
   };
 
   return (
@@ -24,11 +33,22 @@ export default function Filter() {
       </button>
       {isOpen && (
         <div className="absolute mt-1 w-[130px] rounded-md border bg-white shadow-lg">
-          <button className={hover}>예약 신청</button>
-          <button className={hover}>예약 취소</button>
-          <button className={hover}>예약 승인</button>
-          <button className={hover}>예약 거절</button>
-          <button className="block w-full px-4 py-2 text-center text-gray-700 hover:bg-gray-100">
+          <button className={hover} onClick={() => applyFilter("all")}>
+            모두 보기
+          </button>
+          <button className={hover} onClick={() => applyFilter("pending")}>
+            예약 신청
+          </button>
+          <button className={hover} onClick={() => applyFilter("cancled")}>
+            예약 취소
+          </button>
+          <button className={hover} onClick={() => applyFilter("confirmed")}>
+            예약 승인
+          </button>
+          <button className={hover} onClick={() => applyFilter("declined")}>
+            예약 거절
+          </button>
+          <button className={hover} onClick={() => applyFilter("completed")}>
             체험 완료
           </button>
         </div>
