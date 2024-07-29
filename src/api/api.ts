@@ -88,7 +88,23 @@ export const updateReservationStatus = async (
 };
 
 // 내 예약 리스트 조회
-export const fetchMyReservation = async () => {
+export const fetchReservation = async () => {
   const response = await axios.get(`${API_BASE_URL}/my-reservations`);
+  return response.data;
+};
+
+// 내 예약 수정(취소)
+export const deleteReservation = async (reservationId: number) => {
+  const response = await axios.patch(
+    `${API_BASE_URL}/my-reservations/${reservationId}`,
+  );
+  return response.data;
+};
+
+// 내 예약 리뷰 작성
+export const createReservationReview = async (reservationId: number) => {
+  const response = await axios.post(
+    `${API_BASE_URL}/my-reservations/${reservationId}/reviews`,
+  );
   return response.data;
 };
