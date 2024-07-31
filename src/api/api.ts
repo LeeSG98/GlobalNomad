@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "@/lib/axiosinstance";
 
 const API_BASE_URL = "https://sp-globalnomad-api.vercel.app/5-2";
 
@@ -89,13 +90,13 @@ export const updateReservationStatus = async (
 
 // 내 예약 리스트 조회
 export const fetchReservation = async () => {
-  const response = await axios.get(`${API_BASE_URL}/my-reservations`);
+  const response = await axiosInstance.get(`${API_BASE_URL}/my-reservations`);
   return response.data;
 };
 
 // 내 예약 수정(취소)
 export const deleteReservation = async (reservationId: number) => {
-  const response = await axios.patch(
+  const response = await axiosInstance.patch(
     `${API_BASE_URL}/my-reservations/${reservationId}`,
   );
   return response.data;
@@ -103,7 +104,7 @@ export const deleteReservation = async (reservationId: number) => {
 
 // 내 예약 리뷰 작성
 export const createReservationReview = async (reservationId: number) => {
-  const response = await axios.post(
+  const response = await axiosInstance.post(
     `${API_BASE_URL}/my-reservations/${reservationId}/reviews`,
   );
   return response.data;
