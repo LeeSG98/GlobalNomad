@@ -7,6 +7,8 @@ import CardListContainer from "@/components/mainpage/CardListContainer";
 import MainLayout from "@/components/mainpage/MainLayout";
 import CategoryList from "@/components/mainpage/CategoryList";
 import PriceFilter from "@/components/mainpage/PriceFilter";
+import axiosInstance from "@/lib/axiosinstance";
+import { useQuery } from "@tanstack/react-query";
 
 const MainPage = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -39,72 +41,68 @@ const MainPage = () => {
   const categories = ["문화/예술", "식음료", "스포츠", "투어", "관광", "웰빙"];
   const priceOptions = ["가격", "가격높은순", "가격낮은순"];
 
-  const links = [
-    {
-      id: 1,
-      imageUrl: "/image/cardListImg01.jpg",
-      title: "함께 배우면 즐거운 스트릿 댄스",
-      rating: 4.9,
-      reviewCount: 793,
-      price: "₩ 38,000/인",
+  type GetActivitiesResponse = {
+    cursorId?: number;
+    totalCount: number;
+    activities: Activity[];
+  };
+
+  interface Activity {
+    id: number;
+    userId: number;
+    title: string;
+    description: string;
+    category: string;
+    price: number;
+    address: string;
+    bannerImageUrl: string;
+    rating: number;
+    reviewCount: number;
+    createdAt: string;
+    updatedAt: string;
+  }
+
+  type GetActivitiesParams = {
+    method: "offset" | "cursor";
+    cursorId?: number;
+    category?: string;
+    keyword?: string;
+    sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest";
+    page?: number;
+    size?: number;
+  };
+
+  const getActivities = async (
+    params: GetActivitiesParams,
+  ): Promise<GetActivitiesResponse> => {
+    const response = await axiosInstance.get("/activities", { params });
+    return response.data;
+  };
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["activities", searchValue, selectedPriceOption],
+    queryFn: () => {
+      const params: GetActivitiesParams = {
+        method: "offset",
+        page: 1,
+        size: 8,
+        sort:
+          selectedPriceOption === "가격높은순"
+            ? "price_desc"
+            : selectedPriceOption === "가격낮은순"
+              ? "price_asc"
+              : undefined,
+      };
+
+      if (searchValue) {
+        params.keyword = searchValue;
+      }
+
+      return getActivities(params);
     },
-    {
-      id: 2,
-      imageUrl: "/image/cardListImg02.jpg",
-      title: "연인과 사랑의 징검다리 건너기",
-      rating: 4.9,
-      reviewCount: 592,
-      price: "₩ 5,600/인",
-    },
-    {
-      id: 3,
-      imageUrl: "/image/cardListImg03.jpg",
-      title: "VR 게임 마스터",
-      rating: 4.9,
-      reviewCount: 283,
-      price: "₩ 38,000/인",
-    },
-    {
-      id: 4,
-      imageUrl: "/image/cardListImg03.jpg",
-      title: "VR 게임 마스터",
-      rating: 4.9,
-      reviewCount: 283,
-      price: "₩ 38,000/인",
-    },
-    {
-      id: 5,
-      imageUrl: "/image/cardListImg03.jpg",
-      title: "VR 게임 마스터",
-      rating: 4.9,
-      reviewCount: 283,
-      price: "₩ 38,000/인",
-    },
-    {
-      id: 6,
-      imageUrl: "/image/cardListImg02.jpg",
-      title: "연인과 사랑의 징검다리 건너기",
-      rating: 4.9,
-      reviewCount: 592,
-      price: "₩ 5,600/인",
-    },
-    {
-      id: 7,
-      imageUrl: "/image/cardListImg01.jpg",
-      title: "함께 배우면 즐거운 스트릿 댄스",
-      rating: 4.9,
-      reviewCount: 793,
-      price: "₩ 38,000/인",
-    },
-    {
-      id: 8,
-      imageUrl: "/image/cardListImg02.jpg",
-      title: "연인과 사랑의 징검다리 건너기",
-      rating: 4.9,
-      reviewCount: 592,
-      price: "₩ 5,600/인",
-    },
-  ];
+  });
+
+  const filteredLinks = data?.activities || [];
 
   return (
     <Layout isSticky={false}>
@@ -125,26 +123,34 @@ const MainPage = () => {
         }
         cardList={
           <>
-            <PolpularListContainer
-              title="🔥 인기 체험"
-              links={links}
-              onPreviousClick={handlePreviousClick}
-              onNextClick={handleNextClick}
-            />
-            <div className="my-16 flex items-center justify-between">
-              <CategoryList
-                categories={categories}
-                onCategoryClick={handleCategoryClick}
-              />
-              <div className="">
-                <PriceFilter
-                  options={priceOptions}
-                  selectedOption={selectedPriceOption}
-                  onChange={handlePriceOptionChange}
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : error ? (
+              <div>Error fetching data</div>
+            ) : (
+              <>
+                <PolpularListContainer
+                  title="🔥 인기 체험"
+                  links={filteredLinks}
+                  onPreviousClick={handlePreviousClick}
+                  onNextClick={handleNextClick}
                 />
-              </div>
-            </div>
-            <CardListContainer title="🛼 모든 체험" links={links} />
+                <div className="my-16 flex items-center justify-between">
+                  <CategoryList
+                    categories={categories}
+                    onCategoryClick={handleCategoryClick}
+                  />
+                  <div className="">
+                    <PriceFilter
+                      options={priceOptions}
+                      selectedOption={selectedPriceOption}
+                      onChange={handlePriceOptionChange}
+                    />
+                  </div>
+                </div>
+                <CardListContainer title="🛼 모든 체험" links={filteredLinks} />
+              </>
+            )}
           </>
         }
       />
