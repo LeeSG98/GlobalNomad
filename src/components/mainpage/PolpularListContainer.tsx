@@ -1,29 +1,32 @@
-import { useState } from "react";
-import PolpularCardList from "./PolpularCardList";
+import { useState, useEffect } from "react";
 import ArrowButton from "@/components/mainpage/ArrowButton";
+import { ActivityResponse } from "@/types/mainPage";
+import getPopularActivity from "@/api/getPopularActivity";
+import PolpularCardList from "./PolpularCardList";
 
-type PolpularContainerProps = {
-  title: string;
-  links: {
-    id: number;
-    imageUrl: string;
-    title: string;
-    rating: number;
-    reviewCount: number;
-    price: string;
-  }[];
-  onPreviousClick: () => void;
-  onNextClick: () => void;
-};
-
-const PolpularListContainer = ({
+const PopularListContainer = ({
   title,
-  links,
   onPreviousClick,
   onNextClick,
-}: PolpularContainerProps) => {
+}: {
+  title: string;
+  onPreviousClick: () => void;
+  onNextClick: () => void;
+}) => {
+  const [links, setLinks] = useState<ActivityResponse["activities"]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [totalCount, setTotalCount] = useState(0); // Total count를 상태로 관리할 수 있음
   const itemsPerPage = 3;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getPopularActivity();
+      setLinks(response.activities);
+      setTotalCount(response.totalCount);
+    };
+
+    fetchData();
+  }, []);
 
   const handlePreviousClick = () => {
     if (currentIndex > 0) {
@@ -33,10 +36,10 @@ const PolpularListContainer = ({
   };
 
   const handleNextClick = () => {
-    if (currentIndex < links.length - itemsPerPage) {
+    if (currentIndex < totalCount - itemsPerPage) {
       setCurrentIndex(currentIndex + 1);
+      onNextClick();
     }
-    onNextClick();
   };
 
   return (
@@ -57,4 +60,4 @@ const PolpularListContainer = ({
   );
 };
 
-export default PolpularListContainer;
+export default PopularListContainer;

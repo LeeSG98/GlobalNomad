@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const API_BASE_URL = "https://sp-globalnomad-api.vercel.app/5-2";
+import axiosInstance from "@/lib/axiosinstance";
 
 export enum ReservationStatus {
   PROPOSAL = "PROPOSAL", // 신청
@@ -30,7 +28,7 @@ interface ReservationDetail {
 
 // 체험 리스트 조회
 export const fetchActivities = async () => {
-  const response = await axios.get(`${API_BASE_URL}/activities`);
+  const response = await axiosInstance.get(`/activities`);
   return response.data;
 };
 
@@ -39,8 +37,8 @@ export const createReservation = async (
   activityId: number,
   reservationData: ReservationData,
 ) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/activities/${activityId}/reservations`,
+  const response = await axiosInstance.post(
+    `/activities/${activityId}/reservations`,
     reservationData,
   );
   return response.data;
@@ -48,7 +46,7 @@ export const createReservation = async (
 
 // 내 체험 리스트 조회
 export const fetchMyActivities = async () => {
-  const response = await axios.get(`${API_BASE_URL}/my-activities`);
+  const response = await axiosInstance.get(`/my-activities`);
   return response.data;
 };
 
@@ -57,8 +55,8 @@ export const fetchReservationsByMonth = async (
   activityId: number,
   month: number,
 ) => {
-  const response = await axios.get(
-    `${API_BASE_URL}/my-activities/${activityId}/reservation-dashboard?month=${month}`,
+  const response = await axiosInstance.get(
+    `/my-activities/${activityId}/reservation-dashboard?month=${month}`,
   );
   return response.data;
 };
@@ -68,8 +66,8 @@ export const fetchReservedSchedule = async (
   activityId: number,
   date: string,
 ) => {
-  const response = await axios.get(
-    `${API_BASE_URL}/my-activities/${activityId}/reserved-schedule?date=${date}`,
+  const response = await axiosInstance.get(
+    `/my-activities/${activityId}/reserved-schedule?date=${date}`,
   );
   return response.data;
 };
@@ -80,8 +78,8 @@ export const updateReservationStatus = async (
   reservationId: number,
   status: ReservationStatus,
 ) => {
-  const response = await axios.patch(
-    `${API_BASE_URL}/my-activities/${activityId}/reservations/${reservationId}`,
+  const response = await axiosInstance.patch(
+    `/my-activities/${activityId}/reservations/${reservationId}`,
     { status },
   );
   return response.data;
@@ -89,22 +87,22 @@ export const updateReservationStatus = async (
 
 // 내 예약 리스트 조회
 export const fetchReservation = async () => {
-  const response = await axios.get(`${API_BASE_URL}/my-reservations`);
+  const response = await axiosInstance.get(`/my-reservations`);
   return response.data;
 };
 
 // 내 예약 수정(취소)
 export const deleteReservation = async (reservationId: number) => {
-  const response = await axios.patch(
-    `${API_BASE_URL}/my-reservations/${reservationId}`,
+  const response = await axiosInstance.patch(
+    `/my-reservations/${reservationId}`,
   );
   return response.data;
 };
 
 // 내 예약 리뷰 작성
 export const createReservationReview = async (reservationId: number) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/my-reservations/${reservationId}/reviews`,
+  const response = await axiosInstance.post(
+    `/my-reservations/${reservationId}/reviews`,
   );
   return response.data;
 };
