@@ -9,11 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@tanstack/react-query-devtools": "^5.51.16",
-=======
     "@types/react-modal": "^3.16.3",
->>>>>>> 82f0e62b10456eab6fd315953a50f3f008c34788
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",
     "next": "14.2.4",
@@ -22,22 +19,14 @@
     "react-datepicker": "^7.3.0",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
-<<<<<<< HEAD
     "react-router-dom": "^6.26.0",
-=======
     "react-modal": "^3.16.1",
     "react-intersection-observer": "^9.13.0",
-    "react-router-dom": "^6.24.1",
->>>>>>> 82f0e62b10456eab6fd315953a50f3f008c34788
     "react-toastify": "^10.0.5",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@tanstack/react-query": "^5.51.16",
-=======
-    "@tanstack/react-query": "^5.51.11",
->>>>>>> 82f0e62b10456eab6fd315953a50f3f008c34788
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
