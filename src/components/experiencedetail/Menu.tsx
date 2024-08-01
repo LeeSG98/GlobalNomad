@@ -1,6 +1,4 @@
-// src/components/experiencedetail/Menu.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import { FaEllipsisV } from 'react-icons/fa';
 
 const Menu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +24,7 @@ const Menu: React.FC = () => {
   return (
     <div ref={menuRef} className="relative">
       <button className="text-gray-600 focus:outline-none" onClick={toggleMenu}>
-        <FaEllipsisV size={24} />
+        <img src="/image/menu.svg" alt="menu icon" className="w-6 h-6" />
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
