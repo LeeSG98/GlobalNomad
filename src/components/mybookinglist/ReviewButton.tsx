@@ -1,15 +1,16 @@
-import { useState } from "react";
-import ReactModal from "react-modal";
+import { useModal } from "@/store/ModalProvider";
 
 export default function ReviewButton() {
-  const openModal = () => {};
+  const { openModal } = useModal();
 
   return (
     <>
-      <button className="w-[144px] rounded-xl bg-nomad_black px-[12px] py-[10px] text-white">
+      <button
+        onClick={() => openModal("review")}
+        className="w-[144px] rounded-xl bg-nomad_black px-[12px] py-[10px] text-white"
+      >
         후기 작성
       </button>
-      <ReactModal isOpen={false}>modal test</ReactModal>
     </>
   );
 }

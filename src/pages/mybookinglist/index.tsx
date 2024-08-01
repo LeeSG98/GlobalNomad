@@ -1,9 +1,9 @@
 import { fetchReservation } from "@/api/api";
+import { CancelModal, ReviewModal } from "@/components/common/modal";
 import Profile from "@/components/common/profile/Profile";
 import Booking from "@/components/mybookinglist/Booking";
-import CancleButton from "@/components/mybookinglist/CancleButton";
+import CancelButton from "@/components/mybookinglist/CancelButton";
 import Filter from "@/components/mybookinglist/Filter";
-import List from "@/components/mybookinglist/List";
 import NoBooking from "@/components/mybookinglist/NoBooking";
 import ReviewButton from "@/components/mybookinglist/ReviewButton";
 import { useEffect, useState } from "react";
@@ -30,7 +30,10 @@ export default function mybookinglist() {
             <Filter setFilter={setFilter} />
           </div>
           <ReviewButton />
-          <CancleButton />
+          <ReviewModal />
+          <CancelButton />
+          <CancelModal />
+
           <div>
             {reservations.length > 0 ? (
               /* 예약 내역이 있을 경우 보여주는 화면 */
