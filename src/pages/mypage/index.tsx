@@ -106,7 +106,7 @@ export default function mypage() {
       const updateData: Partial<UserData> = {
         nickname: newNickname,
         newPassword,
-        profileImageUrl, // Include the profileImageUrl in the update data
+        profileImageUrl,
       };
 
       axiosInstance

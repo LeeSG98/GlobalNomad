@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NoBooking from "./NoBooking";
 
 interface Activity {
   bannerImageUrl: string;
@@ -41,6 +42,16 @@ export default function Booking({ filter, reservations }: ReservationProps) {
     }
   }, [filter, reservations]);
 
+  const statusColors: { [key: string]: string } = {
+    completed: "#2EB4FF",
+    declined: "#FF472E",
+    confirmed: "#FF7C1D",
+    pending: "#79747E",
+    canceled: "#79747E",
+  };
+
+  const getStatusColor = (status: string) => statusColors[status] || "black";
+
   return (
     <div className="flex w-full flex-col gap-[24px]">
       {filteredReservations.map((reservation) => (
@@ -57,7 +68,10 @@ export default function Booking({ filter, reservations }: ReservationProps) {
           </div>
           <div className="flex w-full flex-col bg-white p-4">
             <div>
-              <h3 className="pb-[8px] pt-[10px] text-lg font-extrabold">
+              <h3
+                className="pb-[8px] pt-[10px] text-lg font-extrabold"
+                style={{ color: getStatusColor(reservation.status) }}
+              >
                 {(() => {
                   switch (reservation.status) {
                     case "pending":
