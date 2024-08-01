@@ -9,18 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query-devtools": "^5.51.16",
     "axios": "^1.7.2",
     "next": "14.2.4",
     "react": "^18",
     "react-calendar": "^5.0.0",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
-    "react-router-dom": "^6.24.1",
+    "react-router-dom": "^6.26.0",
     "react-toastify": "^10.0.5",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.51.1",
+    "@tanstack/react-query": "^5.51.16",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
