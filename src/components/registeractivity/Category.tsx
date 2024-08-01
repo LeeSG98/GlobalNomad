@@ -5,7 +5,7 @@ import CategoryDropDown from "./dropDown/CategoryDropDown";
 import ArrowDown from "/public/arrowdown.png";
 import ArrowUp from "/public/arrowup.png";
 
-const AssignCategory = () => {
+const RegisterCategory = () => {
   const [isDropDown, setIsDropDown] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<Category | null>(null);
   const dropDownRef = useRef<HTMLDivElement>(null);
@@ -47,4 +47,4 @@ const AssignCategory = () => {
   );
 };
 
-export default AssignCategory;
+export default RegisterCategory;
