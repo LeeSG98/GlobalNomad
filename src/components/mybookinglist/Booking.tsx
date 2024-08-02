@@ -1,36 +1,18 @@
 import { useEffect, useState } from "react";
 import NoBooking from "./NoBooking";
-
-interface Activity {
-  bannerImageUrl: string;
-  title: string;
-  id: number;
-}
-
-interface Reservation {
-  id: number;
-  userId: number;
-  activity: Activity;
-  scheduleId: number;
-  status: string;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import ReviewButton from "./ReviewButton";
+import { CancelModal, ReviewModal } from "../common/modal";
+import CancelButton from "./CancelButton";
+import { Reservations } from "@/types/Reservation";
 
 interface ReservationProps {
   filter: string;
-  reservations: Reservation[];
+  reservations: Reservations[];
 }
 
 export default function Booking({ filter, reservations }: ReservationProps) {
   const [filteredReservations, setFilteredReservations] =
-    useState<Reservation[]>(reservations);
+    useState<Reservations[]>(reservations);
 
   useEffect(() => {
     if (filter === "all") {
@@ -43,10 +25,10 @@ export default function Booking({ filter, reservations }: ReservationProps) {
   }, [filter, reservations]);
 
   const statusColors: { [key: string]: string } = {
-    completed: "#2EB4FF",
+    completed: "#79747E",
     declined: "#FF472E",
     confirmed: "#FF7C1D",
-    pending: "#79747E",
+    pending: "#2EB4FF",
     canceled: "#79747E",
   };
 
@@ -54,6 +36,9 @@ export default function Booking({ filter, reservations }: ReservationProps) {
 
   return (
     <div className="flex w-full flex-col gap-[24px]">
+      <ReviewButton />
+      <ReviewModal />
+
       {filteredReservations.map((reservation) => (
         <div
           key={reservation.id}
@@ -75,7 +60,7 @@ export default function Booking({ filter, reservations }: ReservationProps) {
                 {(() => {
                   switch (reservation.status) {
                     case "pending":
-                      return "예약 신청";
+                      return "예약 완료";
                     case "canceled":
                       return "예약 취소";
                     case "confirmed":
@@ -94,6 +79,10 @@ export default function Booking({ filter, reservations }: ReservationProps) {
             </div>
             <div>
               <p className="text-lg font-semibold">₩{reservation.totalPrice}</p>
+              {reservation.status === "pending" && (
+                <CancelButton reservationId={reservation.id} />
+              )}
+              <CancelModal />
             </div>
           </div>
         </div>

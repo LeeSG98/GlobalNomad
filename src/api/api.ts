@@ -98,6 +98,7 @@ export const fetchReservation = async () => {
 export const deleteReservation = async (reservationId: number) => {
   const response = await axiosInstance.patch(
     `${API_BASE_URL}/my-reservations/${reservationId}`,
+    { status: "canceled" },
   );
   return response.data;
 };
