@@ -1,9 +1,9 @@
 import Header from "@/components/header/header";
 import Profile from "@/components/common/profile/Profile";
-import Title from '@/components/registeractivity/Title';
-import Input from '@/components/registeractivity/Input';
-import Category from '@/components/registeractivity/Category';
-import Explanation from "@/components/registeractivity/Explanation";
+import Title from "@/components/registeractivity/Title";
+import Submit from "@/components/registeractivity/Submit";
+import Category from "@/components/registeractivity/Category";
+import Description from "@/components/registeractivity/Description";
 import Price from "@/components/registeractivity/Price";
 import Address from "@/components/registeractivity/Address";
 import Reserve from "@/components/registeractivity/Reserve";
@@ -18,10 +18,10 @@ const registeractivity = () => {
       <div className="flex justify-center gap-[1.5rem] pt-[4.5rem] bg-gray_FA">
         <Profile />
         <div className="flex w-[49.5rem] flex-col">
+          <Submit />
           <Title />
-          <Input />
           <Category />
-          <Explanation />
+          <Description />
           <Price />
           <Address />
           <Reserve />
