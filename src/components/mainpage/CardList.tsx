@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 type CardListProps = {
@@ -14,13 +15,17 @@ type CardListProps = {
 const CardList = ({ links }: CardListProps) => {
   return (
     <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-4 gap-4 sm:grid-cols-2">
         {links.map((link) => (
           <div key={link.id} className="mb-4 overflow-hidden">
-            <div
-              className="h-72 w-full rounded-2xl bg-cover bg-center"
-              style={{ backgroundImage: `url(${link.imageUrl})` }}
-            ></div>
+            <div className="relative h-72 w-full rounded-2xl">
+              <Image
+                className="absolute left-0 top-0 rounded-2xl"
+                alt={link.title}
+                src={link.imageUrl}
+                fill
+              />
+            </div>
             <div className="p-4">
               <div className="mt-2 flex items-center">
                 <img

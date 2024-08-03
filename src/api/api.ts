@@ -1,5 +1,6 @@
 import axios from "axios";
 import axiosInstance from "@/lib/axiosinstance";
+import { GetActivitiesParams, GetActivitiesResponse } from "@/types/mainPage";
 
 const API_BASE_URL = "https://sp-globalnomad-api.vercel.app/5-2";
 
@@ -107,5 +108,17 @@ export const createReservationReview = async (reservationId: number) => {
   const response = await axiosInstance.post(
     `${API_BASE_URL}/my-reservations/${reservationId}/reviews`,
   );
+  return response.data;
+};
+
+export const getActivities = async (
+  params: GetActivitiesParams,
+): Promise<GetActivitiesResponse> => {
+  const { category, ...otherParams } = params;
+  const requestParams = category ? { ...otherParams, category } : otherParams;
+
+  const response = await axiosInstance.get("/activities", {
+    params: requestParams,
+  });
   return response.data;
 };
