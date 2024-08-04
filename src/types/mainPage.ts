@@ -9,7 +9,7 @@ export type ActivityInfo = {
   bannerImageUrl: string;
   rating: number;
   reviewCount: number;
-  createdAt: string;
+  createAt: string;
   updatedAt: string;
 };
 
