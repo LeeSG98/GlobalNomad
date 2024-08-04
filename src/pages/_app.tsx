@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "@/store/StoreProvider";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ModalProvider } from "@/store/ModalProvider";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 
@@ -21,11 +22,13 @@ const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <StoreProvider>
-          {showHeaderFooter && <Header />}
-          <Component {...pageProps} />
-          {showHeaderFooter && <Footer />}
-        </StoreProvider>
+        <ModalProvider>
+          <StoreProvider>
+            {showHeaderFooter && <Header />}
+            <Component {...pageProps} />
+            {showHeaderFooter && <Footer />}
+          </StoreProvider>
+        </ModalProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

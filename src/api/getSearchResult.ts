@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axiosinstance";
-import { ActivityResponse } from "@/types/mainPage";
+import { GetActivitiesResponse } from "@/types/mainPage";
 
-const defaultActivityResponse: ActivityResponse = {
+const defaultActivityResponse: GetActivitiesResponse = {
   activities: [],
   totalCount: 0,
 };
@@ -10,7 +10,7 @@ const getSearchResult = async (
   keyword: string,
   pageNum: number,
   size: number,
-): Promise<ActivityResponse> => {
+): Promise<GetActivitiesResponse> => {
   const urlSearchParams = new URLSearchParams({
     method: "offset",
     keyword,
@@ -19,7 +19,7 @@ const getSearchResult = async (
   });
 
   try {
-    const res = await axiosInstance.get<ActivityResponse>(
+    const res = await axiosInstance.get<GetActivitiesResponse>(
       `/activities?${urlSearchParams}`,
     );
     return res.data;

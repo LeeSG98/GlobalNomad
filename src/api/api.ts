@@ -1,4 +1,8 @@
+import axios from "axios";
 import axiosInstance from "@/lib/axiosinstance";
+import { GetActivitiesParams, GetActivitiesResponse } from "@/types/mainPage";
+
+const API_BASE_URL = "https://sp-globalnomad-api.vercel.app/5-2";
 
 export enum ReservationStatus {
   PROPOSAL = "PROPOSAL", // 신청
@@ -87,14 +91,14 @@ export const updateReservationStatus = async (
 
 // 내 예약 리스트 조회
 export const fetchReservation = async () => {
-  const response = await axiosInstance.get(`/my-reservations`);
+  const response = await axiosInstance.get(`${API_BASE_URL}/my-reservations`);
   return response.data;
 };
 
 // 내 예약 수정(취소)
 export const deleteReservation = async (reservationId: number) => {
   const response = await axiosInstance.patch(
-    `/my-reservations/${reservationId}`,
+    `${API_BASE_URL}/my-reservations/${reservationId}`,
   );
   return response.data;
 };
@@ -102,7 +106,19 @@ export const deleteReservation = async (reservationId: number) => {
 // 내 예약 리뷰 작성
 export const createReservationReview = async (reservationId: number) => {
   const response = await axiosInstance.post(
-    `/my-reservations/${reservationId}/reviews`,
+    `${API_BASE_URL}/my-reservations/${reservationId}/reviews`,
   );
+  return response.data;
+};
+
+export const getActivities = async (
+  params: GetActivitiesParams,
+): Promise<GetActivitiesResponse> => {
+  const { category, ...otherParams } = params;
+  const requestParams = category ? { ...otherParams, category } : otherParams;
+
+  const response = await axiosInstance.get("/activities", {
+    params: requestParams,
+  });
   return response.data;
 };

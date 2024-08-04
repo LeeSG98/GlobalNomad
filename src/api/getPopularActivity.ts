@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axiosinstance";
-import { ActivityResponse } from "@/types/mainPage";
+import { GetActivitiesResponse } from "@/types/mainPage";
 
-const DEFAULT_ACTIVITY_RESPONSE: ActivityResponse = {
+const DEFAULT_ACTIVITY_RESPONSE: GetActivitiesResponse = {
   activities: [],
   totalCount: 0,
 };
@@ -16,7 +16,7 @@ const urlSearchParams = new URLSearchParams({
 // 인기 체험 리스트 데이터를 불러오는 함수.
 async function getPopularActivity() {
   try {
-    const res = await axiosInstance.get<ActivityResponse>(
+    const res = await axiosInstance.get<GetActivitiesResponse>(
       `/activities?${urlSearchParams}`,
     );
     return res.data;

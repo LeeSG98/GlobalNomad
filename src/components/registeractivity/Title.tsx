@@ -1,14 +1,16 @@
 import React from "react";
+import useMergeAssignData from "@/hooks/useMergeRegisterData";
 
 const Title = () => {
+  const { mergeTitle } = useMergeAssignData();
+
+  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    mergeTitle(e.target.value);
+  };
+
   return (
-    <div className="w-[800px] flex justify-between pr-[8px]">
-      <span className="font-bold text-[32px]">
-        내 체험 등록
-      </span>
-      <button type="submit" className="flex w-[120px] h-[48px] px-[16px] py-[8px] gap-[4px] rounded justify-center items-center text-white font-bold bg-[#112211] text-[16px]">
-        등록하기
-      </button>
+    <div className="flex mt-[1.5rem]">
+      <input onChange={handleChangeTitle} className="w-[49.5rem] h-[3.5rem] py-[0.938rem] pl-[1rem] items-center border-[1px] border-gray_79 rounded" type="text" placeholder="제목" />
     </div>
   );
 };

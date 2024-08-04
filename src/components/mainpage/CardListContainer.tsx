@@ -1,63 +1,47 @@
+// CardListContainer.tsx
 import { useEffect, useState } from "react";
 import CardList from "./CardList";
 import Pagination from "./Pagination";
-import axiosInstance from "@/lib/axiosinstance";
 import { useQuery } from "@tanstack/react-query";
+import { getActivities } from "@/api/api";
+import { Activity, GetActivitiesResponse } from "@/types/mainPage";
 
 type CardListContainerProps = {
   title: string;
-};
-
-const CardListContainer = ({ title }: CardListContainerProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  type GetActivitiesResponse = {
-    cursorId?: number;
-    totalCount: number;
-    activities: Activity[];
-  };
-
-  interface Activity {
+  links: {
     id: number;
-    userId: number;
+    imageUrl: string;
     title: string;
-    description: string;
-    category: string;
-    price: number;
-    address: string;
-    bannerImageUrl: string;
     rating: number;
     reviewCount: number;
-    createdAt: string;
-    updatedAt: string;
-  }
+    price: string;
+  }[];
+  searchValue: string;
+  selectedCategory: string | null;
+};
 
-  type GetActivitiesParams = {
-    method: "offset" | "cursor";
-    cursorId?: number;
-    category?: string;
-    keyword?: string;
-    sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest";
-    page?: number;
-    size?: number;
-  };
+const CardListContainer = ({
+  title,
+  searchValue,
+  selectedCategory,
+}: CardListContainerProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const getActivities = async (
-    params: GetActivitiesParams,
-  ): Promise<GetActivitiesResponse> => {
-    const response = await axiosInstance.get("/activities", { params });
-    return response.data;
-  };
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["activities", currentPage],
+  const { data, isLoading, error } = useQuery<GetActivitiesResponse>({
+    queryKey: ["activities", currentPage, searchValue, selectedCategory], // Add selectedCategory to queryKey
     queryFn: () => {
-      return getActivities({
+      const params: GetActivitiesParams = {
         method: "offset",
         page: currentPage,
         size: 8,
-      });
+        category: selectedCategory || undefined, // Add category to params
+      };
+
+      if (searchValue) {
+        params.keyword = searchValue;
+      }
+
+      return getActivities(params);
     },
   });
 
