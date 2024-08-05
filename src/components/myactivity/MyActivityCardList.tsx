@@ -20,7 +20,7 @@ const MyActivityCardList = () => {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <img src="/assets/spinner.svg" alt="loding_spinner" />
+        <img src="/image/spinner.svg" alt="loding_spinner" />
       </div>
     );
   }
@@ -36,7 +36,7 @@ const MyActivityCardList = () => {
           </ul>
           {isFetchingNextPage && (
             <div className="flex justify-center items-center">
-              <img src="/assets/spinner.svg" alt="loding_spinner" />
+              <img src="/image/spinner.svg" alt="loding_spinner" />
             </div>
           )}
         </>
