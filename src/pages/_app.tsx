@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "@/store/StoreProvider";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { ModalProvider } from "@/store/ModalProvider";
+import { ModalProvider } from "@/store/ModalContext";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 
@@ -25,6 +25,7 @@ const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps }) => {
         <ModalProvider>
           <StoreProvider>
             <Component {...pageProps} />
+            {/* <ModalManager /> */}
           </StoreProvider>
         </ModalProvider>
       </AuthProvider>

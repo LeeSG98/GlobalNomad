@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import NoBooking from "./NoBooking";
-import ReviewButton from "./ReviewButton";
-import { CancelModal, ReviewModal } from "../common/modal";
+import { ReviewModal, CancelModal } from "../common/modal";
 import CancelButton from "./CancelButton";
+import ReviewButton from "./ReviewButton";
 import { Reservations } from "@/types/Reservation";
+import { useModal } from "@/store/ModalContext";
 
 interface ReservationProps {
   filter: string;
@@ -13,16 +13,40 @@ interface ReservationProps {
 export default function Booking({ filter, reservations }: ReservationProps) {
   const [filteredReservations, setFilteredReservations] =
     useState<Reservations[]>(reservations);
+  const [currentReservation, setCurrentReservation] =
+    useState<Reservations | null>(null);
+  const { openModal, closeModal, isModalOpen, modalType } = useModal();
 
   useEffect(() => {
-    if (filter === "all") {
-      setFilteredReservations(reservations);
-    } else {
-      setFilteredReservations(
-        reservations.filter((reservation) => reservation.status === filter),
+    let newestReservations = reservations;
+
+    if (filter !== "all") {
+      newestReservations = reservations.filter(
+        (reservation) => reservation.status === filter,
       );
     }
+
+    newestReservations.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+
+    setFilteredReservations(newestReservations);
   }, [filter, reservations]);
+
+  useEffect(() => {
+    const updatedReservations = reservations.map((reservation) => {
+      if (reservation.status === "confirmed") {
+        const endTimme = new Date(`${reservation.date}T${reservation.endTime}`);
+        const now = new Date();
+
+        if (endTimme < now) {
+          return { ...reservation, status: "completed" };
+        }
+      }
+      return reservation;
+    });
+    setFilteredReservations(updatedReservations);
+  }, [reservations]);
 
   const statusColors: { [key: string]: string } = {
     completed: "#79747E",
@@ -34,11 +58,38 @@ export default function Booking({ filter, reservations }: ReservationProps) {
 
   const getStatusColor = (status: string) => statusColors[status] || "black";
 
+  const handleOpenModal = (type: string, reservation: Reservations) => {
+    setCurrentReservation(reservation);
+    openModal(type);
+  };
+
+  // const [selectedReservation, setSelectedReservastion] =  useState
+
+  // const handleOpenCancelModal = (id:string) => {
+  //   openModal(<ReservationaCancelModal reservationId={id}/>)
+  // }
+
+  // return (
+  //   <>
+  //     {[].map(item => {
+  //       return <div onClick={() => handleOpenCancelModal(reservationId)}}>
+  //         {item}
+  //       </div>
+  //     })}
+
+  //     // 모달 ui
+  //     // <ReservationaCancelModal />
+  //   </>
+  // )
+
   return (
     <div className="flex w-full flex-col gap-[24px]">
-      <ReviewButton />
-      <ReviewModal />
-
+      {isModalOpen && modalType === "review" && currentReservation && (
+        <ReviewModal reservation={currentReservation} closeModal={closeModal} />
+      )}
+      {isModalOpen && modalType === "cancel" && currentReservation && (
+        <CancelModal reservation={currentReservation} closeModal={closeModal} />
+      )}
       {filteredReservations.map((reservation) => (
         <div
           key={reservation.id}
@@ -77,12 +128,19 @@ export default function Booking({ filter, reservations }: ReservationProps) {
               </p>
               <p className="pb-[20px] text-gray-500">{`${reservation.date} · ${reservation.startTime} - ${reservation.endTime} · ${reservation.headCount}명`}</p>
             </div>
-            <div>
+            <div className="flex items-center justify-between">
               <p className="text-lg font-semibold">₩{reservation.totalPrice}</p>
               {reservation.status === "pending" && (
-                <CancelButton reservationId={reservation.id} />
+                <CancelButton
+                  onClick={() => handleOpenModal("cancel", reservation)}
+                />
               )}
-              <CancelModal />
+
+              {reservation.status === "completed" && (
+                <ReviewButton
+                  onClick={() => handleOpenModal("review", reservation)}
+                />
+              )}
             </div>
           </div>
         </div>

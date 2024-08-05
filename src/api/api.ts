@@ -104,9 +104,14 @@ export const deleteReservation = async (reservationId: number) => {
 };
 
 // 내 예약 리뷰 작성
-export const createReservationReview = async (reservationId: number) => {
+export const createReservationReview = async (
+  reservationId: number,
+  rating: number,
+  content: string,
+) => {
   const response = await axiosInstance.post(
     `${API_BASE_URL}/my-reservations/${reservationId}/reviews`,
+    { rating, content },
   );
   return response.data;
 };
