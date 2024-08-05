@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface Experience {
   id: number;
@@ -10,8 +10,12 @@ interface DropdownMenuProps {
   onSelect: (experience: Experience) => void;
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ experiences, onSelect }) => {
-  const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  experiences,
+  onSelect,
+}) => {
+  const [selectedExperience, setSelectedExperience] =
+    useState<Experience | null>(null);
 
   const handleSelect = (experience: Experience) => {
     setSelectedExperience(experience);
@@ -21,10 +25,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ experiences, onSelect }) =>
   return (
     <div>
       <button className="dropdown-button">
-        {selectedExperience ? selectedExperience.name : '체험 선택'}
+        {selectedExperience ? selectedExperience.name : "체험 선택"}
       </button>
       <ul className="dropdown-menu">
-        {experiences.map(exp => (
+        {experiences.map((exp) => (
           <li key={exp.id} onClick={() => handleSelect(exp)}>
             {exp.name}
           </li>
