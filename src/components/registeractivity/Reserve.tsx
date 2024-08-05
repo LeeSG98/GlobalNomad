@@ -1,127 +1,81 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import Calendar from "/public/calendar.png";
-import ArrowDown from "/public/arrowdown.png";
-import ArrowUp from "/public/arrowup.png";
-import Plus from "/public/plus-icon.png";
-import Line from "/public/line.png";
+import { useQuery } from "@tanstack/react-query";
+import { RegisterData, Schedule } from "@/types/registerActivity";
+import queryKeys from "@/api/reactQuery/queryKeys";
+import useMergeRegisterData from "@/hooks/useMergeRegisterData";
+import ReservationDate from "./reservation/ReservationDate";
+import ReservationStartTime from "./reservation/ReservationStartTime";
+import ReservationEndTime from "./reservation/ReservationEndTime";
+import ReservationForm from "./reservation/ReservationForm";
+import PlusButton from "/public/plus-icon.png";
 
 const Reserve = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const onToggle = () => setIsOpen(!isOpen);
+  const { mergeSchedule, initialTimes } = useMergeRegisterData();
+  const data = useQuery({ queryKey: queryKeys.registerData() }).data as RegisterData;
+  const time: Schedule[] = data ? data.schedules : [];
+  const { data: reservationDate } = useQuery({ queryKey: queryKeys.registerDate() });
+  const { data: reservationStartTime } = useQuery({
+    queryKey: queryKeys.registerStartTime(),
+  });
+  const { data: reservationEndTime } = useQuery({
+    queryKey: queryKeys.registerEndTime(),
+  });
 
-  const [isCloseOpen, setIsCloseOpen] = useState<boolean>(false);
-  const onCloseToggle = () => setIsCloseOpen(!isCloseOpen);
+  const handleAssignTime = () => {
+    if (reservationDate && reservationStartTime && reservationEndTime) {
+      const newReservationTime: Schedule = {
+        date: reservationDate as string,
+        startTime: reservationStartTime as string,
+        endTime: reservationEndTime as string,
+      };
+      const isDuplicate = time.some(
+        // 시간대 중복 로직
+        (t: Schedule) =>
+          t.date === newReservationTime.date &&
+          t.startTime === newReservationTime.startTime &&
+          t.endTime === newReservationTime.endTime,
+      );
+      if (isDuplicate) {
+        console.error("동일한 날짜 및 시간대는 중복될 수 없습니다.");
+        initialTimes();
+        return;
+      }
+      mergeSchedule(newReservationTime);
+      initialTimes();
+    } else {
+      console.error("날짜와 시간대는 필수 입력 사항입니다.");
+    }
+  };
 
   return (
-    <>
-      <div className="flex mt-[1.5rem]">
-        <span className="text-[1.5rem] font-bold">예약 가능한 시간대</span>
-      </div>
-      <div className="flex flex-row gap-[1.25rem]">
-        <div className="flex flex-col mt-[1.5rem] text-[1.25rem] text-gray_4B">
-          날짜
-          <input className="w-[23.688rem] h-[3.5rem] mt-[0.625rem] py-[0.5rem] pl-[1rem] border-[1px] border-gray_79 rounded text-[1rem] relative" type="text" placeholder="YY/MM/DD" />
-        </div>
-        <div className="flex flex-col mt-[1.5rem] text-[20px] text-gray_4B"> 시작 시간
-          <div className="flex relative w-[8.75rem] h-[3.5rem] mt-[0.625rem] py-[0.5rem] pl-[1rem] justify-between items-center border-[1px] border-gray_79 rounded text-[1rem] text-gray_A4 bg-white">
-            0:00
-            <button onClick={onToggle}>
-              <Image src={isOpen ? ArrowDown : ArrowUp} alt="화살표" className="w-[1.25rem] h-[1.25rem] m-[0.75rem]" />
-            </button>
+    <div className="flex w-[100%] flex-col items-start gap-6">
+      <span className="mt-6 text-black text-2xl font-bold">
+        예약 가능한 시간대
+      </span>
+      <div className=" flex w-[100%] flex-col items-start gap-[21px]">
+        <div className="flex w-[100%] items-start gap-5">
+          <ReservationDate />
+
+          <div className="flex h-[70px] w-[100%] items-center gap-3">
+            <ReservationStartTime />
+
+            <span className="mt-16">~</span>
+
+            <ReservationEndTime />
           </div>
+
+          <Image
+            className="mt-9 h-[56px] cursor-pointer"
+            src={PlusButton}
+            alt="plusTimeBtn"
+            onClick={handleAssignTime}
+          />
         </div>
-        <div>
-          {isOpen && (
-            <>
-              <div className="absolute left-[72.3rem] -bottom-[27.188rem] w-[8.75rem] h-[14.5rem] p-[0.5rem] mt-[0.5rem] bg-white rounded shadow overflow-y-scroll">
-                <button className="w-[6rem] h-[2.5rem] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  9:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  10:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  11:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  12:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  13:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  14:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  15:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  16:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  17:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  18:00
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-        <span className="flex text-[1.25rem] text-black mt-[4.8rem] -ml-[25px] -mr-[5px]">~</span>
-        <div className="flex flex-col mt-[1.5rem] text-[1.25rem] text-gray_4B"> 종료 시간
-          <div className="flex w-[8.75rem] h-[3.5rem] mt-[0.625rem] py-[0.5rem] pl-[1rem] justify-between items-center border-[1px] border-gray_79 rounded text-[1rem] text-gray_A4 bg-white">
-            0:00
-            <button onClick={onCloseToggle}>
-              <Image src={isCloseOpen ? ArrowDown : ArrowUp} alt="화살표" className="w-[1.5rem] h-[1.5rem] m-[0.75rem]" />
-            </button>
-          </div>
-        </div>
-        <div>
-          {isCloseOpen && (
-            <>
-              <div className="absolute left-[83.563rem] -bottom-[27.188rem] w-[8.75rem] h-[14.5rem] p-[0.5rem] mt-[0.5rem] bg-white rounded shadow overflow-y-scroll">
-                <button className="w-[6rem] h-[2.5rem] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  9:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  10:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  11:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  12:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  13:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  14:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  15:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  16:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  17:00
-                </button>
-                <button className="w-[6rem] h-[2.5rem] pt-[2px] text-[#1B1B1B] text-center hover:bg-[#112211] hover:text-white hover:rounded-[6px]">
-                  18:00
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-        <button>
-          <Image src={Plus} alt="추가" className="mt-[3.938rem] w-[3.5rem] h-[3.5rem] -ml-[20px]" />
-        </button>
+        {/*  */}
+        {data && data.schedules.length > 0 && <ReservationForm />}
       </div>
-      <Image src={Line} alt="줄" className="flex mt-[1.313rem]"/>
-    </>
+    </div>
   );
 };
 

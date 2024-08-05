@@ -26,7 +26,7 @@ interface StartTimeProps {
           <button
             key={time.startTime}
             type="button"
-            className="w-[100%]  hover:bg-[#112211]"
+            className="w-[100%]  hover:bg-[#112211] hover:text-white"
             onClick={handleSelectedTime(time.startTime)}
           >
             <li className="flex text-base">{time.startTime}</li>
