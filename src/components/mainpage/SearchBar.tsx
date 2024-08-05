@@ -71,7 +71,7 @@ const SearchBar = () => {
         <div className="flex items-center gap-3">
           <div className="relative">
             <input
-              className="border-gray-60 focus:border-green-40 placeholder:pl-0.1 h-14 w-[62.5rem] rounded-md border border-solid px-10 py-2 focus:outline-none"
+              className="placeholder:pl-0.1 h-14 w-[62.5rem] rounded-md border border-solid border-gray_A4 px-10 py-2 focus:border-green_CE focus:outline-none"
               type="search"
               value={searchWord}
               onChange={handleChange}

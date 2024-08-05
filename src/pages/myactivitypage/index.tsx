@@ -1,12 +1,10 @@
-import Footer from "@/components/footer/footer";
-import Header from "@/components/header/header";
 import Profile from "@/components/common/profile/Profile";
 import React from "react";
 import MyActivityCardHeader from "@/components/myactivity/MyActivityCardHeader";
 import MyActivityCardList from "@/components/myactivity/MyActivityCardList";
 
 const MyActivityPage = () => (
-  <div className="dark:bg-darkMode-black-10 min-h-[calc(100vh-160px)] bg-gray_FA">
+  <div className="bg-gray-10 dark:bg-darkMode-black-10 min-h-[calc(100vh-160px)]">
     <div className="dark:bg-darkMode-black-10 flex justify-center gap-6 bg-[#FAFAFA] pb-[72px] pt-[72px] sm:block sm:px-[16px] sm:pb-[24px] sm:pt-[24px] md:justify-normal md:gap-4 md:px-6 md:pb-[24px] md:pt-[24px]">
       <Profile />
       <div className="w-[800px] sm:w-full">
