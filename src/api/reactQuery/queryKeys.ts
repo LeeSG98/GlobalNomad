@@ -5,6 +5,9 @@ const queryKeys = {
   registerEndTime: () => ["register/EndTime"] as const,
 
   activities: () => ["activities", 5] as const,
+
+  reservationTimeTable: (id: number, year: string, month: string) =>
+    ['reservationTimeTable', id, year, month] as const,
 };
 
 export default queryKeys;
