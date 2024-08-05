@@ -5,6 +5,7 @@ export type GetActivitiesResponse = {
 };
 
 export interface Activity {
+  imageUrl: string;
   id: number;
   userId: number;
   title: string;

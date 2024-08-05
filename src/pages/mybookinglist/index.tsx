@@ -1,8 +1,6 @@
 import { fetchReservation } from "@/api/api";
 import { CancelModal, ReviewModal } from "@/components/common/modal";
 import Profile from "@/components/common/profile/Profile";
-import Footer from "@/components/footer/footer";
-import Header from "@/components/header/header";
 import Booking from "@/components/mybookinglist/Booking";
 import Filter from "@/components/mybookinglist/Filter";
 import NoBooking from "@/components/mybookinglist/NoBooking";
@@ -22,7 +20,6 @@ export default function mybookinglist() {
 
   return (
     <>
-      <Header />
       <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
         <Profile />
         <div className="flex w-[792px] flex-col gap-[24px]">
@@ -46,7 +43,6 @@ export default function mybookinglist() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
