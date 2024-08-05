@@ -1,10 +1,10 @@
 import NoBooking from '@/components/bookingstatus/NoBooking';
 import ReserveStatusContent from '@/components/bookingstatus/BookingStatusContent';
-import useInfiniteMyActivity from '@/hooks/useLoadMoreActivities';
+import useLoadMoreActivities from '@/hooks/useLoadMoreActivities';
 import React from 'react';
 
 const BookingStatusPage = () => {
-  const { myActivityData } = useInfiniteMyActivity();
+  const { myActivityData } = useLoadMoreActivities();
   const activities = myActivityData?.pages.flatMap((page) => page.activities) || [];
 
   return activities.length === 0 ? (
@@ -18,6 +18,7 @@ const BookingStatusPage = () => {
     <ReserveStatusContent />
   );
 };
+
 
 export default BookingStatusPage;
  

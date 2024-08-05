@@ -1,10 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useRouter } from 'next/router';
 
 const MyActivityCardHeader = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleAssignClick = () => {
-    navigate('/my/activity/assign');
+    router.push('/my/activity/assign');
   };
 
   return (
