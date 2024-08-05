@@ -8,7 +8,7 @@ const useMergeRegisterData = () => {
   const queryClient = useQueryClient();
 
   const mergeTitle = (title: string) => {
-    queryClient.setQueryData<RegisterData>(["assignData"], (oldData) => {
+    queryClient.setQueryData<RegisterData>(["registerData"], (oldData) => {
       return mergeRegisterData(oldData, { title });
     });
   };
@@ -95,7 +95,7 @@ const useMergeRegisterData = () => {
     queryClient.setQueryData(queryKeys.registerEndTime(), "");
   };
 
-  const initialAssignData = () => {
+  const initialRegisterData = () => {
     queryClient.setQueryData(queryKeys.registerData(), null);
   };
 
@@ -114,7 +114,7 @@ const useMergeRegisterData = () => {
     mergeEndTime,
     mergeSchedule,
     initialTimes,
-    initialAssignData,
+    initialRegisterData,
     resetSchedule,
   };
 };

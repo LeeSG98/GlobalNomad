@@ -6,13 +6,14 @@ import useMergeRegisterData from "@/hooks/useMergeRegisterData";
 
 const useMutationRegisterData = () => {
   const queryClient = useQueryClient();
-  const { initialAssignData } = useMergeRegisterData();
-  const assignMutation = useMutation({
-    mutationFn: async (assignData: RegisterData) => {
-      return postRegisterActivity(assignData);
+  const { initialRegisterData } = useMergeRegisterData();
+  const registerMutation = useMutation({
+    mutationFn: async (registerData: RegisterData) => {
+      return postRegisterActivity(registerData);
     },
     onSuccess: () => {
-      initialAssignData();
+      console.log("등록 성공!")
+      initialRegisterData();
       queryClient.invalidateQueries({ queryKey: queryKeys.activities() });
       queryClient.invalidateQueries({ queryKey: [" "] });
     },
@@ -21,7 +22,7 @@ const useMutationRegisterData = () => {
     },
   });
 
-  return { assignMutation };
+  return { registerMutation };
 };
 
 export default useMutationRegisterData;

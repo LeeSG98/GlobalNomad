@@ -9,6 +9,8 @@ import { FaRegCalendarCheck } from "react-icons/fa6";
 import Link from "next/link";
 import List from "@/components/common/profile/List";
 import Input from "@/components/mypage/Input";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
 interface UserData {
   nickname: string;
@@ -128,85 +130,93 @@ export default function mypage() {
   };
 
   return (
-    <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
-      <div className="flex h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow">
-        <div className="flex justify-center">
-          <div className="relative">
-            {src ? (
-              <img
-                src={src}
-                alt="유저이미지"
-                className="h-[160px] w-[160px] rounded-full shadow"
-              />
-            ) : (
-              <div className="flex h-[160px] w-[160px] items-center justify-center rounded-full bg-gray-200 shadow">
-                <FaRegUser className="text-6xl text-gray-400" />
-              </div>
-            )}
-            <label
-              htmlFor="imageUpload"
-              className="absolute bottom-0 right-2 flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full bg-green_0B"
-            >
-              <HiOutlinePencil className="text-white" />
-              <input
-                id="imageUpload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-            </label>
+    <>
+      <Header />
+      <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
+        <div className="flex h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow">
+          <div className="flex justify-center">
+            <div className="relative">
+              {src ? (
+                <img
+                  src={src}
+                  alt="유저이미지"
+                  className="h-[160px] w-[160px] rounded-full shadow"
+                />
+              ) : (
+                <div className="flex h-[160px] w-[160px] items-center justify-center rounded-full bg-gray-200 shadow">
+                  <FaRegUser className="text-6xl text-gray-400" />
+                </div>
+              )}
+              <label
+                htmlFor="imageUpload"
+                className="absolute bottom-0 right-2 flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full bg-green_0B"
+              >
+                <HiOutlinePencil className="text-white" />
+                <input
+                  id="imageUpload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
+            </div>
+          </div>
+          <div className="flex flex-col gap-[8px]">
+            <Link href="/mypage">
+              <List icon={<TbUserCheck />} title="내 정보" />
+            </Link>
+            <Link href="/mybookinglist">
+              <List icon={<MdPlaylistAddCheck />} title="예약내역" />
+            </Link>
+            <Link href="/MyActvitiyPage">
+              <List icon={<CiSettings />} title="내 체험 관리" />
+            </Link>
+            <Link href="/bookingstatus">
+              <List icon={<FaRegCalendarCheck />} title="예약 현황" />
+            </Link>
           </div>
         </div>
-        <div className="flex flex-col gap-[8px]">
-          <Link href="/mypage">
-            <List icon={<TbUserCheck />} title="내 정보" />
-          </Link>
-          <Link href="/mybookinglist">
-            <List icon={<MdPlaylistAddCheck />} title="예약내역" />
-          </Link>
-          <List icon={<CiSettings />} title="내 체험 관리" />
-          <List icon={<FaRegCalendarCheck />} title="예약 현황" />
-        </div>
-      </div>
 
-      <div className="flex w-[792px] flex-col gap-[24px]">
-        <div className="flex justify-between">
-          <h1 className="text-3xl font-bold">내 정보</h1>
-          <button
-            className="h-[48px] w-[120px] rounded bg-nomad_black px-4 py-2 text-white"
-            onClick={handleSave}
-          >
-            저장하기
-          </button>
-        </div>
-        <div className="flex flex-col gap-[32px]">
-          <Input
-            label="닉네임"
-            placeholder={userData.nickname}
-            value={newNickname}
-            onChange={handleNicknameChange}
-          />
-          <Input label="이메일" placeholder={userData.email} />
-          <Input
-            label="비밀번호"
-            placeholder="8자 이상 입력해 주세요"
-            type="password"
-            value={newPassword}
-            onChange={handlePasswordChange}
-          />
-          <Input
-            label="비밀번호 재입력"
-            passwordError={passwordError}
-            placeholder="비밀번호를 한번 더 입력해 주세요"
-            type="password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            onBlur={handleConfirmPasswordBlur}
-            className={passwordError ? "border-red-500" : ""}
-          />
+        <div className="flex w-[792px] flex-col gap-[24px]">
+          <div className="flex justify-between">
+            <h1 className="text-3xl font-bold">내 정보</h1>
+            <button
+              className="h-[48px] w-[120px] rounded bg-nomad_black px-4 py-2 text-white"
+              onClick={handleSave}
+            >
+              저장하기
+            </button>
+          </div>
+          <div className="flex flex-col gap-[32px]">
+            <Input
+              label="닉네임"
+              placeholder={userData.nickname}
+              value={newNickname}
+              onChange={handleNicknameChange}
+            />
+            <Input label="이메일" placeholder={userData.email} />
+            <Input
+              label="비밀번호"
+              placeholder="8자 이상 입력해 주세요"
+              type="password"
+              value={newPassword}
+              onChange={handlePasswordChange}
+            />
+            <Input
+              label="비밀번호 재입력"
+              passwordError={passwordError}
+              placeholder="비밀번호를 한번 더 입력해 주세요"
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              onBlur={handleConfirmPasswordBlur}
+              className={passwordError ? "border-red-500" : ""}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

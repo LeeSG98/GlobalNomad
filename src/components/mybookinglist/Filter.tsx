@@ -39,7 +39,7 @@ export default function Filter({ setFilter }: FilterProps) {
           <button className={hover} onClick={() => applyFilter("pending")}>
             예약 신청
           </button>
-          <button className={hover} onClick={() => applyFilter("cancled")}>
+          <button className={hover} onClick={() => applyFilter("canceled")}>
             예약 취소
           </button>
           <button className={hover} onClick={() => applyFilter("confirmed")}>
