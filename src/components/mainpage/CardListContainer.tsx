@@ -4,7 +4,11 @@ import CardList from "./CardList";
 import Pagination from "./Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getActivities } from "@/api/api";
-import { Activity, GetActivitiesResponse } from "@/types/mainPage";
+import {
+  Activity,
+  GetActivitiesParams,
+  GetActivitiesResponse,
+} from "@/types/mainPage";
 
 type CardListContainerProps = {
   title: string;
