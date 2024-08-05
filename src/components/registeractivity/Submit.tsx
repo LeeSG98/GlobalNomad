@@ -2,18 +2,20 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { RegisterData } from "@/types/registerActivity";
 import queryKeys from "@/api/reactQuery/queryKeys";
-import useCheckAssignData from "@/hooks/useCheckRegisterData";
-import useMutationAssignData from "@/hooks/useMutateRegisterData";
+import useCheckRegisterData from "@/hooks/useCheckRegisterData";
+import useMutationRegisterData from "@/hooks/useMutateRegisterData";
 
 const Submit = () => {
-  const { assignMutation } = useMutationAssignData();
-  const { checkRequireData } = useCheckAssignData();
+  const { registerMutation } = useMutationRegisterData();
+  const { checkRequireData } = useCheckRegisterData();
   const data = useQuery({ queryKey: queryKeys.registerData() }).data as RegisterData;
 
   const handleRegisterData = async () => {
     if (checkRequireData(data)) {
-      assignMutation.mutate(data);
+      registerMutation.mutate(data);
     }
+
+    console.log(data);
   };
 
   return (
