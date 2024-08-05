@@ -38,7 +38,7 @@ const CustomKebabMenu = ({ options }: IProps) => {
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
       >
-        <img src="/assets/kebab_icon.svg" alt="kebabIcon" />
+        <img src="/image/kebab_icon.svg" alt="kebabIcon" />
       </div>
       {/* 옵션 리스트 */}
       {dropdownIsOpen && (

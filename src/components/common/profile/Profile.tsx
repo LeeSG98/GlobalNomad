@@ -20,7 +20,7 @@ function Profile() {
           <Link href="/mybookinglist">
             <List icon={<MdPlaylistAddCheck />} title="예약내역" />
           </Link>
-          <Link href="/MyActvitiyPage">
+          <Link href="/myactivitypage">
             <List icon={<CiSettings />} title="내 체험 관리" />
           </Link>
           <Link href="/bookingstatus">
