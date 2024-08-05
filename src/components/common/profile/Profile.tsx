@@ -13,7 +13,6 @@ function Profile() {
         <div className="flex justify-center">
           <UserImage />
         </div>
-        {/* 클릭한 리스트에 맞는 화면 보여주는 기능 미구현 */}
         <div className="flex flex-col gap-[8px]">
           <Link href="/mypage">
             <List icon={<TbUserCheck />} title="내 정보" />
@@ -21,8 +20,12 @@ function Profile() {
           <Link href="/mybookinglist">
             <List icon={<MdPlaylistAddCheck />} title="예약내역" />
           </Link>
-          <List icon={<CiSettings />} title="내 체험 관리" />
-          <List icon={<FaRegCalendarCheck />} title="예약 현황" />
+          <Link href="/MyActvitiyPage">
+            <List icon={<CiSettings />} title="내 체험 관리" />
+          </Link>
+          <Link href="/bookingstatus">
+            <List icon={<FaRegCalendarCheck />} title="예약 현황" />
+          </Link>
         </div>
       </div>
     </>

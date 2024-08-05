@@ -1,4 +1,10 @@
-export type ActivityInfo = {
+export type GetActivitiesResponse = {
+  cursorId?: number;
+  totalCount: number;
+  activities: Activity[];
+};
+
+export interface Activity {
   id: number;
   userId: number;
   title: string;
@@ -9,11 +15,16 @@ export type ActivityInfo = {
   bannerImageUrl: string;
   rating: number;
   reviewCount: number;
-  createAt: string;
+  createdAt: string;
   updatedAt: string;
-};
+}
 
-export type ActivityResponse = {
-  activities: ActivityInfo[];
-  totalCount: number;
+export type GetActivitiesParams = {
+  method: "offset" | "cursor";
+  cursorId?: number;
+  category?: string;
+  keyword?: string;
+  sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest";
+  page?: number;
+  size?: number;
 };

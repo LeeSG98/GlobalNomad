@@ -14,8 +14,7 @@ import Footer from "@/components/footer/footer";
 const registeractivity = () => {
   return (
     <>
-      <Header />
-      <div className="flex justify-center gap-[1.5rem] pt-[4.5rem] bg-gray_FA">
+      <div className="flex justify-center gap-[1.5rem] bg-gray_FA pt-[4.5rem]">
         <Profile />
         <div className="flex w-[49.5rem] flex-col">
           <Submit />
@@ -29,7 +28,6 @@ const registeractivity = () => {
           <Intro />
         </div>
       </div>
-      <Footer />
     </>
   );
 };
