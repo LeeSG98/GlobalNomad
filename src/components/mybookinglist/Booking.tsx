@@ -1,59 +1,95 @@
 import { useEffect, useState } from "react";
-import NoBooking from "./NoBooking";
-
-interface Activity {
-  bannerImageUrl: string;
-  title: string;
-  id: number;
-}
-
-interface Reservation {
-  id: number;
-  userId: number;
-  activity: Activity;
-  scheduleId: number;
-  status: string;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { ReviewModal, CancelModal } from "../common/modal";
+import CancelButton from "./CancelButton";
+import ReviewButton from "./ReviewButton";
+import { Reservations } from "@/types/Reservation";
+import { useModal } from "@/store/ModalContext";
 
 interface ReservationProps {
   filter: string;
-  reservations: Reservation[];
+  reservations: Reservations[];
 }
 
 export default function Booking({ filter, reservations }: ReservationProps) {
   const [filteredReservations, setFilteredReservations] =
-    useState<Reservation[]>(reservations);
+    useState<Reservations[]>(reservations);
+  const [currentReservation, setCurrentReservation] =
+    useState<Reservations | null>(null);
+  const { openModal, closeModal, isModalOpen, modalType } = useModal();
 
   useEffect(() => {
-    if (filter === "all") {
-      setFilteredReservations(reservations);
-    } else {
-      setFilteredReservations(
-        reservations.filter((reservation) => reservation.status === filter),
+    let newestReservations = reservations;
+
+    if (filter !== "all") {
+      newestReservations = reservations.filter(
+        (reservation) => reservation.status === filter,
       );
     }
+
+    newestReservations.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+
+    setFilteredReservations(newestReservations);
   }, [filter, reservations]);
 
+  useEffect(() => {
+    const updatedReservations = reservations.map((reservation) => {
+      if (reservation.status === "confirmed") {
+        const endTimme = new Date(`${reservation.date}T${reservation.endTime}`);
+        const now = new Date();
+
+        if (endTimme < now) {
+          return { ...reservation, status: "completed" };
+        }
+      }
+      return reservation;
+    });
+    setFilteredReservations(updatedReservations);
+  }, [reservations]);
+
   const statusColors: { [key: string]: string } = {
-    completed: "#2EB4FF",
+    completed: "#79747E",
     declined: "#FF472E",
     confirmed: "#FF7C1D",
-    pending: "#79747E",
+    pending: "#2EB4FF",
     canceled: "#79747E",
   };
 
   const getStatusColor = (status: string) => statusColors[status] || "black";
 
+  const handleOpenModal = (type: string, reservation: Reservations) => {
+    setCurrentReservation(reservation);
+    openModal(type);
+  };
+
+  // const [selectedReservation, setSelectedReservastion] =  useState
+
+  // const handleOpenCancelModal = (id:string) => {
+  //   openModal(<ReservationaCancelModal reservationId={id}/>)
+  // }
+
+  // return (
+  //   <>
+  //     {[].map(item => {
+  //       return <div onClick={() => handleOpenCancelModal(reservationId)}}>
+  //         {item}
+  //       </div>
+  //     })}
+
+  //     // 모달 ui
+  //     // <ReservationaCancelModal />
+  //   </>
+  // )
+
   return (
     <div className="flex w-full flex-col gap-[24px]">
+      {isModalOpen && modalType === "review" && currentReservation && (
+        <ReviewModal reservation={currentReservation} closeModal={closeModal} />
+      )}
+      {isModalOpen && modalType === "cancel" && currentReservation && (
+        <CancelModal reservation={currentReservation} closeModal={closeModal} />
+      )}
       {filteredReservations.map((reservation) => (
         <div
           key={reservation.id}
@@ -75,7 +111,7 @@ export default function Booking({ filter, reservations }: ReservationProps) {
                 {(() => {
                   switch (reservation.status) {
                     case "pending":
-                      return "예약 신청";
+                      return "예약 완료";
                     case "canceled":
                       return "예약 취소";
                     case "confirmed":
@@ -92,8 +128,19 @@ export default function Booking({ filter, reservations }: ReservationProps) {
               </p>
               <p className="pb-[20px] text-gray-500">{`${reservation.date} · ${reservation.startTime} - ${reservation.endTime} · ${reservation.headCount}명`}</p>
             </div>
-            <div>
+            <div className="flex items-center justify-between">
               <p className="text-lg font-semibold">₩{reservation.totalPrice}</p>
+              {reservation.status === "pending" && (
+                <CancelButton
+                  onClick={() => handleOpenModal("cancel", reservation)}
+                />
+              )}
+
+              {reservation.status === "completed" && (
+                <ReviewButton
+                  onClick={() => handleOpenModal("review", reservation)}
+                />
+              )}
             </div>
           </div>
         </div>

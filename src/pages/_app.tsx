@@ -5,7 +5,7 @@ import { StoreProvider } from "@/store/StoreProvider";
 import "@/styles/customScrollbar.css";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { ModalProvider } from "@/store/ModalProvider";
+import { ModalProvider } from "@/store/ModalContext";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 
