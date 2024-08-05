@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import priceToWon from '@/utils/priceToWon';
 import { MyActivityCardProps } from '@/types/myActivityPage';
 import CustomKebabMenu from './CustomKebabMenu';
@@ -7,7 +7,7 @@ import ExperienceDeleteModal from './ExperienceDeleteModal';
 import ModalPortal from '../review/ModalPortal';
 
 const MyActivityCard: React.FC<MyActivityCardProps> = ({ activity, refetchActivities }) => {
-  const navigate = useNavigate();
+  const router = useRouter(); 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
@@ -31,7 +31,7 @@ const MyActivityCard: React.FC<MyActivityCardProps> = ({ activity, refetchActivi
         <div>
           <p className="mb-[0.375rem] sm:mb-0 font-bold flex items-center gap-2">
             <span className="w-5 h-5 inline-flex justify-center items-center sm:w-[1rem] sm:h-[1rem]">
-              <img src="/assets/star_on_icon.svg" alt="starIcon" />
+              <img src="/image/star.svg" alt="starIcon" />
             </span>
             <span className="text-[#1B1B1B] sm:text-[0.875rem] dark:text-darkMode-white-10">
               {activity.rating} ({activity.reviewCount})
@@ -50,8 +50,9 @@ const MyActivityCard: React.FC<MyActivityCardProps> = ({ activity, refetchActivi
               {
                 label: '수정하기',
                 onClick: () =>
-                  navigate(`/my/activity/${activity.id}/modify`, {
-                    state: { ...activity },
+                  router.push({
+                    pathname:`/myactivitypage/${activity.id}/modify`,
+                    query: { ...activity },
                   }),
               },
               { label: '삭제하기', onClick: handleDeleteClick },
