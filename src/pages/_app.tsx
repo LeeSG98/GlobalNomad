@@ -24,7 +24,9 @@ const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps }) => {
       <AuthProvider>
         <ModalProvider>
           <StoreProvider>
+            {showHeaderFooter && <Header />}
             <Component {...pageProps} />
+            {showHeaderFooter && <Footer />}
           </StoreProvider>
         </ModalProvider>
       </AuthProvider>

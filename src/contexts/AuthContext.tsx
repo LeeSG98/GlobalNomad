@@ -78,3 +78,4 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
+// 사용되는 시점에 추가하는게 조금 더 적절 (다른곳에서 사용 안한다면) , 토큰이 로그인 check 성공했을때 로그인 되는걸로 로직 추가
