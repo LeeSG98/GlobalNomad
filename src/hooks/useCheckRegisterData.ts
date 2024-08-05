@@ -12,7 +12,7 @@ const requiredFields: { [key in keyof RegisterData]?: string } = {
 const useCheckRegisterData = () => {
   const checkRequireData = (registerData: RegisterData | undefined): boolean => {
     if (!registerData) {
-      console.error("입력 사항을 기입해주세요.");
+      console.error("입력 사항을 기입해 주세요.");
       return false;
     }
     return Object.entries(requiredFields).every(([key, message]) => {

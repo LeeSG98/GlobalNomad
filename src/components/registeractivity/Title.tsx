@@ -1,8 +1,8 @@
 import React from "react";
-import useMergeAssignData from "@/hooks/useMergeRegisterData";
+import useMergeRegisterData from "@/hooks/useMergeRegisterData";
 
 const Title = () => {
-  const { mergeTitle } = useMergeAssignData();
+  const { mergeTitle } = useMergeRegisterData();
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     mergeTitle(e.target.value);

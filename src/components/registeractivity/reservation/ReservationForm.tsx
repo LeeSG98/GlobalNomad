@@ -2,12 +2,12 @@ import React from 'react';
 import Image from "next/image";
 import { useQuery } from '@tanstack/react-query';
 import queryKeys from '@/api/reactQuery/queryKeys';
-import useMergeAssignData from '@/hooks/useMergeRegisterData';
+import useMergeRegisterData from '@/hooks/useMergeRegisterData';
 import { RegisterData, Schedule } from '@/types/registerActivity';
 import MinusButton from "/public/minus-icon.png";
 
 const ReservationForm = () => {
-  const { resetSchedule } = useMergeAssignData();
+  const { resetSchedule } = useMergeRegisterData();
 
   const data = useQuery({ queryKey: queryKeys.registerData() }).data as RegisterData;
   const time: Schedule[] = data ? data.schedules : [];
