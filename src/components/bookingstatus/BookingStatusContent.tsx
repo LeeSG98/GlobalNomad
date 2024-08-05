@@ -86,7 +86,11 @@ const ReserveStatusContent = () => {
 
     // 해당 날짜에 예약 정보가 있는 경우 각 상태의 개수를 표시
     if (matchedBooking) {
-      const { completed, confirmed, pending } = matchedBooking.Bookings;
+      const {
+        completed = [],
+        confirmed = [],
+        pending = [],
+      } = matchedBooking?.Bookings || {};
       return (
         <div className="flex h-full w-full flex-col-reverse text-left">
           <div onClick={() => onClickCalendarTile(date)}>
