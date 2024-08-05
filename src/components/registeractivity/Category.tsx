@@ -30,7 +30,7 @@ const RegisterCategory = () => {
       >
         <input
           className="w-[100%] outline-none cursor-pointer"
-          value={selectedValue || ''}
+          value={selectedValue || ""}
           placeholder="카테고리"
           readOnly
         />
