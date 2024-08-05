@@ -1,9 +1,9 @@
 import axios from "axios";
 import axiosInstance from "@/lib/axiosinstance";
 
-const postAssignImage = async (assignImage: FormData) => {
+const postRegisterImage = async (registerImage: FormData) => {
   try {
-    const res = await axiosInstance.post("/activities/image", assignImage, {
+    const res = await axiosInstance.post("/activities/image", registerImage, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -20,4 +20,4 @@ const postAssignImage = async (assignImage: FormData) => {
   }
 };
 
-export default postAssignImage;
+export default postRegisterImage;
