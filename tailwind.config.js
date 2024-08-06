@@ -110,6 +110,10 @@ module.exports = {
         center: "center",
         none: "none",
       },
+
+      scale: {
+        130: "1.30", // 30% 확대
+      },
     },
   },
   plugins: [
