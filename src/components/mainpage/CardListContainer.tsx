@@ -1,32 +1,46 @@
-// CardListContainer.tsx
 import { useEffect, useState } from "react";
 import CardList from "./CardList";
 import Pagination from "./Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getActivities } from "@/api/api";
 import { GetActivitiesParams, GetActivitiesResponse } from "@/types/mainPage";
+import PriceFilter from "./PriceFilter";
 
 type CardListContainerProps = {
   title: string;
   searchValue: string;
   selectedCategory: string | null;
+  selectedPriceOption: string; // 추가된 props
 };
 
 const CardListContainer = ({
   title,
   searchValue,
   selectedCategory,
+  selectedPriceOption, // 추가된 props
 }: CardListContainerProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, error } = useQuery<GetActivitiesResponse>({
-    queryKey: ["activities", currentPage, searchValue, selectedCategory],
+    queryKey: [
+      "activities",
+      currentPage,
+      searchValue,
+      selectedCategory,
+      selectedPriceOption,
+    ],
     queryFn: () => {
       const params: GetActivitiesParams = {
         method: "offset",
         page: currentPage,
         size: 8,
         category: selectedCategory || undefined,
+        sort:
+          selectedPriceOption === "가격높은순"
+            ? "price_desc"
+            : selectedPriceOption === "가격낮은순"
+              ? "price_asc"
+              : undefined,
       };
 
       if (searchValue) {
@@ -45,7 +59,7 @@ const CardListContainer = ({
     setCurrentPage(page);
   };
 
-  const mappedLinks =
+  const sortedLinks =
     data?.activities.map((activity) => ({
       id: activity.id,
       imageUrl: activity.bannerImageUrl,
@@ -66,7 +80,7 @@ const CardListContainer = ({
         <div>Error fetching data</div>
       ) : (
         <>
-          <CardList links={mappedLinks} />
+          <CardList links={sortedLinks} />
           <div className="mb-[300px] mt-[72px]">
             <Pagination
               currentPage={currentPage}
