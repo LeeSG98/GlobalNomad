@@ -1,8 +1,8 @@
-import getUpdateMyBooking from '@/api/getUpdateMyBooking';
-import queryClient from '@/lib/queryClient';
-import { useMutation } from '@tanstack/react-query';
-import { forwardRef, useEffect } from 'react';
-import { BookingScheduleProps } from '@/types/bookingStatus';
+import getUpdateMyBooking from "@/api/getUpdateMyBooking";
+import queryClient from "@/lib/queryClient";
+import { useMutation } from "@tanstack/react-query";
+import { forwardRef, useEffect } from "react";
+import { BookingScheduleProps } from "@/types/bookingStatus";
 
 const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
   (
@@ -30,8 +30,8 @@ const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
       mutationFn: getUpdateMyBooking,
       onSuccess: () =>
         Promise.all([
-          queryClient.invalidateQueries({ queryKey: ['scheduleByStatus'] }),
-          queryClient.invalidateQueries({ queryKey: ['BookingTimeTable'] }),
+          queryClient.invalidateQueries({ queryKey: ["scheduleByStatus"] }),
+          queryClient.invalidateQueries({ queryKey: ["BookingTimeTable"] }),
         ]),
     });
 
@@ -49,7 +49,7 @@ const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
         };
       });
 
-      mutate({ activityId, bookingId: BookingId, status: 'confirmed' });
+      mutate({ activityId, bookingId: BookingId, status: "confirmed" });
     };
 
     const getDeclineBooking = () => {
@@ -64,22 +64,22 @@ const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
           },
         };
       });
-      mutate({ activityId, bookingId: BookingId, status: 'declined' });
+      mutate({ activityId, bookingId: BookingId, status: "declined" });
     };
 
     switch (BookingStatus) {
-      case 'pending':
+      case "pending":
         BookingButton = (
-          <div className="flex gap-[6px] justify-end ">
+          <div className="flex justify-end gap-[6px]">
             <button
-              className="px-5 py-[10px] rounded-[6px] bg-[#112211] text-white font-bold"
+              className="rounded-[6px] bg-[#112211] px-5 py-[10px] font-bold text-white"
               type="button"
               onClick={getConfirmBooking}
             >
               승인하기
             </button>
             <button
-              className="px-5 py-[10px] rounded-[6px] bg-white text-[#112211] font-bold border border-[#112211]"
+              className="rounded-[6px] border border-[#112211] bg-white px-5 py-[10px] font-bold text-[#112211]"
               type="button"
               onClick={getDeclineBooking}
             >
@@ -88,21 +88,21 @@ const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
           </div>
         );
         break;
-      case 'confirmed':
+      case "confirmed":
         BookingButton = (
           <button
             type="button"
-            className="px-[15px] py-[10px] bg-[#FFF4E8] font-bold rounded-[26.5px]"
+            className="rounded-[26.5px] bg-[#FFF4E8] px-[15px] py-[10px] font-bold"
           >
             <div className="text-[#FF7C1D]">예약 승인</div>
           </button>
         );
         break;
-      case 'declined':
+      case "declined":
         BookingButton = (
           <button
             type="button"
-            className="px-[15px] py-[10px] bg-[#FFE4E0] font-bold rounded-[26.5px]"
+            className="rounded-[26.5px] bg-[#FFE4E0] px-[15px] py-[10px] font-bold"
           >
             <div className="text-[#FF472E]">예약 거절</div>
           </button>
@@ -113,26 +113,32 @@ const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
     }
 
     return (
-      <div className="pt-4 px-[16.43px] pb-3 pr-4 border border-[#DDD] h-[135px]  rounded dark:bg-darkMode-black-40">
+      <div className="dark:bg-darkMode-black-40 h-[135px] rounded border border-[#DDD] px-[16.43px] pb-3 pr-4 pt-4">
         <div className="flex flex-col gap-[6px]">
           <div className="flex gap-[10px]">
-            <div className="text-[#79747E] font-semibold dark:text-darkMode-white-30">닉네임</div>
-            <div className="text-[#1B1B1B] font-medium dark:text-darkMode-white-10">{nickname}</div>
+            <div className="dark:text-darkMode-white-30 font-semibold text-[#79747E]">
+              닉네임
+            </div>
+            <div className="dark:text-darkMode-white-10 font-medium text-[#1B1B1B]">
+              {nickname}
+            </div>
           </div>
           <div className="flex gap-[10px]">
-            <div className="text-[#79747E] font-semibold dark:text-darkMode-white-30">인원</div>
-            <div className="text-[#1B1B1B] font-medium dark:text-darkMode-white-10">
+            <div className="dark:text-darkMode-white-30 font-semibold text-[#79747E]">
+              인원
+            </div>
+            <div className="dark:text-darkMode-white-10 font-medium text-[#1B1B1B]">
               {headCount}
             </div>
           </div>
         </div>
         <div className="mt-[6px] text-right">{BookingButton}</div>
-        <div ref={ref} className="w-[10px] h-[10px]" />
+        <div ref={ref} className="h-[10px] w-[10px]" />
       </div>
     );
   },
 );
 
-BookingSchedule.displayName = 'BookingSchedule';
+BookingSchedule.displayName = "BookingSchedule";
 
 export default BookingSchedule;

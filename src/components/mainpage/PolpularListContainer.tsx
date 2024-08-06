@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getActivities } from "@/api/api";
 import ArrowButton from "@/components/mainpage/ArrowButton";
-import { ActivityResponse } from "@/types/mainPage";
 import getPopularActivity from "@/api/getPopularActivity";
 import PolpularCardList from "./PolpularCardList";
+import { GetActivitiesParams, GetActivitiesResponse } from "@/types/mainPage";
 
 const PopularListContainer = ({
   title,
@@ -13,15 +15,33 @@ const PopularListContainer = ({
   onPreviousClick: () => void;
   onNextClick: () => void;
 }) => {
-  const [links, setLinks] = useState<ActivityResponse["activities"]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [totalCount, setTotalCount] = useState(0); // Total count를 상태로 관리할 수 있음
   const itemsPerPage = 3;
+  const { data, isLoading, error } = useQuery<GetActivitiesResponse>({
+    queryKey: ["activities"],
+    queryFn: () => {
+      const params: GetActivitiesParams = {
+        method: "offset",
+        size: 8,
+      };
+      return getActivities(params);
+    },
+  });
+
+  const mappedLinks =
+    data?.activities.map((activity) => ({
+      id: activity.id,
+      imageUrl: activity.bannerImageUrl,
+      title: activity.title,
+      rating: activity.rating,
+      reviewCount: activity.reviewCount,
+      price: activity.price,
+    })) || [];
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await getPopularActivity();
-      setLinks(response.activities);
       setTotalCount(response.totalCount);
     };
 
@@ -52,7 +72,7 @@ const PopularListContainer = ({
         </div>
       </div>
       <PolpularCardList
-        links={links}
+        links={mappedLinks}
         currentIndex={currentIndex}
         itemsPerPage={itemsPerPage}
       />

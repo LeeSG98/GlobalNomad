@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axiosinstance';
+import axiosInstance from "@/lib/axiosinstance";
 
 interface GetUpdateMybookingParams {
   activityId: number;
@@ -12,7 +12,7 @@ const getUpdateMybooking = async ({
   status,
 }: GetUpdateMybookingParams): Promise<any> => {
   const response = await axiosInstance.patch(
-    `/my-activities/${activityId}/bookings/${bookingId}`,
+    `/my-activities/${activityId}/Bookings/${bookingId}`,
     {
       status,
     },
@@ -20,5 +20,4 @@ const getUpdateMybooking = async ({
 
   return response.data;
 };
-
 export default getUpdateMybooking;

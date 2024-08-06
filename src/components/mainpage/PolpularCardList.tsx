@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 type PolpularCardListProps = {
   links: {
@@ -7,7 +8,7 @@ type PolpularCardListProps = {
     title: string;
     rating: number;
     reviewCount: number;
-    price: string;
+    price: number;
   }[];
   currentIndex: number;
   itemsPerPage: number;
@@ -29,14 +30,19 @@ const PolpularCardList = ({
         {links.map((link, index) => (
           <div
             key={link.id}
-            className={`relative box-border h-[384px] w-[384px] flex-shrink-0 overflow-hidden rounded-2xl ${
+            className={`relative box-border h-[384px] w-[384px] flex-shrink-0 overflow-hidden rounded-2xl sm:h-[186px] sm:w-[186px] md:h-[384px] md:w-[384px] ${
               index === 0 ? "ml-0" : "mx-3"
             }`}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${link.imageUrl})` }}
-            ></div>
+            <div className="absolute inset-0 bg-cover bg-center">
+              <Image
+                src={link.imageUrl}
+                alt="체험이미지"
+                layout="fill"
+                objectFit="cover"
+                className="mr-1 h-4 w-4"
+              />
+            </div>
             <div className="relative z-10 flex h-full flex-col justify-end bg-gradient-to-t from-black via-transparent to-transparent p-4">
               <div className="mt-2 flex items-center text-white">
                 <img
