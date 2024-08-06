@@ -41,8 +41,8 @@ const SearchResults = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
       <MainBanner />
-      <div className="w-full max-w-6xl px-4 py-8">
-        <div className="mb-6 flex flex-col items-start">
+      <div className="mx-auto w-full max-w-6xl px-4 py-8">
+        <div className="mb-6 flex w-full flex-col items-start">
           <div className="w-full max-w-3xl">
             <SearchBar />
           </div>
