@@ -1,4 +1,3 @@
-import Header from "@/components/header/header";
 import Profile from "@/components/common/profile/Profile";
 import Title from "@/components/registeractivity/Title";
 import Submit from "@/components/registeractivity/Submit";
@@ -9,7 +8,6 @@ import Address from "@/components/registeractivity/Address";
 import Reserve from "@/components/registeractivity/Reserve";
 import Banner from "@/components/registeractivity/Banner";
 import Intro from "@/components/registeractivity/Intro";
-import Footer from "@/components/footer/footer";
 
 const registeractivity = () => {
   return (
