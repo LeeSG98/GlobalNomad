@@ -57,7 +57,7 @@ const SearchResults = () => {
             <CardList
               links={results.activities.map((activity) => ({
                 id: activity.id,
-                imageUrl: activity.imageUrl,
+                imageUrl: activity.bannerImageUrl,
                 title: activity.title,
                 rating: activity.rating,
                 reviewCount: activity.reviewCount,

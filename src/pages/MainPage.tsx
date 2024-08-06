@@ -98,7 +98,7 @@ const MainPage = () => {
       title: activity.title,
       rating: activity.rating,
       reviewCount: activity.reviewCount,
-      price: `$${activity.price}`,
+      price: activity.price,
     })) || [];
 
   const popularLinks = [...mappedLinks].sort(
@@ -108,13 +108,7 @@ const MainPage = () => {
   return (
     <Layout isSticky={false}>
       <MainLayout
-        searchBar={
-          <SearchBar
-            value={searchValue}
-            onChange={handleSearchChange}
-            onCloseClick={handleSearchCloseClick}
-          />
-        }
+        searchBar={<SearchBar />}
         mainToolBar={
           <MainToolBar
             folders={[]}
@@ -133,7 +127,6 @@ const MainPage = () => {
                 {!searchValue && (
                   <PolpularListContainer
                     title="🔥 인기 체험"
-                    links={popularLinks}
                     onPreviousClick={handlePreviousClick}
                     onNextClick={handleNextClick}
                   />
@@ -153,9 +146,8 @@ const MainPage = () => {
                 </div>
                 <CardListContainer
                   title="🛼 모든 체험"
-                  links={mappedLinks}
                   searchValue={searchValue}
-                  selectedCategory={selectedCategory} // Add this line
+                  selectedCategory={selectedCategory}
                 />
               </>
             )}
