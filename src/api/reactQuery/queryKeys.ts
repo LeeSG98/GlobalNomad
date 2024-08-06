@@ -4,6 +4,12 @@ const queryKeys = {
   registerStartTime: () => ["register/StartTime"] as const,
   registerEndTime: () => ["register/EndTime"] as const,
 
+  modifyData: () => ['modifyData'] as const,
+  modifySchedule: () => ['modifyData/Schedule'] as const,
+  modifyScheduleDate: () => ['modifyData/Schedule/Date'] as const,
+  modifyScheduleStartTime: () => ['modifyData/Schedule/StartTime'] as const,
+  modifyScheduleEndTime: () => ['modifyData/Schedule/EndTime'] as const,
+
   activities: () => ["activities", 5] as const,
 
   reservationTimeTable: (id: number, year: string, month: string) =>
