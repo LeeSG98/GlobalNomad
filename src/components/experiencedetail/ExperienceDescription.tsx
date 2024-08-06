@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getActivity } from '@/api/activity';
+import { ActivityResponse } from '@/api/models/activity';
+import { useParams } from 'react-router-dom';
 
 const ExperienceDescription: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [activity, setActivity] = useState<ActivityResponse | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      const fetchActivity = async () => {
+        try {
+          const res = await getActivity(id);
+          setActivity(res);
+        } catch (error) {
+          console.error('Error fetching activity:', error);
+        }
+      };
+
+      fetchActivity();
+    }
+  }, [id]);
+
   return (
     <div className="flex flex-col w-full md:w-2/3">
       <hr className="my-4 border-gray-300" />
       <h2 className="text-xl font-semibold mb-4">체험 설명</h2>
       <p className="mb-4">
-        안녕하세요! 저희 스트릿 댄스 체험을 소개합니다. 저희는 신나고 재미있는 스트릿 댄스 스타일을 가르칩니다.
-        크롭탑은 세계적으로 인기 있는 댄스 스타일로, 어디서든 출 춤을 선보일 수 있습니다. 저희 체험에서는 새로운
-        스타일을 배우실 수 있고, 즐거운 시간을 보낼 수 있습니다. 저희는 초보자부터 전문가까지 어떤 수준의 춤을 추는
-        사람들이든 가르칠 수 있도록 준비해놨습니다. 저희의 강사님들은 현재 수 있는 시간과 기술적인 수준을 고려하여,
-        최적의 코칭을 제공합니다. 저희의 체험을 통해, 기존의 댄스 스타일 뿐만 아니라 새로운 스타일을 발견할 수
-        있을 것입니다.
+        {activity?.description || '체험 설명을 불러오지 못했습니다.'}
       </p>
       <hr className="my-4 border-gray-300" />
       <div className="mb-8">
         <img
-          src="map.jpg"
+          src="map.jpg" // API에서 지도 이미지 URL을 받을 경우, 여기에 activity.mapUrl 같은 속성을 사용
           alt="Map"
           className="w-full h-auto"
         />
         <p className="text-sm text-gray-600 mt-2">
-          
-          서울 중구 청계천로 100 10F
+          {activity?.imageUrl || '위치 정보를 불러오지 못했습니다.'}
         </p>
       </div>
       <hr className="my-4 border-gray-300" />

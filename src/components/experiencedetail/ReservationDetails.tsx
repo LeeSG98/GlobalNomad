@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from '@/components/experiencedetail/Calendar';
+import { useParams } from 'react-router-dom';
+import { getActivity } from '@/api/activity';
+import { ActivityResponse } from '@/api/models/activity';
 
 const ReservationDetails: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [participantCount, setParticipantCount] = useState<number>(1);
+  const [activity, setActivity] = useState<ActivityResponse | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      const fetchActivity = async () => {
+        try {
+          const res = await getActivity(id);
+          setActivity(res);
+        } catch (error) {
+          console.error('Error fetching activity:', error);
+        }
+      };
+
+      fetchActivity();
+    }
+  }, [id]);
 
   const handleTimeClick = (time: string) => {
     setSelectedTime(time);
@@ -15,9 +35,11 @@ const ReservationDetails: React.FC = () => {
 
   return (
     <div className="flex flex-col w-80 h-650 md:w-1/3 bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto ml-16">
-     <div className="flex items-baseline mb-2 space-x-1">
-      <h2 className="text-2xl font-bold">₩ 1,000</h2>
-      <span className="text-xl font-normal">/ 인</span>
+      <div className="flex items-baseline mb-2 space-x-1">
+        <h2 className="text-2xl font-bold">
+          ₩ {activity ? activity.price.toLocaleString() : '...'}
+        </h2>
+        <span className="text-xl font-normal">/ 인</span>
       </div>
       <hr className="my-4 border-gray-300" />
       <div className="mb-4 bg-white p-4 rounded">
@@ -28,18 +50,21 @@ const ReservationDetails: React.FC = () => {
       <div className="mb-4">
         <h3 className="text-lg font-semibold mb-2">예약 가능한 시간</h3>
         <div className="flex space-x-2">
-          <button
-            onClick={() => handleTimeClick('14:00-15:00')}
-            className={`w-full py-2 rounded ${selectedTime === '14:00-15:00' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            14:00-15:00
-          </button>
-          <button
-            onClick={() => handleTimeClick('15:00-16:00')}
-            className={`w-full py-2 rounded ${selectedTime === '15:00-16:00' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            15:00-16:00
-          </button>
+          {activity?.schedules.map((schedule) => (
+            <button
+              key={schedule.id}
+              onClick={() =>
+                handleTimeClick(`${schedule.startTime}-${schedule.endTime}`)
+              }
+              className={`w-full py-2 rounded ${
+                selectedTime === `${schedule.startTime}-${schedule.endTime}`
+                  ? 'bg-black text-white'
+                  : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              {schedule.startTime}-{schedule.endTime}
+            </button>
+          ))}
         </div>
       </div>
       <hr className="my-4 border-gray-300" />
@@ -67,7 +92,9 @@ const ReservationDetails: React.FC = () => {
       <hr className="my-4 border-gray-300" />
       <div className="flex justify-between items-center">
         <span className="text-lg font-semibold">총 합계</span>
-        <span className="text-lg font-semibold">₩{(participantCount * 1000).toLocaleString()}</span>
+        <span className="text-lg font-semibold">
+          ₩ {(participantCount * (activity?.price || 0)).toLocaleString()}
+        </span>
       </div>
     </div>
   );
