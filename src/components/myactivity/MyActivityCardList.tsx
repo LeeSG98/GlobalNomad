@@ -1,12 +1,18 @@
-import useLoadMoreActivities from '@/hooks/useLoadMoreActivities';
-import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
-import Nobooking from '../bookingstatus/NoBooking';
-import MyActivityCard from './MyActivityCard';
+import useLoadMoreActivities from "@/hooks/useLoadMoreActivities";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import Nobooking from "../bookingstatus/NoBooking";
+import MyActivityCard from "./MyActivityCard";
+import React from "react";
 
 const MyActivityCardList = () => {
-  const { myActivityData, fetchNextPage, isLoading, isFetchingNextPage, refetch } =
-    useLoadMoreActivities();
+  const {
+    myActivityData,
+    fetchNextPage,
+    isLoading,
+    isFetchingNextPage,
+    refetch,
+  } = useLoadMoreActivities();
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -15,27 +21,32 @@ const MyActivityCardList = () => {
     }
   }, [inView, fetchNextPage]);
 
-  const activities = myActivityData?.pages.flatMap((page) => page.activities) || [];
+  const activities =
+    myActivityData?.pages.flatMap((page) => page.activities) || [];
 
   if (isLoading) {
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="flex h-full w-full items-center justify-center">
         <img src="/image/spinner.svg" alt="loding_spinner" />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[34rem] overflow-y-auto custom-scrollbar">
+    <div className="custom-scrollbar h-[43rem] w-full overflow-y-auto">
       {activities.length !== 0 ? (
         <>
           <ul className="flex flex-col gap-6">
             {activities.map((activity) => (
-              <MyActivityCard key={activity.id} activity={activity} refetchActivities={refetch} />
+              <MyActivityCard
+                key={activity.id}
+                activity={activity}
+                refetchActivities={refetch}
+              />
             ))}
           </ul>
           {isFetchingNextPage && (
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center">
               <img src="/image/spinner.svg" alt="loding_spinner" />
             </div>
           )}

@@ -1,6 +1,5 @@
 const priceToWon = (price: number) => {
-    return `₩${price.toLocaleString()}`;
-  };
-  
-  export default priceToWon;
-  
+  return `₩ ${price.toLocaleString()}`;
+};
+
+export default priceToWon;

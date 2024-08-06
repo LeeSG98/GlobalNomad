@@ -9,8 +9,6 @@ import { FaRegCalendarCheck } from "react-icons/fa6";
 import Link from "next/link";
 import List from "@/components/common/profile/List";
 import Input from "@/components/mypage/Input";
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
 
 interface UserData {
   nickname: string;
@@ -131,8 +129,7 @@ export default function mypage() {
 
   return (
     <>
-      <Header />
-      <div className="flex min-h-screen justify-center gap-6 bg-gray_FA pt-[72px]">
+      <div className="flex min-h-[calc(100vh-160px)] justify-center gap-6 bg-gray_FA pt-[72px]">
         <div className="flex h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow">
           <div className="flex justify-center">
             <div className="relative">
@@ -169,7 +166,7 @@ export default function mypage() {
             <Link href="/mybookinglist">
               <List icon={<MdPlaylistAddCheck />} title="예약내역" />
             </Link>
-            <Link href="/MyActvitiyPage">
+            <Link href="/myactivitypage">
               <List icon={<CiSettings />} title="내 체험 관리" />
             </Link>
             <Link href="/bookingstatus">
@@ -216,7 +213,6 @@ export default function mypage() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
