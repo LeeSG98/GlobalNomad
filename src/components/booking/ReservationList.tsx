@@ -1,5 +1,5 @@
-import React from 'react';
-import { ReservationStatus } from './ReservationTabs';
+import { ReservationStatus } from "@/types/types";
+import React from "react";
 
 interface ReservationDetail {
   id: number;
@@ -15,12 +15,18 @@ interface ReservationListProps {
   onReject: (reservation: ReservationDetail) => void;
 }
 
-const ReservationList: React.FC<ReservationListProps> = ({ reservations, onApprove, onReject }) => {
+const ReservationList: React.FC<ReservationListProps> = ({
+  reservations,
+  onApprove,
+  onReject,
+}) => {
   return (
     <div>
-      {reservations.map(res => (
+      {reservations.map((res) => (
         <div key={res.id} className="reservation-item">
-          <span>{res.nickname} {res.people}명 {res.time}</span>
+          <span>
+            {res.nickname} {res.people}명 {res.time}
+          </span>
           {res.status === ReservationStatus.PROPOSAL && (
             <>
               <button onClick={() => onApprove(res)}>승인하기</button>
