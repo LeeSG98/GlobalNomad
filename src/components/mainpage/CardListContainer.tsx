@@ -4,22 +4,10 @@ import CardList from "./CardList";
 import Pagination from "./Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getActivities } from "@/api/api";
-import {
-  Activity,
-  GetActivitiesParams,
-  GetActivitiesResponse,
-} from "@/types/mainPage";
+import { GetActivitiesParams, GetActivitiesResponse } from "@/types/mainPage";
 
 type CardListContainerProps = {
   title: string;
-  links: {
-    id: number;
-    imageUrl: string;
-    title: string;
-    rating: number;
-    reviewCount: number;
-    price: string;
-  }[];
   searchValue: string;
   selectedCategory: string | null;
 };
@@ -32,13 +20,13 @@ const CardListContainer = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, error } = useQuery<GetActivitiesResponse>({
-    queryKey: ["activities", currentPage, searchValue, selectedCategory], // Add selectedCategory to queryKey
+    queryKey: ["activities", currentPage, searchValue, selectedCategory],
     queryFn: () => {
       const params: GetActivitiesParams = {
         method: "offset",
         page: currentPage,
         size: 8,
-        category: selectedCategory || undefined, // Add category to params
+        category: selectedCategory || undefined,
       };
 
       if (searchValue) {
@@ -64,7 +52,7 @@ const CardListContainer = ({
       title: activity.title,
       rating: activity.rating,
       reviewCount: activity.reviewCount,
-      price: `$${activity.price}`,
+      price: activity.price,
     })) || [];
 
   return (
@@ -82,7 +70,7 @@ const CardListContainer = ({
           <div className="mb-[300px] mt-[72px]">
             <Pagination
               currentPage={currentPage}
-              totalPages={Math.ceil(data.totalCount / 8)}
+              totalPages={data ? Math.ceil(data.totalCount / 8) : 1}
               onPageChange={handlePageChange}
             />
           </div>

@@ -24,16 +24,16 @@ const SearchBar = () => {
   return (
     <div className="relative bg-white pb-32">
       <form
-        className="absolute -top-14 flex flex-col gap-8 rounded-2xl bg-white px-6 py-8 shadow-lg"
+        className="absolute -top-14 flex flex-col gap-8 rounded-2xl bg-white px-6 py-8 shadow-lg sm:px-2 sm:py-4 md:px-4 md:py-6 lg:px-6 lg:py-8"
         onSubmit={handleSubmit}
       >
         <label className="text-xl font-bold text-black">
           무엇을 체험하고 싶으신가요?
         </label>
         <div className="flex items-center gap-3">
-          <div className="relative">
+          <div className="relative w-full">
             <input
-              className="placeholder:pl-0.1 h-14 w-[62.5rem] rounded-md border border-solid border-gray_A4 px-10 py-2 focus:border-green_CE focus:outline-none"
+              className="placeholder:pl-0.1 h-14 w-[62.5rem] rounded-md border border-solid border-gray_A4 px-10 py-2 focus:border-green_CE focus:outline-none sm:w-full md:w-[30rem] lg:w-[62.5rem]"
               type="search"
               value={searchWord}
               onChange={handleChange}
@@ -46,7 +46,7 @@ const SearchBar = () => {
             />
           </div>
           <button
-            className="h-14 w-[136px] rounded-md bg-nomad_black px-10 py-2 font-bold text-white"
+            className="h-14 w-[136px] rounded-md bg-nomad_black py-2 font-bold text-white sm:w-[96px] sm:px-2 md:w-[100px] md:px-4 lg:w-[136px] lg:px-8"
             type="submit"
             onClick={handleClick}
           >

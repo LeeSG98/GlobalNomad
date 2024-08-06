@@ -22,7 +22,7 @@ const PolpularCardList = ({
   const translateX = -currentIndex * (100 / itemsPerPage);
 
   return (
-    <div className="scroll-snap-x-mandatory overflow-x-auto">
+    <div className="overflow-x-auto scroll-snap-x-mandatory">
       <div
         className="flex transition-transform duration-300"
         style={{ transform: `translateX(${translateX}%)` }}
@@ -30,7 +30,7 @@ const PolpularCardList = ({
         {links.map((link, index) => (
           <div
             key={link.id}
-            className={`scroll-snap-align-start relative box-border h-[384px] w-[384px] flex-shrink-0 overflow-hidden rounded-2xl ${
+            className={`relative box-border h-[384px] w-[384px] flex-shrink-0 overflow-hidden rounded-2xl scroll-snap-align-start ${
               index === 0 ? "ml-0" : "mx-3"
             }`}
           >

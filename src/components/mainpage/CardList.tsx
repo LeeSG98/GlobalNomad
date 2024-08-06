@@ -1,3 +1,4 @@
+import priceToWon from "@/utils/priceToWon";
 import Image from "next/image";
 import React from "react";
 
@@ -8,7 +9,7 @@ type CardListProps = {
     title: string;
     rating: number;
     reviewCount: number;
-    price: string;
+    price: number;
   }[];
 };
 
@@ -40,7 +41,9 @@ const CardList = ({ links }: CardListProps) => {
                 <span className="text-gray-500">({link.reviewCount})</span>
               </div>
               <h2 className="text-lg font-semibold">{link.title}</h2>
-              <p className="mt-2 text-2xl font-bold">{link.price}</p>
+              <p className="mt-2 text-2xl font-bold">
+                {priceToWon(link.price)}
+              </p>
             </div>
           </div>
         ))}
