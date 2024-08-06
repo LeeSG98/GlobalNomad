@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import { createReservationReview, deleteReservation } from "@/api/api";
 import { Reservations } from "@/types/Reservation";
+import priceToWon from "@/utils/priceToWon";
 
 interface ModalProps {
   reservation: Reservations;
@@ -50,7 +51,6 @@ export function CancelModal({ reservation, closeModal }: ModalProps) {
 export function ReviewModal({ reservation, closeModal }: ModalProps) {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmitReview = async () => {
     try {
@@ -89,7 +89,9 @@ export function ReviewModal({ reservation, closeModal }: ModalProps) {
                 <p className="text-lg">· {reservation.headCount}명</p>
               </div>
               <div className="border-lightGray/30 border-[1px]"></div>
-              <p className="text-xl font-bold">{reservation.totalPrice} 원</p>
+              <p className="text-xl font-bold">
+                {priceToWon(reservation.totalPrice)}
+              </p>
             </div>
           </div>
           <div className="flex gap-[2px]">

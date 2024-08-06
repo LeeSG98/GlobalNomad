@@ -1,16 +1,16 @@
 import axiosInstance from "@/lib/axiosinstance";
 
-interface GetUpdateMyBookingParams {
+interface GetUpdateMybookingParams {
   activityId: number;
   bookingId: number;
-  status: "confirmed" | "declined";
+  status: 'confirmed' | 'declined';
 }
 
-const getUpdateMyBooking = async ({
+const getUpdateMybooking = async ({
   activityId,
   bookingId,
   status,
-}: GetUpdateMyBookingParams): Promise<any> => {
+}: GetUpdateMybookingParams): Promise<any> => {
   const response = await axiosInstance.patch(
     `/my-activities/${activityId}/Bookings/${bookingId}`,
     {
@@ -20,5 +20,4 @@ const getUpdateMyBooking = async ({
 
   return response.data;
 };
-
-export default getUpdateMyBooking;
+export default getUpdateMybooking;
