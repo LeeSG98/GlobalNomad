@@ -10,7 +10,7 @@ const urlSearchParams = new URLSearchParams({
   method: "offset",
   sort: "most_reviewed",
   page: String(1),
-  size: String(10),
+  size: String(1000),
 });
 
 // 인기 체험 리스트 데이터를 불러오는 함수.
