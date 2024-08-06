@@ -1,5 +1,3 @@
-import Footer from '@/components/footer/footer';
-import Header from '@/components/header/header';
 import Profile from "@/components/common/profile/Profile";
 import React from 'react';
 import MyActivityCardHeader from '@/components/myactivity/MyActivityCardHeader';
