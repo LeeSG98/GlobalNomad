@@ -9,10 +9,10 @@ import { FaRegCalendarCheck } from "react-icons/fa6";
 import Link from "next/link";
 import List from "@/components/common/profile/List";
 import Input from "@/components/mypage/Input";
+import Email from "@/components/mypage/Email";
 
 interface UserData {
   nickname: string;
-  email: string;
   newPassword?: string;
   profileImageUrl?: string;
 }
@@ -20,7 +20,6 @@ interface UserData {
 export default function mypage() {
   const [userData, setUserData] = useState<UserData>({
     nickname: "",
-    email: "",
   });
   const [newNickname, setNewNickname] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -44,7 +43,6 @@ export default function mypage() {
         .then((res) => {
           setUserData({
             nickname: res.data.nickname,
-            email: res.data.email,
             profileImageUrl: res.data.profileImageUrl,
           });
           setSrc(res.data.profileImageUrl); // Set the initial profile image
@@ -192,7 +190,7 @@ export default function mypage() {
               value={newNickname}
               onChange={handleNicknameChange}
             />
-            <Input label="이메일" placeholder={userData.email} />
+            <Email />
             <Input
               label="비밀번호"
               placeholder="8자 이상 입력해 주세요"
