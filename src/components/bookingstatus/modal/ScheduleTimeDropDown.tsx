@@ -29,7 +29,7 @@ const ScheduleTimeDropDown = ({
   return (
     <div
       ref={dropdownRef}
-      className="w-full border border-gray-50 h-[170px] absolute z-50 bg-white rounded overflow-y-auto dark:bg-darkMode-black-30 dark:text-white custom-scrollbar"
+      className="w-full border border-gray-50 h-[170px] absolute z-50 bg-white rounded overflow-y-auto custom-scrollbar"
     >
       <ul>
         {schedule.map((item,index) => {

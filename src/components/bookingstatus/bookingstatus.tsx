@@ -9,7 +9,7 @@ const BookingStatusPage = () => {
 
   return activities.length === 0 ? (
     <div>
-      <h1 className="text-[32px] font-bold text-black mb-8 dark:text-darkMode-white-10">
+      <h1 className="text-[32px] font-bold text-black mb-8">
         예약 현황
       </h1>
       <NoBooking />

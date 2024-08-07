@@ -113,21 +113,15 @@ const BookingSchedule = forwardRef<HTMLDivElement, BookingScheduleProps>(
     }
 
     return (
-      <div className="dark:bg-darkMode-black-40 h-[135px] rounded border border-[#DDD] px-[16.43px] pb-3 pr-4 pt-4">
+      <div className="pt-4 px-[16.43px] pb-3 pr-4 border border-[#DDD] h-[135px]  rounded">
         <div className="flex flex-col gap-[6px]">
           <div className="flex gap-[10px]">
-            <div className="dark:text-darkMode-white-30 font-semibold text-[#79747E]">
-              닉네임
-            </div>
-            <div className="dark:text-darkMode-white-10 font-medium text-[#1B1B1B]">
-              {nickname}
-            </div>
+            <div className="text-[#79747E] font-semibold">닉네임</div>
+            <div className="text-[#1B1B1B] font-medium">{nickname}</div>
           </div>
           <div className="flex gap-[10px]">
-            <div className="dark:text-darkMode-white-30 font-semibold text-[#79747E]">
-              인원
-            </div>
-            <div className="dark:text-darkMode-white-10 font-medium text-[#1B1B1B]">
+            <div className="text-[#79747E] font-semibold">인원</div>
+            <div className="text-[#1B1B1B] font-medium">
               {headCount}
             </div>
           </div>

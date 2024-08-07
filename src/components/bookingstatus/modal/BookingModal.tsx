@@ -65,7 +65,7 @@ const BookingModal = ({
   const { inView, ref } = useInView();
   return (
     <div
-      className="border border-[#ddd] absolute top-[200px] right-[190px] w-[429px] h-[697px] bg-white rounded-3xl shadow-[0px_4px_16px_0px_rgba(17, 34, 17, 0.05)] px-[24px] pt-[31px] z-[10] sm:w-screen sm:top-0 sm:right-0 sm:fixed sm:inset-0 sm:h-screen sm:rounded-none dark:bg-darkMode-black-20"
+      className="border border-[#ddd] absolute top-[200px] right-[190px] w-[429px] h-[697px] bg-white rounded-3xl shadow-[0px_4px_16px_0px_rgba(17, 34, 17, 0.05)] px-[24px] pt-[31px] z-[10] sm:w-screen sm:top-0 sm:right-0 sm:fixed sm:inset-0 sm:h-screen sm:rounded-none"
       ref={modalRef}
     >
       <svg
@@ -79,12 +79,12 @@ const BookingModal = ({
         <path d="M1 1L428 1.00004" stroke="#DDDDDD" strokeLinecap="square" />
       </svg>
       <div className="flex justify-between">
-        <div className="font-bold text-[28px] text-[#1b1b1b] dark:text-white">예약정보</div>
+        <div className="font-bold text-[28px] text-[#1b1b1b]">예약정보</div>
         <button type="button" onClick={handleCloseModal}>
           <img src="/image/x_btn.svg" alt="cancel_icon" />
         </button>
       </div>
-      <div className="flex gap-3 mt-[34px] text-[20px] text-[#4b4b4b] dark:text-darkMode-white-20">
+      <div className="flex gap-3 mt-[34px] text-[20px] text-[#4b4b4b]">
         <div className="flex flex-col gap-[13px]">
           <button
             type="button"
@@ -123,10 +123,10 @@ const BookingModal = ({
           ) : null}
         </div>
       </div>
-      <div className="mt-[25px] text-[#1b1b1b] font-semibold text-[20px] dark:text-white">
+      <div className="mt-[25px] text-[#1b1b1b] font-semibold text-[20px]">
         예약날짜
       </div>
-      <div className="mt-[14px] text-[#1b1b1b]  text-[20px] mb-[10px] dark:text-white">{`${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일`}</div>
+      <div className="mt-[14px] text-[#1b1b1b]  text-[20px] mb-[10px] ">{`${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일`}</div>
 
       {selectedSchedule ? (
         <>
@@ -146,7 +146,7 @@ const BookingModal = ({
           )}
 
           <div className="mt-8 flex flex-col gap-4">
-            <div className="text-[#1b1b1b] font-semibold text-[20px] dark:text-white">
+            <div className="text-[#1b1b1b] font-semibold text-[20px]">
               예약 내역
             </div>
             <div className="flex flex-col gap-[14px] h-[186px] overflow-y-auto custom-scrollbar">
