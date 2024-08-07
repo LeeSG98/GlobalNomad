@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import Profile from "@/components/common/profile/Profile";
 import Submit from "@/components/modifyactivity/Submit";
 import Title from "@/components/modifyactivity/Title";
@@ -13,14 +14,14 @@ import Intro from "@/components/modifyactivity/Intro";
 import getActivity from "@/api/getActivity";
 import { ActivityType } from "@/types/activitypage";
 
-const registeractivity = () => {
-  // const navigate = useNavigate();
+const modifyactivity = () => {
+  const router = useRouter();
   const { id } = useParams<{ id: string }>();
   const [activityData, setActivityData] = useState<ActivityType | null>(null);
 
   useEffect(() => {
     if (!id) {
-      // navigate("/Error404");
+      router.push("/error");
       return;
     }
 
@@ -30,7 +31,7 @@ const registeractivity = () => {
         setActivityData(data);
       } catch (error) {
         console.error("Activity 데이터를 가져오는 데 실패했습니다.", error);
-        // navigate("/Error404");
+        router.push("/error");
       }
     };
 
@@ -61,4 +62,4 @@ const registeractivity = () => {
   );
 };
 
-export default registeractivity;
+export default modifyactivity;
