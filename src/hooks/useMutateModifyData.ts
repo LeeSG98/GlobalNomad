@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { ModifyData, Schedule } from "@/types/modifyActivity";
 import patchModifyMyActivity from "@/api/patchMyActivity";
 import queryKeys from "@/api/reactQuery/queryKeys";
@@ -12,7 +12,7 @@ interface MutationModifyDataProps {
 
 const useMutationModifyData = ({ schedules }: MutationModifyDataProps) => {
   const queryClient = useQueryClient();
-  // const navigate = useNavigate();
+  const router = useRouter();
   const { mergeSchedule, initialModifySchedule, initialScheduleId, initialModifyData } =
     useMergeModifyData();
 
@@ -21,11 +21,11 @@ const useMutationModifyData = ({ schedules }: MutationModifyDataProps) => {
       return patchModifyMyActivity(modifyData, modifyId);
     },
     onSuccess: () => {
-      console.log("수정 성공!!");
+      console.log("수정 성공");
       queryClient.invalidateQueries({ queryKey: queryKeys.activities() });
       queryClient.invalidateQueries({ queryKey: ["currentPageActivity"] });
       initialModifyData();
-      // navigate("/myactivity");
+      router.push("/myactivitypage");
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {

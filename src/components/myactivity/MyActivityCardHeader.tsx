@@ -5,7 +5,7 @@ const MyActivityCardHeader = () => {
   const router = useRouter();
 
   const handleAssignClick = () => {
-    router.push("/my/activity/assign");
+    router.push("/registeractivity");
   };
 
   return (
