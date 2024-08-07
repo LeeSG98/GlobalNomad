@@ -9,17 +9,13 @@ import CategoryList from "@/components/mainpage/CategoryList";
 import PriceFilter from "@/components/mainpage/PriceFilter";
 import { useQuery } from "@tanstack/react-query";
 import { getActivities } from "@/api/api";
-import {
-  GetActivitiesParams,
-  GetActivitiesResponse,
-  Activity,
-} from "@/types/mainPage";
+import { GetActivitiesParams, GetActivitiesResponse } from "@/types/mainPage";
 
 const MainPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
   const [selectedPriceOption, setSelectedPriceOption] =
-    useState<string>("가격");
+    useState<string>("가격"); // 초기값 설정
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -59,7 +55,7 @@ const MainPage = () => {
     "관광",
     "웰빙",
   ];
-  const priceOptions = ["가격", "가격높은순", "가격낮은순"];
+  const priceOptions = ["최신순", "가격높은순", "가격낮은순"];
 
   const { data, isLoading, error } = useQuery({
     queryKey: [
@@ -91,30 +87,10 @@ const MainPage = () => {
     },
   });
 
-  const mappedLinks =
-    data?.activities.map((activity) => ({
-      id: activity.id,
-      imageUrl: activity.bannerImageUrl,
-      title: activity.title,
-      rating: activity.rating,
-      reviewCount: activity.reviewCount,
-      price: `$${activity.price}`,
-    })) || [];
-
-  const popularLinks = [...mappedLinks].sort(
-    (a, b) => b.reviewCount - a.reviewCount,
-  );
-
   return (
     <Layout isSticky={false}>
       <MainLayout
-        searchBar={
-          <SearchBar
-            value={searchValue}
-            onChange={handleSearchChange}
-            onCloseClick={handleSearchCloseClick}
-          />
-        }
+        searchBar={<SearchBar />}
         mainToolBar={
           <MainToolBar
             folders={[]}
@@ -133,7 +109,6 @@ const MainPage = () => {
                 {!searchValue && (
                   <PolpularListContainer
                     title="🔥 인기 체험"
-                    links={popularLinks}
                     onPreviousClick={handlePreviousClick}
                     onNextClick={handleNextClick}
                   />
@@ -143,19 +118,17 @@ const MainPage = () => {
                     categories={categories}
                     onCategoryClick={handleCategoryClick}
                   />
-                  <div className="">
-                    <PriceFilter
-                      options={priceOptions}
-                      selectedOption={selectedPriceOption}
-                      onChange={handlePriceOptionChange}
-                    />
-                  </div>
+                  <PriceFilter
+                    options={priceOptions}
+                    selectedOption={selectedPriceOption}
+                    onChange={handlePriceOptionChange}
+                  />
                 </div>
                 <CardListContainer
                   title="🛼 모든 체험"
-                  links={mappedLinks}
                   searchValue={searchValue}
-                  selectedCategory={selectedCategory} // Add this line
+                  selectedCategory={selectedCategory}
+                  selectedPriceOption={selectedPriceOption} // 추가된 props
                 />
               </>
             )}

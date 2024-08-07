@@ -30,7 +30,6 @@ const Reserve = () => {
         endTime: reservationEndTime as string,
       };
       const isDuplicate = time.some(
-        // 시간대 중복 로직
         (t: Schedule) =>
           t.date === newReservationTime.date &&
           t.startTime === newReservationTime.startTime &&
