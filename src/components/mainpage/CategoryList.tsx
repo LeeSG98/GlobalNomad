@@ -3,10 +3,15 @@ import CategoryBox from "./CategoryBox";
 
 type CategoryListProps = {
   categories: string[];
-  onCategoryClick: (category: string) => void;
+  selectedCategory: string | null;
+  onCategoryClick: (category: string | null) => void;
 };
 
-const CategoryList = ({ categories, onCategoryClick }: CategoryListProps) => {
+const CategoryList = ({
+  categories,
+  selectedCategory,
+  onCategoryClick,
+}: CategoryListProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -21,6 +26,14 @@ const CategoryList = ({ categories, onCategoryClick }: CategoryListProps) => {
     }
   };
 
+  const handleCategoryClick = (category: string) => {
+    if (selectedCategory === category) {
+      onCategoryClick(null);
+    } else {
+      onCategoryClick(category);
+    }
+  };
+
   return (
     <div className="relative flex items-center">
       <div className="relative flex w-full space-x-4 overflow-x-auto md:hidden lg:hidden">
@@ -28,7 +41,8 @@ const CategoryList = ({ categories, onCategoryClick }: CategoryListProps) => {
           <CategoryBox
             key={index}
             category={category}
-            onClick={() => onCategoryClick(category)}
+            isSelected={selectedCategory === category}
+            onClick={() => handleCategoryClick(category)}
           />
         ))}
       </div>
@@ -48,7 +62,8 @@ const CategoryList = ({ categories, onCategoryClick }: CategoryListProps) => {
               <CategoryBox
                 key={index}
                 category={category}
-                onClick={() => onCategoryClick(category)}
+                isSelected={selectedCategory === category}
+                onClick={() => handleCategoryClick(category)}
               />
             ))}
         </div>
@@ -59,7 +74,7 @@ const CategoryList = ({ categories, onCategoryClick }: CategoryListProps) => {
           >
             <img
               src="/image/category_arrow_next.svg"
-              alt="Star"
+              alt="Next"
               className="mr-1 h-4 w-4"
             />
           </button>
