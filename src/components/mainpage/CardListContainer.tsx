@@ -51,9 +51,7 @@ const CardListContainer = ({
     },
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
