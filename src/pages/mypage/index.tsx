@@ -127,7 +127,7 @@ export default function mypage() {
 
   return (
     <>
-      <div className="flex min-h-[calc(100vh-160px)] justify-center gap-6 bg-gray_FA pt-[24px] lg:pt-[72px]">
+      <div className="flex min-h-[calc(100vh-160px)] justify-center gap-6 bg-gray_FA pt-[72px] sm:pt-[24px]">
         <div className="hidden h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow mob:flex">
           <div className="flex justify-center">
             <div className="relative">

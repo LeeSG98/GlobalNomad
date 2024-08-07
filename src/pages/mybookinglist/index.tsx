@@ -46,7 +46,7 @@ export default function mybookinglist() {
 
   return (
     <>
-      <div className="flex min-h-[calc(100vh-160px)] justify-center gap-6 bg-gray_FA pt-[24px] lg:pt-[72px]">
+      <div className="flex min-h-[calc(100vh-160px)] justify-center gap-6 bg-gray_FA pt-[72px] sm:pt-[24px]">
         <Profile />
         <div className="flex w-[792px] flex-col gap-[24px]">
           <div className="flex justify-between">
