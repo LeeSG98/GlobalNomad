@@ -13,7 +13,7 @@ const Description = ({ description }: ModifyDescriptionProps) => {
     mergeDescription(description);
   }, []);
 
-  const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newDescription = e.target.value;
     setLocalDescription(newDescription);
     mergeDescription(newDescription);
@@ -21,7 +21,7 @@ const Description = ({ description }: ModifyDescriptionProps) => {
 
   return (
     <div className="flex mt-[1.5rem]">
-      <input value={localDescription} className="w-[49.5rem] h-[21.625rem] pt-[1rem] pb-[19rem] pl-[1rem] border-[1px] border-gray_79 rounded" type="text" placeholder="설명" onChange={handleChangeDescription} />
+      <textarea value={localDescription} className="w-[49.5rem] h-[21.625rem] pt-[1rem] pb-[19rem] pl-[1rem] border-[1px] border-gray_79 rounded" placeholder="설명" onChange={handleChangeDescription} />
     </div>
   );
 };
