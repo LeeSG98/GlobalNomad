@@ -5,6 +5,7 @@ import ReviewButton from "./ReviewButton";
 import { Reservations } from "@/types/Reservation";
 import { useModal } from "@/store/ModalContext";
 import priceToWon from "@/utils/priceToWon";
+import ReviewSubmitted from "./ReviewSubmitted";
 
 interface ReservationProps {
   filter: string;
@@ -139,11 +140,14 @@ export default function Booking({ filter, reservations }: ReservationProps) {
                 />
               )}
 
-              {reservation.status === "completed" && (
-                <ReviewButton
-                  onClick={() => handleOpenModal("review", reservation)}
-                />
-              )}
+              {reservation.status === "completed" &&
+                (reservation.reviewSubmitted ? (
+                  <ReviewSubmitted />
+                ) : (
+                  <ReviewButton
+                    onClick={() => handleOpenModal("review", reservation)}
+                  />
+                ))}
             </div>
           </div>
         </div>
