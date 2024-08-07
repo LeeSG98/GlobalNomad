@@ -15,7 +15,7 @@ const MainPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
   const [selectedPriceOption, setSelectedPriceOption] =
-    useState<string>("가격"); // 초기값 설정
+    useState<string>("가격");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -35,7 +35,7 @@ const MainPage = () => {
 
   const handleNextClick = () => {};
 
-  const handleCategoryClick = (category: string) => {
+  const handleCategoryClick = (category: string | null) => {
     setSelectedCategory(category);
   };
 
@@ -116,6 +116,7 @@ const MainPage = () => {
                 <div className="my-16 flex items-center justify-between">
                   <CategoryList
                     categories={categories}
+                    selectedCategory={selectedCategory}
                     onCategoryClick={handleCategoryClick}
                   />
                   <PriceFilter
@@ -128,7 +129,7 @@ const MainPage = () => {
                   title="🛼 모든 체험"
                   searchValue={searchValue}
                   selectedCategory={selectedCategory}
-                  selectedPriceOption={selectedPriceOption} // 추가된 props
+                  selectedPriceOption={selectedPriceOption}
                 />
               </>
             )}
