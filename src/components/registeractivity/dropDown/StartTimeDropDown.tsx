@@ -14,6 +14,12 @@ interface StartTimeProps {
       { startTime: "14:00" },
       { startTime: "15:00" },
       { startTime: "16:00" },
+      { startTime: "17:00" },
+      { startTime: "18:00" },
+      { startTime: "19:00" },
+      { startTime: "20:00" },
+      { startTime: "21:00" },
+      { startTime: "22:00" },
     ];
   
     const handleSelectedTime = (startTime: string) => () => {

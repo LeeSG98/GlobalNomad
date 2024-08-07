@@ -20,6 +20,12 @@ const EndTimeDropDown = ({ onSelect }: EndTimeProps) => {
     { endTime: '15:00' },
     { endTime: '16:00' },
     { endTime: '17:00' },
+    { endTime: '18:00' },
+    { endTime: '19:00' },
+    { endTime: '20:00' },
+    { endTime: '21:00' },
+    { endTime: '22:00' },
+    { endTime: '23:00' },
   ];
 
   const parseTime = (time: string) => {
