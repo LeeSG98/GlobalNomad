@@ -52,7 +52,7 @@ const BookingModal = ({
     queryFn: getBookingSchedule,
   });
 
-  const Booking = scheduleByStatus?.pages.flatMap((page) => page.Booking);
+  const Booking = scheduleByStatus?.pages.flatMap((page) => page.reservations);
 
   console.log(Booking);
   useEffect(() => {
