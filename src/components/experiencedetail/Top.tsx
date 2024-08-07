@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
-import React, { useEffect, useState } from 'react';
-import { getActivity } from '@/api/activity';
-import { ActivityResponse } from '@/api/models/activity';
-import { useParams } from 'react-router-dom';
->>>>>>> 07d9f5a0aff042cea8e92f355bc728ed73b4c6a4
+import React, { useEffect, useState } from "react";
+import { getActivity } from "@/api/activity";
+import { ActivityResponse } from "@/api/models/activity";
+import { useParams } from "react-router-dom";
 
 interface TopProps {
   category: string;
@@ -13,15 +9,19 @@ interface TopProps {
   address: string;
   reviewCount: number;
   rating: number;
-
 }
 
-
-const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}: TopProps) => {
+const Top: React.FC<TopProps> = ({
+  category,
+  title,
+  address,
+  reviewCount,
+  rating,
+}: TopProps) => {
   // const { id } = useParams<{id: string}>();
   // const [activity, setActivity] = useState<ActivityResponse | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  
+
   // useEffect(() => {
   //   if (id) {
   //     const fetchActivity = async () => {
@@ -36,7 +36,6 @@ const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}
   //   }
   // }, [id]);
 
-
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -46,17 +45,10 @@ const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}
   };
 
   return (
-<<<<<<< HEAD
     <div className="mx-auto mb-0 mt-16 w-full max-w-[1200px]">
-      <div className="text-sm text-gray-600">문화·예술</div>
+      <div className="text-sm text-gray-600">{category || "카테고리 없음"}</div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">함께 배우면 즐거운 스트릿 댄스</h1>
-=======
-    <div className="w-full max-w-[1200px] mx-auto mt-16 mb-0">
-      <div className="text-sm text-gray-600">{category || '카테고리 없음'}</div>
-      <div className="flex justify-between items-center">
-        <h1 className="font-bold text-2xl">{title || '제목 없음'}</h1>
->>>>>>> 07d9f5a0aff042cea8e92f355bc728ed73b4c6a4
+        <h1 className="text-2xl font-bold">{title || "제목 없음"}</h1>
         <div className="relative">
           <button onClick={handleMenuToggle} className="focus:outline-none">
             <svg
@@ -94,24 +86,15 @@ const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}
       </div>
       <div className="mt-2 flex items-center">
         <img src="/star.svg" alt="star" className="star" />
-<<<<<<< HEAD
-        <span className="text-yellow-500 ml-1 text-lg">4.9</span>
-        <span className="ml-2 text-gray-600">(293)</span>
-        <img src="/ping.svg" alt="ping" className="ping" />
-        <span className="ml-1 text-gray-600"> 서울 중구 청계천로 100 10F</span>
-=======
-        <span className="text-lg text-yellow-500 ml-1">
-          {rating.toFixed(1) || '0.0'}
+        <span className="text-yellow-500 ml-1 text-lg">
+          {rating.toFixed(1) || "0.0"}
         </span>
-        <span className="text-gray-600 ml-2">
-          ({reviewCount || 0})
-        </span>
+        <span className="ml-2 text-gray-600">({reviewCount || 0})</span>
         <div className="mx-4" /> {/* 간격을 주기 위해 추가 */}
         <img src="/ping.svg" alt="ping" className="ping" />
-        <span className="text-gray-600 ml-1">
-          {address || '등록된 주소가 없습니다'}
+        <span className="ml-1 text-gray-600">
+          {address || "등록된 주소가 없습니다"}
         </span>
->>>>>>> 07d9f5a0aff042cea8e92f355bc728ed73b4c6a4
       </div>
     </div>
   );

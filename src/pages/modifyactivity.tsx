@@ -48,7 +48,7 @@ const modifyactivity = () => {
         <Profile />
         <div className="flex w-[49.5rem] flex-col">
           {id && <Submit id={id} schedules={activityData.schedules} />}
-          <Title title={activityData.title}/>
+          <Title title={activityData.title} />
           <Category category={activityData.category} />
           <Description description={activityData.description} />
           <Price price={activityData.price} />
@@ -61,5 +61,5 @@ const modifyactivity = () => {
     </>
   );
 };
-  
+
 export default modifyactivity;
