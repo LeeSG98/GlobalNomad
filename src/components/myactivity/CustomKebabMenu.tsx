@@ -56,7 +56,7 @@ const CustomKebabMenu = ({ options }: IProps) => {
               tabIndex={0}
               role="option"
               aria-selected={option === selectedOption}
-              className={`py-4 flex items-center justify-center dark:bg-darkMode-black-20 dark:text-darkMode-white-10 cursor-pointer ${
+              className={`py-4 flex items-center justify-center cursor-pointer ${
                 option !== options[options.length - 1] ? 'border-b border-gray-300' : ''
               } hover:bg-gray-100`}
             >

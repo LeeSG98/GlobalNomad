@@ -27,7 +27,7 @@ const ScheduleTimeDropDownBox = ({
       <input
         type="text"
         value={`${selectedSchedule?.startTime} ~ ${selectedSchedule?.endTime}`}
-        className="border border-gray-50 w-full rounded  pl-4 py-4 outline-none dark:bg-darkMode-black-30 dark:text-white"
+        className="border border-gray-50 w-full rounded  pl-4 py-4 outline-none"
       />
       <button type="button" className="cursor-pointer" onClick={handleClickDropDown}>
         <img

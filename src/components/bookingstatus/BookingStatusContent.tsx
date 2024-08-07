@@ -107,7 +107,7 @@ const ReserveStatusContent = () => {
 
   return (
     <div className="relative w-full min-w-[21.375rem]">
-      <h1 className="dark:text-darkMode-white-10 mb-8 text-[32px] font-bold text-black">
+      <h1 className="mb-8 text-[32px] font-bold text-black">
         예약 현황
       </h1>
       {/* 드롭다운 박스에 선택된 activity title 표시 */}
