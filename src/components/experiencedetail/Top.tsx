@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getActivity } from '@/api/activity';
-import { ActivityResponse } from '@/api/models/activity';
-import { useParams } from 'react-router-dom';
 
 interface TopProps {
   category: string;
@@ -14,24 +11,9 @@ interface TopProps {
 
 
 const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}: TopProps) => {
-  // const { id } = useParams<{id: string}>();
-  // const [activity, setActivity] = useState<ActivityResponse | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-  
-  // useEffect(() => {
-  //   if (id) {
-  //     const fetchActivity = async () => {
-  //       try {
-  //         const res = await getActivity(id);
-  //         setActivity(res);
-  //       } catch (e) {
-  //         console.error("Error fetching activity:", e);
-  //       }
-  //     }
-  //     fetchActivity();
-  //   }
-  // }, [id]);
 
+  const [menuOpen, setMenuOpen] = useState(false); 
+ 
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
