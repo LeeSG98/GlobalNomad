@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface TopProps {
   category: string;
@@ -6,14 +7,11 @@ interface TopProps {
   address: string;
   reviewCount: number;
   rating: number;
-
 }
 
-
-const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}: TopProps) => {
-
-  const [menuOpen, setMenuOpen] = useState(false); 
- 
+const Top: React.FC<TopProps> = ({ category, title, address, reviewCount, rating }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
@@ -21,6 +19,10 @@ const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}
 
   const handleMenuClose = () => {
     setMenuOpen(false);
+  };
+
+  const handleEditClick = () => {
+    router.push(`/experiencedetail/editPage`);
   };
 
   return (
@@ -47,7 +49,7 @@ const Top: React.FC<TopProps> = ({category, title, address, reviewCount, rating}
           </button>
           {menuOpen && (
             <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-              <button onClick={handleMenuClose} className="w-full text-left px-4 py-2 hover:bg-gray-100">수정하기</button>
+              <button onClick={handleEditClick} className="w-full text-left px-4 py-2 hover:bg-gray-100">수정하기</button>
               <button onClick={handleMenuClose} className="w-full text-left px-4 py-2 hover:bg-gray-100">삭제하기</button>
             </div>
           )}

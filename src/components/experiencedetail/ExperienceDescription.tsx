@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 interface ExperienceDescriptionProps {
   description: string;
   address: string;
+  bannerImageUrl: string;
 }
 
 
-const ExperienceDescription: React.FC<ExperienceDescriptionProps> = ({description, address}: ExperienceDescriptionProps) => {
+const ExperienceDescription: React.FC<ExperienceDescriptionProps> = ({description, address, bannerImageUrl}: ExperienceDescriptionProps) => {
 
 
  
@@ -21,7 +22,7 @@ const ExperienceDescription: React.FC<ExperienceDescriptionProps> = ({descriptio
       <hr className="my-4 border-gray-300" />
       <div className="mb-8">
         <img
-          src="map.jpg" // API에서 지도 이미지 URL을 받을 경우, 여기에 activity.mapUrl 같은 속성을 사용
+          src={bannerImageUrl || '이미지가 없습니다'} 
           alt="Map"
           className="w-full h-auto"
         />

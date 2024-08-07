@@ -1,106 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { fetchReservedSchedule, updateReservationStatus, ReservationStatus } from '@/api';
 
-const EditReservation: React.FC = () => {
+const EditPage: React.FC = () => {
   const router = useRouter();
-  const { reservationId } = router.query;
-  const [reservationDetails, setReservationDetails] = useState<any>(null);
-  const [price, setPrice] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [date, setDate] = useState<string>('');
-  const [time, setTime] = useState<string>('');
-  const [location, setLocation] = useState<string>('');
+  const [category, setCategory] = useState('');
+  const [title, setTitle] = useState('');
+  const [address, setAddress] = useState('');
+  const [reviewCount, setReviewCount] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [images, setImages] = useState<File[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (reservationId) {
-        const data = await fetchReservedSchedule(Number(reservationId), date);
-        setReservationDetails(data);
-        // Assuming the API returns an object with price, description, date, time, and location properties
-        setPrice(data.price);
-        setDescription(data.description);
-        setDate(data.date);
-        setTime(data.time);
-        setLocation(data.location);
-      }
-    };
-    fetchData();
-  }, [reservationId, date]);
+  const handleSave = () => {
+    // 저장 로직 구현
+    console.log({ category, title, address, reviewCount, rating, images });
+    // 여기에 API 호출 등을 통해 데이터를 저장하는 로직을 추가하세요.
+  };
 
-  const handleUpdate = async () => {
-    try {
-      const updatedData = {
-        date,
-        status: ReservationStatus.APPROVAL, // Example status
-        count: 1, // Example count
-      };
-      await updateReservationStatus(Number(reservationId), updatedData);
-      alert('예약이 수정되었습니다.');
-      router.push('/'); // Redirect to home or another page after update
-    } catch (error) {
-      console.error('예약 수정 중 오류 발생:', error);
-      alert('예약 수정 중 오류가 발생했습니다.');
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const filesArray = Array.from(event.target.files);
+      setImages((prevImages) => [...prevImages, ...filesArray]);
     }
   };
 
-  if (!reservationDetails) return <div>Loading...</div>;
+  const handleRemoveImage = (index: number) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const handleCancel = () => {
+    router.back();
+  };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">예약 수정</h2>
+    <div className="w-full max-w-[600px] mx-auto mt-16 mb-80">
+      <h1 className="font-bold text-2xl mb-4">경험 수정하기</h1>
       <div className="mb-4">
-        <label className="block text-gray-700 mb-2">가격</label>
+        <label className="block text-gray-700">카테고리</label>
         <input
           type="text"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 mb-2">체험 설명</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">날짜</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">예약 가능한 시간</label>
+        <label className="block text-gray-700">제목</label>
         <input
           type="text"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 mb-2">위치</label>
+        <label className="block text-gray-700">주소</label>
         <input
           type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
         />
       </div>
-      <button
-        onClick={handleUpdate}
-        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-      >
-        수정하기
-      </button>
+      
+      <div className="mb-4">
+        <label className="block text-gray-700">이미지 업로드</label>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleImageChange}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+        />
+      </div>
+      <div className="mb-4 grid grid-cols-2 gap-2">
+        {images.map((image, index) => (
+          <div key={index} className="relative">
+            <img
+              src={URL.createObjectURL(image)}
+              alt={`preview-${index}`}
+              className="w-full h-32 object-cover rounded"
+            />
+            <button
+              onClick={() => handleRemoveImage(index)}
+              className="absolute top-0 right-0 mt-1 mr-1 text-white bg-red-500 rounded-full w-6 h-6 flex items-center justify-center"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="flex space-x-4">
+        <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+          저장
+        </button>
+        <button onClick={handleCancel} className="px-4 py-2 bg-gray-500 text-white rounded-lg">
+          취소
+        </button>
+      </div>
     </div>
   );
 };
 
-export default EditReservation;
+export default EditPage;
