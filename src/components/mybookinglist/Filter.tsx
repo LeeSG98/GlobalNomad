@@ -21,7 +21,7 @@ export default function Filter({ setFilter }: FilterProps) {
   };
 
   return (
-    <div ref={buttonRef} className="relative">
+    <div ref={buttonRef} className="relative hidden lg:block">
       <button
         className="flex w-[130px] items-center justify-between rounded-xl border border-green_0B bg-white px-[20px] py-[10px] shadow-md"
         onClick={toggleFilter}
