@@ -33,7 +33,7 @@ const MyActivityCardList = () => {
   }
 
   return (
-    <div className="custom-scrollbar h-[34rem] w-full overflow-y-auto">
+    <div className="custom-scrollbar h-[43rem] w-full overflow-y-auto">
       {activities.length !== 0 ? (
         <>
           <ul className="flex flex-col gap-6">

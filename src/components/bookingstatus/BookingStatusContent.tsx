@@ -4,7 +4,7 @@ import Calendar from "react-calendar";
 import moment from "moment";
 import getBookingYearAndMonth from "@/api/getBookingDate";
 import queryKeys from "@/api/reactQuery/queryKeys";
-import "@/styles/BookingStatusCalendar.module.css";
+import { StyledBookingStatusCalendarWrapper } from "@/styles/BookingstatusCalendar";
 import useLoadMoreActivities from "@/hooks/useLoadMoreActivities";
 import { Activity, BookingData } from "@/types/bookingStatus";
 import ActivityDropDownBox from "./ActivityDropDownBox";
@@ -107,7 +107,7 @@ const ReserveStatusContent = () => {
 
   return (
     <div className="relative w-full min-w-[21.375rem]">
-      <h1 className="dark:text-darkMode-white-10 mb-8 text-[32px] font-bold text-black">
+      <h1 className="mb-8 text-[32px] font-bold text-black">
         예약 현황
       </h1>
       {/* 드롭다운 박스에 선택된 activity title 표시 */}
@@ -126,7 +126,7 @@ const ReserveStatusContent = () => {
           />
         </div>
       )}
-      <div className="booking-status-calendar-wrapper">
+      <StyledBookingStatusCalendarWrapper>
         <Calendar
           className="w-full p-0"
           locale="ko"
@@ -139,7 +139,7 @@ const ReserveStatusContent = () => {
           }
           tileContent={tileContent}
         />
-      </div>
+      </StyledBookingStatusCalendarWrapper>
       <div className="md:absolute md:right-[-100px] md:top-[-10px]">
         {viewBookingModal && selectedActivity && (
           <BookingModal

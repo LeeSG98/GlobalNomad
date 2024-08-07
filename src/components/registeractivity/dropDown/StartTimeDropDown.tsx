@@ -14,6 +14,12 @@ interface StartTimeProps {
       { startTime: "14:00" },
       { startTime: "15:00" },
       { startTime: "16:00" },
+      { startTime: "17:00" },
+      { startTime: "18:00" },
+      { startTime: "19:00" },
+      { startTime: "20:00" },
+      { startTime: "21:00" },
+      { startTime: "22:00" },
     ];
   
     const handleSelectedTime = (startTime: string) => () => {
@@ -26,7 +32,7 @@ interface StartTimeProps {
           <button
             key={time.startTime}
             type="button"
-            className="w-[100%]  hover:bg-[#112211] hover:text-white"
+            className="w-[100%] hover:bg-[#112211] hover:text-white"
             onClick={handleSelectedTime(time.startTime)}
           >
             <li className="flex text-base">{time.startTime}</li>

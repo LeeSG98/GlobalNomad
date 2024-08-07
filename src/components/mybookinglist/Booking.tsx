@@ -4,6 +4,8 @@ import CancelButton from "./CancelButton";
 import ReviewButton from "./ReviewButton";
 import { Reservations } from "@/types/Reservation";
 import { useModal } from "@/store/ModalContext";
+import priceToWon from "@/utils/priceToWon";
+import ReviewSubmitted from "./ReviewSubmitted";
 
 interface ReservationProps {
   filter: string;
@@ -129,18 +131,23 @@ export default function Booking({ filter, reservations }: ReservationProps) {
               <p className="pb-[20px] text-gray-500">{`${reservation.date} · ${reservation.startTime} - ${reservation.endTime} · ${reservation.headCount}명`}</p>
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-lg font-semibold">₩{reservation.totalPrice}</p>
+              <p className="text-lg font-semibold">
+                {priceToWon(reservation.totalPrice)}
+              </p>
               {reservation.status === "pending" && (
                 <CancelButton
                   onClick={() => handleOpenModal("cancel", reservation)}
                 />
               )}
 
-              {reservation.status === "completed" && (
-                <ReviewButton
-                  onClick={() => handleOpenModal("review", reservation)}
-                />
-              )}
+              {reservation.status === "completed" &&
+                (reservation.reviewSubmitted ? (
+                  <ReviewSubmitted />
+                ) : (
+                  <ReviewButton
+                    onClick={() => handleOpenModal("review", reservation)}
+                  />
+                ))}
             </div>
           </div>
         </div>

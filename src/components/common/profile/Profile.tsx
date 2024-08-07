@@ -9,7 +9,7 @@ import Link from "next/link";
 function Profile() {
   return (
     <>
-      <div className="flex h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow">
+      <div className="hidden h-full w-[384px] flex-col gap-[24px] rounded-xl border p-[24px] shadow mob:flex">
         <div className="flex justify-center">
           <UserImage />
         </div>
@@ -20,7 +20,7 @@ function Profile() {
           <Link href="/mybookinglist">
             <List icon={<MdPlaylistAddCheck />} title="예약내역" />
           </Link>
-          <Link href="/MyActvitiyPage">
+          <Link href="/myactivitypage">
             <List icon={<CiSettings />} title="내 체험 관리" />
           </Link>
           <Link href="/bookingstatus">

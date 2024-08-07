@@ -39,7 +39,7 @@ const ActivityDropDown = ({
 
   return (
     <div
-      className="border border-black bg-white top-[30px] z-10 h-[300px] overflow-y-auto custom-scrollbar dark:bg-darkMode-black-20 dark:text-white"
+      className="border border-black bg-white top-[30px] z-10 h-[300px] overflow-y-auto custom-scrollbar"
       ref={dropdownRef}
     >
       <ul className="flex flex-col" onClick={handleCloseDropDown}>

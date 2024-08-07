@@ -19,7 +19,7 @@ const MyActivityCard: React.FC<MyActivityCardProps> = ({ activity, refetchActivi
   };
 
   return (
-    <li className="rounded-3xl flex w-full h-[12.75rem] md:h-[9.75rem] sm:h-32 sm:min-w-[21.5rem] shadow-[0_4px_16px_0_rgba(17,34,17,0.05)] bg-white dark:bg-darkMode-black-20">
+    <li className="rounded-3xl flex w-full h-[12.75rem] md:h-[9.75rem] sm:h-32 sm:min-w-[21.5rem] shadow-[0_4px_16px_0_rgba(17,34,17,0.05)] bg-white">
       <div className="w-[12.75rem] h-[12.75rem] md:w-[9.75rem] md:h-[9.75rem] sm:w-32 sm:h-32">
         <img
           className="w-full h-full object-cover rounded-l-3xl"
@@ -33,16 +33,16 @@ const MyActivityCard: React.FC<MyActivityCardProps> = ({ activity, refetchActivi
             <span className="w-5 h-5 inline-flex justify-center items-center sm:w-[1rem] sm:h-[1rem]">
               <img src="/image/star.svg" alt="starIcon" />
             </span>
-            <span className="text-[#1B1B1B] sm:text-[0.875rem] dark:text-darkMode-white-10">
+            <span className="text-[#1B1B1B] sm:text-[0.875rem]">
               {activity.rating} ({activity.reviewCount})
             </span>
           </p>
-          <p className="text-[#112211] text-[1.25rem] leading-relaxed font-bold md:text-[1.125rem] sm:text-[0.875rem] dark:text-darkMode-white-10">
+          <p className="text-[#112211] text-[1.25rem] leading-relaxed font-bold md:text-[1.125rem] sm:text-[0.875rem]">
             {activity.title}
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-medium text-gray-80 text-[1.5rem] md:text-[1.25rem] sm:text-[1rem] dark:text-darkMode-white-10">
+          <p className="font-medium text-gray-80 text-[1.5rem] md:text-[1.25rem] sm:text-[1rem]">
             {priceToWon(activity.price)}
           </p>
           <CustomKebabMenu

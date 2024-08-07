@@ -10,7 +10,6 @@ const HeaderProfile = () => {
     queryKey: ["user"],
     queryFn: getUserInfo,
   });
-  console.log(data);
 
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

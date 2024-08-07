@@ -20,6 +20,12 @@ const EndTimeDropDown = ({ onSelect }: EndTimeProps) => {
     { endTime: '15:00' },
     { endTime: '16:00' },
     { endTime: '17:00' },
+    { endTime: '18:00' },
+    { endTime: '19:00' },
+    { endTime: '20:00' },
+    { endTime: '21:00' },
+    { endTime: '22:00' },
+    { endTime: '23:00' },
   ];
 
   const parseTime = (time: string) => {
@@ -46,7 +52,7 @@ const EndTimeDropDown = ({ onSelect }: EndTimeProps) => {
         <button
           key={time.endTime}
           type="button"
-          className="w-[100%]  hover:bg-[#112211] hover:text-white"
+          className="w-[100%] hover:bg-[#112211] hover:text-white"
           onClick={handleSelectedTime(time.endTime)}
         >
           <li className="flex text-base">{time.endTime}</li>
