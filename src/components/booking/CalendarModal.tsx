@@ -22,7 +22,6 @@ interface CalendarModalProps {
 }
 
 const CalendarModal: React.FC<CalendarModalProps> = ({ onSelect, onClose }) => {
-  const { darkMode } = useStore();
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
 
   const formatDate = (date: SelectedDate): string => {

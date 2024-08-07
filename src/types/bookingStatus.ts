@@ -67,7 +67,7 @@ interface Booking {
 }
 
 export interface BookingResponse {
-  Booking: Booking[];
+  reservations: Booking[];
   totalCount: number;
   cursorId: number | null;
 }
