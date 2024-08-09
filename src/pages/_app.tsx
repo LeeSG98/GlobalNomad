@@ -1,6 +1,38 @@
+import React from "react";
+import { AppProps } from "next/app";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { StoreProvider } from "@/store/StoreProvider";
+import "@/styles/customScrollbar.css";
 import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ModalProvider } from "@/store/ModalContext";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const queryClient = new QueryClient();
+
+//showHeaderFooter 속성 추가
+type CustomAppProps = AppProps & {
+  Component: AppProps["Component"] & { showHeaderFooter?: boolean };
+};
+
+const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps }) => {
+  // 헤더 푸터 표시 여부 결정
+  const showHeaderFooter = Component.showHeaderFooter !== false;
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ModalProvider>
+          <StoreProvider>
+            {showHeaderFooter && <Header />}
+            <Component {...pageProps} />
+            {showHeaderFooter && <Footer />}
+          </StoreProvider>
+        </ModalProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+};
+
+export default MyApp;
