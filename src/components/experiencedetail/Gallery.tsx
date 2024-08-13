@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react';
-
-import { ActivityResponse, ImageResponse } from '@/api/models/activity';
-
-
+import React from "react";
+import { ActivityResponse, ImageResponse } from "@/api/models/activity";
 
 interface GalleryProps {
-  subImages: ImageResponse[]
-
+  subImages: ImageResponse[];
 }
 
-const Gallery: React.FC<GalleryProps> = ({subImages}: GalleryProps) => {
-
-  const [activity, setActivity] = useState<ActivityResponse | null>(null);
-
-
+const Gallery: React.FC<GalleryProps> = ({ subImages }: GalleryProps) => {
+  const [activity, setActivity] = React.useState<ActivityResponse | null>(null);
 
   return (
     <div className="flex justify-center">
@@ -21,24 +14,26 @@ const Gallery: React.FC<GalleryProps> = ({subImages}: GalleryProps) => {
         <div className="grid grid-cols-4 gap-2">
           <div className="col-span-2 row-span-2">
             <img
-              src={subImages[0]}
+              src={subImages[0].imageUrl} // 올바른 속성 사용
               alt="gallery-1"
-              className="w-[595px] h-[534px] object-cover rounded"
+              className="h-[534px] w-[595px] rounded object-cover"
             />
           </div>
-          {subImages.slice(1).map((subImages, index) => (
+          {subImages.slice(1).map((subImage, index) => (
             <div key={index} className="col-span-1 row-span-1">
               <img
-                src={subImages}
+                src={subImage.imageUrl} // 올바른 속성 사용
                 alt={`gallery-${index + 2}`}
-                className="w-[293px] h-[263px] object-cover rounded"
+                className="h-[263px] w-[293px] rounded object-cover"
               />
             </div>
           ))}
         </div>
       ) : (
-        <p>{activity?.bannerImageUrl}
-          No images available for this activity.</p>
+        <p>
+          {activity?.bannerImageUrl}
+          No images available for this activity.
+        </p>
       )}
     </div>
   );
