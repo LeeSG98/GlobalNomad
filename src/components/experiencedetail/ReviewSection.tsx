@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import ReviewCard from './ReviewCard';
-import Pagination from './Pagination';
-import { useParams } from 'react-router-dom';
-import { getActivity } from '@/api/activity';
-import { ActivityResponse, ReviewResponse } from '@/api/models/activity';
+import React, { useState, useEffect } from "react";
+import ReviewCard from "./ReviewCard";
+import Pagination from "./Pagination";
+import { useParams } from "react-router-dom";
+import { getActivity } from "@/api/activity";
+import { ActivityResponse, ReviewResponse } from "@/api/models/activity";
 
 const ReviewSection: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,11 +18,10 @@ const ReviewSection: React.FC = () => {
       const fetchReviews = async () => {
         try {
           const activity: ActivityResponse = await getActivity(id);
-          setReviews(activity.reviews); // API로부터 받은 리뷰 데이터 설정
           setAverageRating(activity.rating); // API로부터 받은 평균 평점 설정
           setTotalReviewCount(activity.reviewCount); // API로부터 받은 총 리뷰 개수 설정
         } catch (error) {
-          console.error('Error fetching reviews:', error);
+          console.error("Error fetching reviews:", error);
         }
       };
 
@@ -37,16 +36,16 @@ const ReviewSection: React.FC = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="w-full max-w-[1200px] mt-8">
-      <h2 className="text-xl font-semibold mb-4">후기</h2>
-      <div className="flex items-center mb-4">
-        <span className="text-4xl font-bold" style={{ fontSize: '50px' }}>
+    <div className="mt-8 w-full max-w-[1200px]">
+      <h2 className="mb-4 text-xl font-semibold">후기</h2>
+      <div className="mb-4 flex items-center">
+        <span className="text-4xl font-bold" style={{ fontSize: "50px" }}>
           {averageRating.toFixed(1)}
         </span>
         <div className="ml-4">
           <span className="text-lg font-semibold">매우 만족</span>
           <div className="flex items-center text-sm text-gray-600">
-            <img src="/star.svg" alt="star" className="w-4 h-4 mr-1" />
+            <img src="/star.svg" alt="star" className="mr-1 h-4 w-4" />
             {totalReviewCount}개 후기
           </div>
         </div>

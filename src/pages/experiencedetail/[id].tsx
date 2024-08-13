@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import Top from '@/components/experiencedetail/Top';
-import { useRouter } from 'next/router';
-import ExperienceDescription from '@/components/experiencedetail/ExperienceDescription';
-import ReviewSection from '@/components/experiencedetail/ReviewSection';
-import ReservationDetails from '@/components/experiencedetail/ReservationDetails';
-import Gallery from '@/components/experiencedetail/Gallery';
-import axios from 'axios';
-import axiosInstance from '@/lib/axiosinstance';
-import { skipToken, useQuery } from '@tanstack/react-query';
-import { getActivity } from '@/api/activity';
-import { getFirstSegment } from '@/utils/url-util';
+import React, { useEffect, useState } from "react";
+import Top from "@/components/experiencedetail/Top";
+import { useRouter } from "next/router";
+import ExperienceDescription from "@/components/experiencedetail/ExperienceDescription";
+import ReviewSection from "@/components/experiencedetail/ReviewSection";
+import ReservationDetails from "@/components/experiencedetail/ReservationDetails";
+import Gallery from "@/components/experiencedetail/Gallery";
+import axios from "axios";
+import axiosInstance from "@/lib/axiosinstance";
+import { skipToken, useQuery } from "@tanstack/react-query";
+import { getActivity } from "@/api/activity";
+import { getFirstSegment } from "@/utils/url-util";
 //type
 const ExperienceDetailPage: React.FC = () => {
-  
   const router = useRouter();
-  const id = getFirstSegment(router.query?.id)
+  const id = getFirstSegment(router.query?.id);
   // const [experienceData, setexperienceData] = useState<ActivityResponse | null>(null);
-
 
   // 1. api 분석
   // 2. fetcher 함수 작성
@@ -42,51 +40,44 @@ const ExperienceDetailPage: React.FC = () => {
   //   fetcher();
   // }, [id])
 
-
   const { data } = useQuery({
-    queryKey: ['activity', { id }],
+    queryKey: ["activity", { id }],
     queryFn: id ? () => getActivity(id) : skipToken,
-    enabled: !!id
-  })
+    enabled: !!id,
+  });
 
-  console.log(data)
+  console.log(data);
 
-  
   // /experiencedetail/1234
 
   // <Card>
   //   <Link href={`/experiencedetail/${id}`} />
   // </Card>
 
-
   return (
-    <div className="flex flex-col items-center p-8 space-y-8 bg-[#FAFAFA] min-h-screen">
-      {data &&
-      (<>
-      <Top
-      category={data.category}
-      title={data.title}
-      address={data.address}
-      reviewCount={data.reviewCount}
-      rating={data.rating}
-      />
-      <div className="w-full max-w-[1200px]">
-        <Gallery />
-      </div>
-      <div className="w-full max-w-[1200px] flex pt-8 md:space-y-0 md:space-x-8">
-        <ExperienceDescription />
-        <ReservationDetails />
-      </div>
-      <ReviewSection />
-      </>
-    )
-}
+    <div className="flex min-h-screen flex-col items-center space-y-8 bg-[#FAFAFA] p-8">
+      {data && (
+        <>
+          <Top
+            category={data.category}
+            title={data.title}
+            address={data.address}
+            reviewCount={data.reviewCount}
+            rating={data.rating}
+          />
+          <div className="w-full max-w-[1200px]">
+            <Gallery subImages={[]} />
+          </div>
+          <div className="flex w-full max-w-[1200px] pt-8 md:space-x-8 md:space-y-0">
+            <ExperienceDescription description={""} address={""} />
+            <ReservationDetails />
+          </div>
+          <ReviewSection />
+        </>
+      )}
     </div>
-  
   );
 };
 
-
-
 /* */
-export default ExperienceDetailPage;  
+export default ExperienceDetailPage;
