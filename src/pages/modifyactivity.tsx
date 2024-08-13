@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useRouter } from "next/router";
 import Profile from "@/components/common/profile/Profile";
 import Submit from "@/components/modifyactivity/Submit";
@@ -14,9 +13,10 @@ import Intro from "@/components/modifyactivity/Intro";
 import getActivity from "@/api/getActivity";
 import { ActivityType } from "@/types/activitypage";
 
-const modifyactivity = () => {
+const ModifyActivity = () => {
+  // 컴포넌트 이름을 대문자로 수정
   const router = useRouter();
-  const { id } = useParams<{ id: string }>();
+  const { id } = router.query; // useParams 대신 Next.js의 useRouter 사용
   const [activityData, setActivityData] = useState<ActivityType | null>(null);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const modifyactivity = () => {
 
     const fetchActivity = async () => {
       try {
-        const data = await getActivity(id);
+        const data = await getActivity(id as string); // id는 string으로 강제 변환
         setActivityData(data);
       } catch (error) {
         console.error("Activity 데이터를 가져오는 데 실패했습니다.", error);
@@ -36,30 +36,28 @@ const modifyactivity = () => {
     };
 
     fetchActivity();
-  }, [id]);
+  }, [id, router]);
 
   if (!activityData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <>
-      <div className="flex justify-center gap-[1.5rem] bg-gray_FA pt-[4.5rem]">
-        <Profile />
-        <div className="flex w-[49.5rem] flex-col">
-          {id && <Submit id={id} schedules={activityData.schedules} />}
-          <Title title={activityData.title} />
-          <Category category={activityData.category} />
-          <Description description={activityData.description} />
-          <Price price={activityData.price} />
-          <Address address={activityData.address} />
-          <Reserve schedules={activityData.schedules} />
-          <Banner bannerImageUrl={activityData.bannerImageUrl} />
-          <Intro subImages={activityData.subImages} />
-        </div>
+    <div className="flex justify-center gap-[1.5rem] bg-gray_FA pt-[4.5rem]">
+      <Profile />
+      <div className="flex w-[49.5rem] flex-col">
+        {id && <Submit id={id as string} schedules={activityData.schedules} />}
+        <Title title={activityData.title} />
+        <Category category={activityData.category} />
+        <Description description={activityData.description} />
+        <Price price={activityData.price} />
+        <Address address={activityData.address} />
+        <Reserve schedules={activityData.schedules} />
+        <Banner bannerImageUrl={activityData.bannerImageUrl} />
+        <Intro subImages={activityData.subImages} />
       </div>
-    </>
+    </div>
   );
 };
 
-export default modifyactivity;
+export default ModifyActivity;

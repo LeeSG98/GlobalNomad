@@ -7,7 +7,7 @@ import useLoadMoreActivities from "@/hooks/useLoadMoreActivities";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-export default function mybookinglist() {
+export default function Mybookinglist() {
   const [filter, setFilter] = useState("");
   const [reservations, setReservations] = useState([]);
   const {

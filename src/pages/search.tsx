@@ -48,7 +48,7 @@ const SearchResults = () => {
           </div>
         </div>
         <h1 className="mb-6 text-2xl font-bold">
-          "{keyword}"에 대한 검색 결과입니다.
+          &quot;{keyword}&quot;에 대한 검색 결과입니다.
         </h1>
         {loading && <div className="text-center">로딩 중...</div>}
         {error && <div className="text-center">{error}</div>}

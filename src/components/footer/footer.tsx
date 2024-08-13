@@ -1,17 +1,18 @@
-import FooterSocialIcon from './FooterSocialIcon';
+import FooterSocialIcon from "./FooterSocialIcon";
+import Link from "next/link";
 
 const Footer = () => (
-  <footer className="flex bg-[#112211] sm:justify-between sm:px-[39px] md:px-[111px] md:justify-between lg:px-[104px] pt-8 text-[#676767] justify-around h-40 relative">
+  <footer className="relative flex h-40 justify-around bg-[#112211] pt-8 text-[#676767] sm:justify-between sm:px-[39px] md:justify-between md:px-[111px] lg:px-[104px]">
     <p>&copy;codeit - 2024</p>
     <nav className="flex gap-[30px]">
-      <a href="/" className="capitalize">
+      <Link href="/" className="capitalize">
         privacy policy
-      </a>
-      <a href="/" className="uppercase">
+      </Link>
+      <Link href="/" className="uppercase">
         faq
-      </a>
+      </Link>
     </nav>
-    <div className="flex gap-3 sm:absolute sm:top-[82px] sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2">
+    <div className="flex gap-3 sm:absolute sm:left-1/2 sm:top-[82px] sm:-translate-x-1/2 sm:-translate-y-1/2">
       <FooterSocialIcon socialNetworkServiceName="facebook" />
       <FooterSocialIcon socialNetworkServiceName="twitter" />
       <FooterSocialIcon socialNetworkServiceName="youtube" />

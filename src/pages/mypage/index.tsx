@@ -17,7 +17,8 @@ interface UserData {
   profileImageUrl?: string;
 }
 
-export default function mypage() {
+export default function MyPage() {
+  // 컴포넌트 이름을 대문자로 시작하도록 수정
   const [userData, setUserData] = useState<UserData>({
     nickname: "",
   });
